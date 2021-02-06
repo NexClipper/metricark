@@ -1,0 +1,14 @@
+version: '3'
+services: 
+  metricark:
+    image: nexclipper/metricark:0.1.0
+    container_name: metricark-frontend
+    ports:
+      - "8282:3000"
+    environment:
+      REACT_APP_API_URL: "${API_URL}"
+  metricark-api:
+    image: nexclipper/monitorapi:0.3.5
+    container_name: metricark-api
+    ports:
+      - "9000:9000"
