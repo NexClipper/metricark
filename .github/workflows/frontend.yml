@@ -3,7 +3,7 @@ name: Frontend Build N Push
 on:
   push:
     branches:
-    - master
+    - main
     paths:
     - 'frontend/**'
 
