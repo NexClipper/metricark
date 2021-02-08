@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metricark
+  labels:
+    app: metricark
+    version: v1
+  namespace: nex-system
+spec:
+  selector:
+    matchLabels:
+      app: metricark
+  template:
+    metadata:
+      name: metricark
+      labels:
+        app: metricark
+    spec:
+      containers:
+        - name: metricark
+          image: nexclipper/metricark:0.2.0
+          # resources:
+          #   limits:
+          #     memory: 1Gi
+          #   requests:
+          #     memory: 512Mi
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: metricark
