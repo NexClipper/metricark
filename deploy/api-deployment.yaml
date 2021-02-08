@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: metricark-api
-          image: nexclipper/monitorapi:0.3.5
+          image: nexclipper/monitorapi:main
           # resources:
           #   limits:
           #     memory: 1Gi
