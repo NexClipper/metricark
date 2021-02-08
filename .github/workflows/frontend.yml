@@ -1,13 +1,14 @@
-name: Frontend Build N Push
+name: Frontend Build N Push in main branch
 
 on:
   push:
     branches:
-    - main
-    paths:
-    - 'frontend/**'
+      - main
     tags:
-    - '**'
+      - '**'
+    # 파일 path. default = all
+    paths:
+      - 'frontend/**'
 
 jobs:
   build:
