@@ -9,7 +9,7 @@ RUN npm install --silent
 
 ENV REACT_APP_API_BASEURL='/api'
 
-COPY . /app
+COPY ./frontend /app
 RUN npm run build
 
 FROM nginx:alpine
@@ -18,7 +18,7 @@ RUN rm -rf /etc/nginx/conf.d
 COPY /frontend/conf/default.conf /etc/nginx/conf.d/default.conf
 
 # 위에서 생성한 앱의 빌드산출물을 nginx의 샘플 앱이 사용하던 폴더로 이동
-COPY --from=builder /frontend/build /usr/share/nginx/html
+COPY --from=builder /app/frontend/build /usr/share/nginx/html
 
 # 80포트 오픈하고 nginx 실행
 EXPOSE 80
