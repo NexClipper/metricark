@@ -1,0 +1,78 @@
+{
+  "name": "frontend-template",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ant-design/charts": "^1.0.17",
+    "@emotion/core": "^11.0.0",
+    "@emotion/react": "^11.1.4",
+    "@emotion/styled": "^11.0.0",
+    "@types/jest": "^26.0.15",
+    "@types/lodash-es": "^4.17.4",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.53",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/styled-components": "^5.1.7",
+    "@xstyled/emotion": "^2.2.1",
+    "antd": "^4.11.2",
+    "axios": "^0.21.1",
+    "emotion": "^11.0.0",
+    "jotai": "^0.13.0",
+    "lodash-es": "^4.17.20",
+    "prettier-eslint": "^12.0.0",
+    "pretty-bytes": "^5.5.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-ga": "^3.1.2",
+    "react-query": "^3.6.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.1",
+    "web-vitals": "^0.2.4"
+  },
+  "scripts": {
+    "serve": "react-scripts start",
+    "start": "react-scripts --max_old_space_size=4096 start",
+    "build": "react-scripts --max_old_space_size=4096 build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "ci:lint": "PRECOMMIT=1 eslint src/",
+    "ci:lint:fix": "PRECOMMIT=1 eslint src/ --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsc --noEmit && PRECOMMIT=1 lint-staged -v"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "@typescript-eslint/eslint-plugin": "^4.13.0",
+    "@typescript-eslint/parser": "^4.13.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "http-proxy-middleware": "^1.0.5",
+    "husky": "^4.3.7",
+    "lint-staged": "^10.5.3",
+    "typescript": "^4.1.3"
+  }
+}
