@@ -1,4 +1,4 @@
-name: Frontend Build N Push in main branch
+name: API Build N Push in main branch
 
 on:
   push:
