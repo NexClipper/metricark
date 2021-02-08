@@ -1,6 +1,6 @@
 # nexclipper-basic-frontend
 
-Please specify api baseURL in .env.local
+Please specify api baseURL in .env.local or Dockerfile
 
 ``` # .env.local
 REACT_APP_API_BASEURL='/api'
