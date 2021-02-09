@@ -1,0 +1,933 @@
+{
+  "kind": "DaemonSetList",
+  "apiVersion": "apps/v1",
+  "metadata": {
+    "resourceVersion": "1027993"
+  },
+  "items": [
+    {
+      "metadata": {
+        "name": "kube-proxy",
+        "namespace": "kube-system",
+        "uid": "1ac50103-3226-4e1f-884f-240061f2019b",
+        "resourceVersion": "642",
+        "generation": 1,
+        "creationTimestamp": "2021-01-28T06:44:55Z",
+        "labels": {
+          "k8s-app": "kube-proxy"
+        },
+        "annotations": {
+          "deprecated.daemonset.template.generation": "1"
+        },
+        "managedFields": [
+          {
+            "manager": "kubeadm",
+            "operation": "Update",
+            "apiVersion": "apps/v1",
+            "time": "2021-01-28T06:44:55Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deprecated.daemonset.template.generation":{}},"f:labels":{".":{},"f:k8s-app":{}}},"f:spec":{"f:revisionHistoryLimit":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:k8s-app":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"kube-proxy\"}":{".":{},"f:command":{},"f:env":{".":{},"k:{\"name\":\"NODE_NAME\"}":{".":{},"f:name":{},"f:valueFrom":{".":{},"f:fieldRef":{".":{},"f:apiVersion":{},"f:fieldPath":{}}}}},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:resources":{},"f:securityContext":{".":{},"f:privileged":{}},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/lib/modules\"}":{".":{},"f:mountPath":{},"f:name":{},"f:readOnly":{}},"k:{\"mountPath\":\"/run/xtables.lock\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/var/lib/kube-proxy\"}":{".":{},"f:mountPath":{},"f:name":{}}}}},"f:dnsPolicy":{},"f:hostNetwork":{},"f:nodeSelector":{".":{},"f:kubernetes.io/os":{}},"f:priorityClassName":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:serviceAccount":{},"f:serviceAccountName":{},"f:terminationGracePeriodSeconds":{},"f:tolerations":{},"f:volumes":{".":{},"k:{\"name\":\"kube-proxy\"}":{".":{},"f:configMap":{".":{},"f:defaultMode":{},"f:name":{}},"f:name":{}},"k:{\"name\":\"lib-modules\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}},"k:{\"name\":\"xtables-lock\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}}}}},"f:updateStrategy":{"f:rollingUpdate":{".":{},"f:maxUnavailable":{}},"f:type":{}}}}
+          },
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "apps/v1",
+            "time": "2021-01-28T06:46:21Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:status":{"f:currentNumberScheduled":{},"f:desiredNumberScheduled":{},"f:numberAvailable":{},"f:numberReady":{},"f:observedGeneration":{},"f:updatedNumberScheduled":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "selector": {
+          "matchLabels": {
+            "k8s-app": "kube-proxy"
+          }
+        },
+        "template": {
+          "metadata": {
+            "creationTimestamp": null,
+            "labels": {
+              "k8s-app": "kube-proxy"
+            }
+          },
+          "spec": {
+            "volumes": [
+              {
+                "name": "kube-proxy",
+                "configMap": {
+                  "name": "kube-proxy",
+                  "defaultMode": 420
+                }
+              },
+              {
+                "name": "xtables-lock",
+                "hostPath": {
+                  "path": "/run/xtables.lock",
+                  "type": "FileOrCreate"
+                }
+              },
+              {
+                "name": "lib-modules",
+                "hostPath": {
+                  "path": "/lib/modules",
+                  "type": ""
+                }
+              }
+            ],
+            "containers": [
+              {
+                "name": "kube-proxy",
+                "image": "k8s.gcr.io/kube-proxy:v1.20.2",
+                "command": [
+                  "/usr/local/bin/kube-proxy",
+                  "--config=/var/lib/kube-proxy/config.conf",
+                  "--hostname-override=$(NODE_NAME)"
+                ],
+                "env": [
+                  {
+                    "name": "NODE_NAME",
+                    "valueFrom": {
+                      "fieldRef": {
+                        "apiVersion": "v1",
+                        "fieldPath": "spec.nodeName"
+                      }
+                    }
+                  }
+                ],
+                "resources": {
+
+                },
+                "volumeMounts": [
+                  {
+                    "name": "kube-proxy",
+                    "mountPath": "/var/lib/kube-proxy"
+                  },
+                  {
+                    "name": "xtables-lock",
+                    "mountPath": "/run/xtables.lock"
+                  },
+                  {
+                    "name": "lib-modules",
+                    "readOnly": true,
+                    "mountPath": "/lib/modules"
+                  }
+                ],
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "imagePullPolicy": "IfNotPresent",
+                "securityContext": {
+                  "privileged": true
+                }
+              }
+            ],
+            "restartPolicy": "Always",
+            "terminationGracePeriodSeconds": 30,
+            "dnsPolicy": "ClusterFirst",
+            "nodeSelector": {
+              "kubernetes.io/os": "linux"
+            },
+            "serviceAccountName": "kube-proxy",
+            "serviceAccount": "kube-proxy",
+            "hostNetwork": true,
+            "securityContext": {
+
+            },
+            "schedulerName": "default-scheduler",
+            "tolerations": [
+              {
+                "key": "CriticalAddonsOnly",
+                "operator": "Exists"
+              },
+              {
+                "operator": "Exists"
+              }
+            ],
+            "priorityClassName": "system-node-critical"
+          }
+        },
+        "updateStrategy": {
+          "type": "RollingUpdate",
+          "rollingUpdate": {
+            "maxUnavailable": 1
+          }
+        },
+        "revisionHistoryLimit": 10
+      },
+      "status": {
+        "currentNumberScheduled": 4,
+        "numberMisscheduled": 0,
+        "desiredNumberScheduled": 4,
+        "numberReady": 4,
+        "observedGeneration": 1,
+        "updatedNumberScheduled": 4,
+        "numberAvailable": 4
+      }
+    },
+    {
+      "metadata": {
+        "name": "weave-net",
+        "namespace": "kube-system",
+        "uid": "82e24d9e-744a-4031-a6c9-4d3cea2d1c2a",
+        "resourceVersion": "991",
+        "generation": 1,
+        "creationTimestamp": "2021-01-28T06:47:45Z",
+        "labels": {
+          "name": "weave-net"
+        },
+        "annotations": {
+          "cloud.weave.works/launcher-info": "{\n  \"original-request\": {\n    \"url\": \"/k8s/v1.16/net.yaml?k8s-version=Q2xpZW50IFZlcnNpb246IHZlcnNpb24uSW5mb3tNYWpvcjoiMSIsIE1pbm9yOiIyMCIsIEdpdFZlcnNpb246InYxLjIwLjIiLCBHaXRDb21taXQ6ImZhZWNiMTk2ODE1ZTI0OGQzZWNmYjAzYzY4MGE0NTA3MjI5YzJhNTYiLCBHaXRUcmVlU3RhdGU6ImNsZWFuIiwgQnVpbGREYXRlOiIyMDIxLTAxLTEzVDEzOjI4OjA5WiIsIEdvVmVyc2lvbjoiZ28xLjE1LjUiLCBDb21waWxlcjoiZ2MiLCBQbGF0Zm9ybToibGludXgvYW1kNjQifQpTZXJ2ZXIgVmVyc2lvbjogdmVyc2lvbi5JbmZve01ham9yOiIxIiwgTWlub3I6IjIwIiwgR2l0VmVyc2lvbjoidjEuMjAuMiIsIEdpdENvbW1pdDoiZmFlY2IxOTY4MTVlMjQ4ZDNlY2ZiMDNjNjgwYTQ1MDcyMjljMmE1NiIsIEdpdFRyZWVTdGF0ZToiY2xlYW4iLCBCdWlsZERhdGU6IjIwMjEtMDEtMTNUMTM6MjA6MDBaIiwgR29WZXJzaW9uOiJnbzEuMTUuNSIsIENvbXBpbGVyOiJnYyIsIFBsYXRmb3JtOiJsaW51eC9hbWQ2NCJ9Cg==\",\n    \"date\": \"Thu Jan 28 2021 06:47:44 GMT+0000 (UTC)\"\n  },\n  \"email-address\": \"support@weave.works\"\n}",
+          "deprecated.daemonset.template.generation": "1",
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"DaemonSet\",\"metadata\":{\"annotations\":{\"cloud.weave.works/launcher-info\":\"{\\n  \\\"original-request\\\": {\\n    \\\"url\\\": \\\"/k8s/v1.16/net.yaml?k8s-version=Q2xpZW50IFZlcnNpb246IHZlcnNpb24uSW5mb3tNYWpvcjoiMSIsIE1pbm9yOiIyMCIsIEdpdFZlcnNpb246InYxLjIwLjIiLCBHaXRDb21taXQ6ImZhZWNiMTk2ODE1ZTI0OGQzZWNmYjAzYzY4MGE0NTA3MjI5YzJhNTYiLCBHaXRUcmVlU3RhdGU6ImNsZWFuIiwgQnVpbGREYXRlOiIyMDIxLTAxLTEzVDEzOjI4OjA5WiIsIEdvVmVyc2lvbjoiZ28xLjE1LjUiLCBDb21waWxlcjoiZ2MiLCBQbGF0Zm9ybToibGludXgvYW1kNjQifQpTZXJ2ZXIgVmVyc2lvbjogdmVyc2lvbi5JbmZve01ham9yOiIxIiwgTWlub3I6IjIwIiwgR2l0VmVyc2lvbjoidjEuMjAuMiIsIEdpdENvbW1pdDoiZmFlY2IxOTY4MTVlMjQ4ZDNlY2ZiMDNjNjgwYTQ1MDcyMjljMmE1NiIsIEdpdFRyZWVTdGF0ZToiY2xlYW4iLCBCdWlsZERhdGU6IjIwMjEtMDEtMTNUMTM6MjA6MDBaIiwgR29WZXJzaW9uOiJnbzEuMTUuNSIsIENvbXBpbGVyOiJnYyIsIFBsYXRmb3JtOiJsaW51eC9hbWQ2NCJ9Cg==\\\",\\n    \\\"date\\\": \\\"Thu Jan 28 2021 06:47:44 GMT+0000 (UTC)\\\"\\n  },\\n  \\\"email-address\\\": \\\"support@weave.works\\\"\\n}\"},\"labels\":{\"name\":\"weave-net\"},\"name\":\"weave-net\",\"namespace\":\"kube-system\"},\"spec\":{\"minReadySeconds\":5,\"selector\":{\"matchLabels\":{\"name\":\"weave-net\"}},\"template\":{\"metadata\":{\"labels\":{\"name\":\"weave-net\"}},\"spec\":{\"containers\":[{\"command\":[\"/home/weave/launch.sh\"],\"env\":[{\"name\":\"HOSTNAME\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"INIT_CONTAINER\",\"value\":\"true\"}],\"image\":\"docker.io/weaveworks/weave-kube:2.8.1\",\"name\":\"weave\",\"readinessProbe\":{\"httpGet\":{\"host\":\"127.0.0.1\",\"path\":\"/status\",\"port\":6784}},\"resources\":{\"requests\":{\"cpu\":\"50m\",\"memory\":\"100Mi\"}},\"securityContext\":{\"privileged\":true},\"volumeMounts\":[{\"mountPath\":\"/weavedb\",\"name\":\"weavedb\"},{\"mountPath\":\"/host/var/lib/dbus\",\"name\":\"dbus\"},{\"mountPath\":\"/host/etc/machine-id\",\"name\":\"machine-id\",\"readOnly\":true},{\"mountPath\":\"/run/xtables.lock\",\"name\":\"xtables-lock\"}]},{\"env\":[{\"name\":\"HOSTNAME\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"spec.nodeName\"}}}],\"image\":\"docker.io/weaveworks/weave-npc:2.8.1\",\"name\":\"weave-npc\",\"resources\":{\"requests\":{\"cpu\":\"50m\",\"memory\":\"100Mi\"}},\"securityContext\":{\"privileged\":true},\"volumeMounts\":[{\"mountPath\":\"/run/xtables.lock\",\"name\":\"xtables-lock\"}]}],\"dnsPolicy\":\"ClusterFirstWithHostNet\",\"hostNetwork\":true,\"initContainers\":[{\"command\":[\"/home/weave/init.sh\"],\"image\":\"docker.io/weaveworks/weave-kube:2.8.1\",\"name\":\"weave-init\",\"securityContext\":{\"privileged\":true},\"volumeMounts\":[{\"mountPath\":\"/host/opt\",\"name\":\"cni-bin\"},{\"mountPath\":\"/host/home\",\"name\":\"cni-bin2\"},{\"mountPath\":\"/host/etc\",\"name\":\"cni-conf\"},{\"mountPath\":\"/lib/modules\",\"name\":\"lib-modules\"},{\"mountPath\":\"/run/xtables.lock\",\"name\":\"xtables-lock\"}]}],\"priorityClassName\":\"system-node-critical\",\"restartPolicy\":\"Always\",\"securityContext\":{\"seLinuxOptions\":{}},\"serviceAccountName\":\"weave-net\",\"tolerations\":[{\"effect\":\"NoSchedule\",\"operator\":\"Exists\"},{\"effect\":\"NoExecute\",\"operator\":\"Exists\"}],\"volumes\":[{\"hostPath\":{\"path\":\"/var/lib/weave\"},\"name\":\"weavedb\"},{\"hostPath\":{\"path\":\"/opt\"},\"name\":\"cni-bin\"},{\"hostPath\":{\"path\":\"/home\"},\"name\":\"cni-bin2\"},{\"hostPath\":{\"path\":\"/etc\"},\"name\":\"cni-conf\"},{\"hostPath\":{\"path\":\"/var/lib/dbus\"},\"name\":\"dbus\"},{\"hostPath\":{\"path\":\"/lib/modules\"},\"name\":\"lib-modules\"},{\"hostPath\":{\"path\":\"/etc/machine-id\",\"type\":\"FileOrCreate\"},\"name\":\"machine-id\"},{\"hostPath\":{\"path\":\"/run/xtables.lock\",\"type\":\"FileOrCreate\"},\"name\":\"xtables-lock\"}]}},\"updateStrategy\":{\"type\":\"RollingUpdate\"}}}\n"
+        },
+        "managedFields": [
+          {
+            "manager": "kubectl-client-side-apply",
+            "operation": "Update",
+            "apiVersion": "apps/v1",
+            "time": "2021-01-28T06:47:45Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:cloud.weave.works/launcher-info":{},"f:deprecated.daemonset.template.generation":{},"f:kubectl.kubernetes.io/last-applied-configuration":{}},"f:labels":{".":{},"f:name":{}}},"f:spec":{"f:minReadySeconds":{},"f:revisionHistoryLimit":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:name":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"weave\"}":{".":{},"f:command":{},"f:env":{".":{},"k:{\"name\":\"HOSTNAME\"}":{".":{},"f:name":{},"f:valueFrom":{".":{},"f:fieldRef":{".":{},"f:apiVersion":{},"f:fieldPath":{}}}},"k:{\"name\":\"INIT_CONTAINER\"}":{".":{},"f:name":{},"f:value":{}}},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:readinessProbe":{".":{},"f:failureThreshold":{},"f:httpGet":{".":{},"f:host":{},"f:path":{},"f:port":{},"f:scheme":{}},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:resources":{".":{},"f:requests":{".":{},"f:cpu":{},"f:memory":{}}},"f:securityContext":{".":{},"f:privileged":{}},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/host/etc/machine-id\"}":{".":{},"f:mountPath":{},"f:name":{},"f:readOnly":{}},"k:{\"mountPath\":\"/host/var/lib/dbus\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/run/xtables.lock\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/weavedb\"}":{".":{},"f:mountPath":{},"f:name":{}}}},"k:{\"name\":\"weave-npc\"}":{".":{},"f:env":{".":{},"k:{\"name\":\"HOSTNAME\"}":{".":{},"f:name":{},"f:valueFrom":{".":{},"f:fieldRef":{".":{},"f:apiVersion":{},"f:fieldPath":{}}}}},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:resources":{".":{},"f:requests":{".":{},"f:cpu":{},"f:memory":{}}},"f:securityContext":{".":{},"f:privileged":{}},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/run/xtables.lock\"}":{".":{},"f:mountPath":{},"f:name":{}}}}},"f:dnsPolicy":{},"f:hostNetwork":{},"f:initContainers":{".":{},"k:{\"name\":\"weave-init\"}":{".":{},"f:command":{},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:resources":{},"f:securityContext":{".":{},"f:privileged":{}},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/host/etc\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/host/home\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/host/opt\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/lib/modules\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/run/xtables.lock\"}":{".":{},"f:mountPath":{},"f:name":{}}}}},"f:priorityClassName":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{".":{},"f:seLinuxOptions":{}},"f:serviceAccount":{},"f:serviceAccountName":{},"f:terminationGracePeriodSeconds":{},"f:tolerations":{},"f:volumes":{".":{},"k:{\"name\":\"cni-bin\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}},"k:{\"name\":\"cni-bin2\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}},"k:{\"name\":\"cni-conf\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}},"k:{\"name\":\"dbus\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}},"k:{\"name\":\"lib-modules\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}},"k:{\"name\":\"machine-id\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}},"k:{\"name\":\"weavedb\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}},"k:{\"name\":\"xtables-lock\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}}}}},"f:updateStrategy":{"f:rollingUpdate":{".":{},"f:maxUnavailable":{}},"f:type":{}}}}
+          },
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "apps/v1",
+            "time": "2021-01-28T06:48:25Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:status":{"f:currentNumberScheduled":{},"f:desiredNumberScheduled":{},"f:numberAvailable":{},"f:numberReady":{},"f:observedGeneration":{},"f:updatedNumberScheduled":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "selector": {
+          "matchLabels": {
+            "name": "weave-net"
+          }
+        },
+        "template": {
+          "metadata": {
+            "creationTimestamp": null,
+            "labels": {
+              "name": "weave-net"
+            }
+          },
+          "spec": {
+            "volumes": [
+              {
+                "name": "weavedb",
+                "hostPath": {
+                  "path": "/var/lib/weave",
+                  "type": ""
+                }
+              },
+              {
+                "name": "cni-bin",
+                "hostPath": {
+                  "path": "/opt",
+                  "type": ""
+                }
+              },
+              {
+                "name": "cni-bin2",
+                "hostPath": {
+                  "path": "/home",
+                  "type": ""
+                }
+              },
+              {
+                "name": "cni-conf",
+                "hostPath": {
+                  "path": "/etc",
+                  "type": ""
+                }
+              },
+              {
+                "name": "dbus",
+                "hostPath": {
+                  "path": "/var/lib/dbus",
+                  "type": ""
+                }
+              },
+              {
+                "name": "lib-modules",
+                "hostPath": {
+                  "path": "/lib/modules",
+                  "type": ""
+                }
+              },
+              {
+                "name": "machine-id",
+                "hostPath": {
+                  "path": "/etc/machine-id",
+                  "type": "FileOrCreate"
+                }
+              },
+              {
+                "name": "xtables-lock",
+                "hostPath": {
+                  "path": "/run/xtables.lock",
+                  "type": "FileOrCreate"
+                }
+              }
+            ],
+            "initContainers": [
+              {
+                "name": "weave-init",
+                "image": "docker.io/weaveworks/weave-kube:2.8.1",
+                "command": [
+                  "/home/weave/init.sh"
+                ],
+                "resources": {
+
+                },
+                "volumeMounts": [
+                  {
+                    "name": "cni-bin",
+                    "mountPath": "/host/opt"
+                  },
+                  {
+                    "name": "cni-bin2",
+                    "mountPath": "/host/home"
+                  },
+                  {
+                    "name": "cni-conf",
+                    "mountPath": "/host/etc"
+                  },
+                  {
+                    "name": "lib-modules",
+                    "mountPath": "/lib/modules"
+                  },
+                  {
+                    "name": "xtables-lock",
+                    "mountPath": "/run/xtables.lock"
+                  }
+                ],
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "imagePullPolicy": "IfNotPresent",
+                "securityContext": {
+                  "privileged": true
+                }
+              }
+            ],
+            "containers": [
+              {
+                "name": "weave",
+                "image": "docker.io/weaveworks/weave-kube:2.8.1",
+                "command": [
+                  "/home/weave/launch.sh"
+                ],
+                "env": [
+                  {
+                    "name": "HOSTNAME",
+                    "valueFrom": {
+                      "fieldRef": {
+                        "apiVersion": "v1",
+                        "fieldPath": "spec.nodeName"
+                      }
+                    }
+                  },
+                  {
+                    "name": "INIT_CONTAINER",
+                    "value": "true"
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "50m",
+                    "memory": "100Mi"
+                  }
+                },
+                "volumeMounts": [
+                  {
+                    "name": "weavedb",
+                    "mountPath": "/weavedb"
+                  },
+                  {
+                    "name": "dbus",
+                    "mountPath": "/host/var/lib/dbus"
+                  },
+                  {
+                    "name": "machine-id",
+                    "readOnly": true,
+                    "mountPath": "/host/etc/machine-id"
+                  },
+                  {
+                    "name": "xtables-lock",
+                    "mountPath": "/run/xtables.lock"
+                  }
+                ],
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/status",
+                    "port": 6784,
+                    "host": "127.0.0.1",
+                    "scheme": "HTTP"
+                  },
+                  "timeoutSeconds": 1,
+                  "periodSeconds": 10,
+                  "successThreshold": 1,
+                  "failureThreshold": 3
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "imagePullPolicy": "IfNotPresent",
+                "securityContext": {
+                  "privileged": true
+                }
+              },
+              {
+                "name": "weave-npc",
+                "image": "docker.io/weaveworks/weave-npc:2.8.1",
+                "env": [
+                  {
+                    "name": "HOSTNAME",
+                    "valueFrom": {
+                      "fieldRef": {
+                        "apiVersion": "v1",
+                        "fieldPath": "spec.nodeName"
+                      }
+                    }
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "50m",
+                    "memory": "100Mi"
+                  }
+                },
+                "volumeMounts": [
+                  {
+                    "name": "xtables-lock",
+                    "mountPath": "/run/xtables.lock"
+                  }
+                ],
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "imagePullPolicy": "IfNotPresent",
+                "securityContext": {
+                  "privileged": true
+                }
+              }
+            ],
+            "restartPolicy": "Always",
+            "terminationGracePeriodSeconds": 30,
+            "dnsPolicy": "ClusterFirstWithHostNet",
+            "serviceAccountName": "weave-net",
+            "serviceAccount": "weave-net",
+            "hostNetwork": true,
+            "securityContext": {
+              "seLinuxOptions": {
+
+              }
+            },
+            "schedulerName": "default-scheduler",
+            "tolerations": [
+              {
+                "operator": "Exists",
+                "effect": "NoSchedule"
+              },
+              {
+                "operator": "Exists",
+                "effect": "NoExecute"
+              }
+            ],
+            "priorityClassName": "system-node-critical"
+          }
+        },
+        "updateStrategy": {
+          "type": "RollingUpdate",
+          "rollingUpdate": {
+            "maxUnavailable": 1
+          }
+        },
+        "minReadySeconds": 5,
+        "revisionHistoryLimit": 10
+      },
+      "status": {
+        "currentNumberScheduled": 4,
+        "numberMisscheduled": 0,
+        "desiredNumberScheduled": 4,
+        "numberReady": 4,
+        "observedGeneration": 1,
+        "updatedNumberScheduled": 4,
+        "numberAvailable": 4
+      }
+    },
+    {
+      "metadata": {
+        "name": "klevr-agent",
+        "namespace": "nex-system",
+        "uid": "a6bd116b-dbab-449c-8749-3e4da41a2e34",
+        "resourceVersion": "921536",
+        "generation": 1,
+        "creationTimestamp": "2021-02-03T08:38:39Z",
+        "labels": {
+          "name": "klevr"
+        },
+        "annotations": {
+          "deprecated.daemonset.template.generation": "1",
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"DaemonSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"name\":\"klevr\"},\"name\":\"klevr-agent\",\"namespace\":\"nex-system\"},\"spec\":{\"selector\":{\"matchLabels\":{\"app.kubernetes.io/name\":\"klevr-agent\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/name\":\"klevr-agent\"}},\"spec\":{\"containers\":[{\"env\":[{\"name\":\"K_API_KEY\",\"value\":\"1bf30f5cbe934dd28c97715bacd1bd2e\"},{\"name\":\"K_PLATFORM\",\"value\":\"kubernetes\"},{\"name\":\"K_MANAGER_URL\",\"value\":\"https://dev.nexclipper.io:8090\"},{\"name\":\"K_ZONE_ID\",\"value\":\"280\"}],\"image\":\"nexclipper/klevr-agent:0.2.4-SNAPSHOT\",\"name\":\"klevr-agent\",\"ports\":[{\"containerPort\":18800,\"name\":\"klevr-agent\"}],\"volumeMounts\":[{\"mountPath\":\"/root/.ssh/\",\"name\":\"ssh-auth\"}]}],\"volumes\":[{\"name\":\"ssh-auth\",\"secret\":{\"defaultMode\":384,\"items\":[{\"key\":\"prikey\",\"path\":\"id_rsa\"},{\"key\":\"conf\",\"path\":\"config\"}],\"secretName\":\"nexc-ssh-key\"}}]}}}}\n"
+        },
+        "managedFields": [
+          {
+            "manager": "kubectl-client-side-apply",
+            "operation": "Update",
+            "apiVersion": "apps/v1",
+            "time": "2021-02-03T08:38:39Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deprecated.daemonset.template.generation":{},"f:kubectl.kubernetes.io/last-applied-configuration":{}},"f:labels":{".":{},"f:name":{}}},"f:spec":{"f:revisionHistoryLimit":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:app.kubernetes.io/name":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"klevr-agent\"}":{".":{},"f:env":{".":{},"k:{\"name\":\"K_API_KEY\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"K_MANAGER_URL\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"K_PLATFORM\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"K_ZONE_ID\"}":{".":{},"f:name":{},"f:value":{}}},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":18800,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}}},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/root/.ssh/\"}":{".":{},"f:mountPath":{},"f:name":{}}}}},"f:dnsPolicy":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:terminationGracePeriodSeconds":{},"f:volumes":{".":{},"k:{\"name\":\"ssh-auth\"}":{".":{},"f:name":{},"f:secret":{".":{},"f:defaultMode":{},"f:items":{},"f:secretName":{}}}}}},"f:updateStrategy":{"f:rollingUpdate":{".":{},"f:maxUnavailable":{}},"f:type":{}}}}
+          },
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "apps/v1",
+            "time": "2021-02-03T08:39:11Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:status":{"f:currentNumberScheduled":{},"f:desiredNumberScheduled":{},"f:numberAvailable":{},"f:numberReady":{},"f:observedGeneration":{},"f:updatedNumberScheduled":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "selector": {
+          "matchLabels": {
+            "app.kubernetes.io/name": "klevr-agent"
+          }
+        },
+        "template": {
+          "metadata": {
+            "creationTimestamp": null,
+            "labels": {
+              "app.kubernetes.io/name": "klevr-agent"
+            }
+          },
+          "spec": {
+            "volumes": [
+              {
+                "name": "ssh-auth",
+                "secret": {
+                  "secretName": "nexc-ssh-key",
+                  "items": [
+                    {
+                      "key": "prikey",
+                      "path": "id_rsa"
+                    },
+                    {
+                      "key": "conf",
+                      "path": "config"
+                    }
+                  ],
+                  "defaultMode": 384
+                }
+              }
+            ],
+            "containers": [
+              {
+                "name": "klevr-agent",
+                "image": "nexclipper/klevr-agent:0.2.4-SNAPSHOT",
+                "ports": [
+                  {
+                    "name": "klevr-agent",
+                    "containerPort": 18800,
+                    "protocol": "TCP"
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "K_API_KEY",
+                    "value": "1bf30f5cbe934dd28c97715bacd1bd2e"
+                  },
+                  {
+                    "name": "K_PLATFORM",
+                    "value": "kubernetes"
+                  },
+                  {
+                    "name": "K_MANAGER_URL",
+                    "value": "https://dev.nexclipper.io:8090"
+                  },
+                  {
+                    "name": "K_ZONE_ID",
+                    "value": "280"
+                  }
+                ],
+                "resources": {
+
+                },
+                "volumeMounts": [
+                  {
+                    "name": "ssh-auth",
+                    "mountPath": "/root/.ssh/"
+                  }
+                ],
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "imagePullPolicy": "IfNotPresent"
+              }
+            ],
+            "restartPolicy": "Always",
+            "terminationGracePeriodSeconds": 30,
+            "dnsPolicy": "ClusterFirst",
+            "securityContext": {
+
+            },
+            "schedulerName": "default-scheduler"
+          }
+        },
+        "updateStrategy": {
+          "type": "RollingUpdate",
+          "rollingUpdate": {
+            "maxUnavailable": 1
+          }
+        },
+        "revisionHistoryLimit": 10
+      },
+      "status": {
+        "currentNumberScheduled": 3,
+        "numberMisscheduled": 0,
+        "desiredNumberScheduled": 3,
+        "numberReady": 3,
+        "observedGeneration": 1,
+        "updatedNumberScheduled": 3,
+        "numberAvailable": 3
+      }
+    },
+    {
+      "metadata": {
+        "name": "nc-prometheus-node-exporter",
+        "namespace": "nexclipper",
+        "uid": "cd100d53-733a-4ef7-ba2b-66dd9434d3c0",
+        "resourceVersion": "5977",
+        "generation": 1,
+        "creationTimestamp": "2021-01-28T07:28:27Z",
+        "labels": {
+          "app": "prometheus",
+          "app.kubernetes.io/managed-by": "Helm",
+          "chart": "prometheus-11.16.7",
+          "component": "node-exporter",
+          "heritage": "Helm",
+          "release": "nc"
+        },
+        "annotations": {
+          "deprecated.daemonset.template.generation": "1",
+          "meta.helm.sh/release-name": "nc",
+          "meta.helm.sh/release-namespace": "nexclipper"
+        },
+        "managedFields": [
+          {
+            "manager": "Go-http-client",
+            "operation": "Update",
+            "apiVersion": "apps/v1",
+            "time": "2021-01-28T07:28:27Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deprecated.daemonset.template.generation":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:app.kubernetes.io/managed-by":{},"f:chart":{},"f:component":{},"f:heritage":{},"f:release":{}}},"f:spec":{"f:revisionHistoryLimit":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:app":{},"f:chart":{},"f:component":{},"f:heritage":{},"f:release":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"prometheus-node-exporter\"}":{".":{},"f:args":{},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":9100,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:hostPort":{},"f:name":{},"f:protocol":{}}},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/host/proc\"}":{".":{},"f:mountPath":{},"f:name":{},"f:readOnly":{}},"k:{\"mountPath\":\"/host/sys\"}":{".":{},"f:mountPath":{},"f:name":{},"f:readOnly":{}}}}},"f:dnsPolicy":{},"f:hostNetwork":{},"f:hostPID":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:serviceAccount":{},"f:serviceAccountName":{},"f:terminationGracePeriodSeconds":{},"f:tolerations":{},"f:volumes":{".":{},"k:{\"name\":\"proc\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}},"k:{\"name\":\"sys\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}}}}},"f:updateStrategy":{"f:rollingUpdate":{".":{},"f:maxUnavailable":{}},"f:type":{}}}}
+          },
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "apps/v1",
+            "time": "2021-01-28T07:28:31Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:status":{"f:currentNumberScheduled":{},"f:desiredNumberScheduled":{},"f:numberAvailable":{},"f:numberReady":{},"f:observedGeneration":{},"f:updatedNumberScheduled":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "selector": {
+          "matchLabels": {
+            "app": "prometheus",
+            "component": "node-exporter",
+            "release": "nc"
+          }
+        },
+        "template": {
+          "metadata": {
+            "creationTimestamp": null,
+            "labels": {
+              "app": "prometheus",
+              "chart": "prometheus-11.16.7",
+              "component": "node-exporter",
+              "heritage": "Helm",
+              "release": "nc"
+            }
+          },
+          "spec": {
+            "volumes": [
+              {
+                "name": "proc",
+                "hostPath": {
+                  "path": "/proc",
+                  "type": ""
+                }
+              },
+              {
+                "name": "sys",
+                "hostPath": {
+                  "path": "/sys",
+                  "type": ""
+                }
+              }
+            ],
+            "containers": [
+              {
+                "name": "prometheus-node-exporter",
+                "image": "prom/node-exporter:v1.0.1",
+                "args": [
+                  "--path.procfs=/host/proc",
+                  "--path.sysfs=/host/sys",
+                  "--web.listen-address=:9100"
+                ],
+                "ports": [
+                  {
+                    "name": "metrics",
+                    "hostPort": 9100,
+                    "containerPort": 9100,
+                    "protocol": "TCP"
+                  }
+                ],
+                "resources": {
+
+                },
+                "volumeMounts": [
+                  {
+                    "name": "proc",
+                    "readOnly": true,
+                    "mountPath": "/host/proc"
+                  },
+                  {
+                    "name": "sys",
+                    "readOnly": true,
+                    "mountPath": "/host/sys"
+                  }
+                ],
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "imagePullPolicy": "IfNotPresent"
+              }
+            ],
+            "restartPolicy": "Always",
+            "terminationGracePeriodSeconds": 30,
+            "dnsPolicy": "ClusterFirst",
+            "serviceAccountName": "nc-prometheus-node-exporter",
+            "serviceAccount": "nc-prometheus-node-exporter",
+            "hostNetwork": true,
+            "hostPID": true,
+            "securityContext": {
+
+            },
+            "schedulerName": "default-scheduler",
+            "tolerations": [
+              {
+                "key": "node-role.kubernetes.io/master",
+                "operator": "Exists",
+                "effect": "NoSchedule"
+              }
+            ]
+          }
+        },
+        "updateStrategy": {
+          "type": "RollingUpdate",
+          "rollingUpdate": {
+            "maxUnavailable": 1
+          }
+        },
+        "revisionHistoryLimit": 10
+      },
+      "status": {
+        "currentNumberScheduled": 4,
+        "numberMisscheduled": 0,
+        "desiredNumberScheduled": 4,
+        "numberReady": 4,
+        "observedGeneration": 1,
+        "updatedNumberScheduled": 4,
+        "numberAvailable": 4
+      }
+    },
+    {
+      "metadata": {
+        "name": "nexclipper-agent",
+        "namespace": "nexclipperagent",
+        "uid": "1a7c0463-8720-4821-8043-2b135ef7fbd1",
+        "resourceVersion": "3334",
+        "generation": 1,
+        "creationTimestamp": "2021-01-28T07:10:40Z",
+        "labels": {
+          "app": "nexclipper-agent",
+          "app.kubernetes.io/managed-by": "Helm"
+        },
+        "annotations": {
+          "deprecated.daemonset.template.generation": "1",
+          "meta.helm.sh/release-name": "nex",
+          "meta.helm.sh/release-namespace": "default"
+        },
+        "managedFields": [
+          {
+            "manager": "Go-http-client",
+            "operation": "Update",
+            "apiVersion": "apps/v1",
+            "time": "2021-01-28T07:10:40Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deprecated.daemonset.template.generation":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:app.kubernetes.io/managed-by":{}}},"f:spec":{"f:revisionHistoryLimit":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:name":{}}},"f:spec":{"f:automountServiceAccountToken":{},"f:containers":{"k:{\"name\":\"nexclipper-agent\"}":{".":{},"f:env":{".":{},"k:{\"name\":\"cluster_id\"}":{".":{},"f:name":{},"f:value":{}}},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:resources":{},"f:securityContext":{".":{},"f:privileged":{}},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/dev\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/pki\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/sys\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/var/lib/docker\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/var/log\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/var/run/docker.sock\"}":{".":{},"f:mountPath":{},"f:name":{}}}}},"f:dnsPolicy":{},"f:hostIPC":{},"f:hostNetwork":{},"f:hostPID":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:serviceAccount":{},"f:serviceAccountName":{},"f:terminationGracePeriodSeconds":{},"f:tolerations":{},"f:volumes":{".":{},"k:{\"name\":\"dev\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}},"k:{\"name\":\"docker\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}},"k:{\"name\":\"docker-sock\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}},"k:{\"name\":\"log\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}},"k:{\"name\":\"pki\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}},"k:{\"name\":\"sys\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}}}}},"f:updateStrategy":{"f:rollingUpdate":{".":{},"f:maxUnavailable":{}},"f:type":{}}}}
+          },
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "apps/v1",
+            "time": "2021-01-28T07:11:23Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:status":{"f:currentNumberScheduled":{},"f:desiredNumberScheduled":{},"f:numberAvailable":{},"f:numberReady":{},"f:observedGeneration":{},"f:updatedNumberScheduled":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "selector": {
+          "matchLabels": {
+            "name": "nexclipper-agent"
+          }
+        },
+        "template": {
+          "metadata": {
+            "creationTimestamp": null,
+            "labels": {
+              "name": "nexclipper-agent"
+            }
+          },
+          "spec": {
+            "volumes": [
+              {
+                "name": "docker-sock",
+                "hostPath": {
+                  "path": "/var/run/docker.sock",
+                  "type": "Socket"
+                }
+              },
+              {
+                "name": "docker",
+                "hostPath": {
+                  "path": "/var/lib/docker",
+                  "type": ""
+                }
+              },
+              {
+                "name": "dev",
+                "hostPath": {
+                  "path": "/dev",
+                  "type": ""
+                }
+              },
+              {
+                "name": "sys",
+                "hostPath": {
+                  "path": "/sys",
+                  "type": ""
+                }
+              },
+              {
+                "name": "log",
+                "hostPath": {
+                  "path": "/var/log",
+                  "type": ""
+                }
+              },
+              {
+                "name": "pki",
+                "hostPath": {
+                  "path": "/etc/kubernetes/pki",
+                  "type": ""
+                }
+              }
+            ],
+            "containers": [
+              {
+                "name": "nexclipper-agent",
+                "image": "nexclipper/nexagent:0.1.0",
+                "env": [
+                  {
+                    "name": "cluster_id",
+                    "value": "1"
+                  }
+                ],
+                "resources": {
+
+                },
+                "volumeMounts": [
+                  {
+                    "name": "docker-sock",
+                    "mountPath": "/var/run/docker.sock"
+                  },
+                  {
+                    "name": "docker",
+                    "mountPath": "/var/lib/docker"
+                  },
+                  {
+                    "name": "dev",
+                    "mountPath": "/dev"
+                  },
+                  {
+                    "name": "sys",
+                    "mountPath": "/sys"
+                  },
+                  {
+                    "name": "log",
+                    "mountPath": "/var/log"
+                  },
+                  {
+                    "name": "pki",
+                    "mountPath": "/pki"
+                  }
+                ],
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "imagePullPolicy": "Always",
+                "securityContext": {
+                  "privileged": true
+                }
+              }
+            ],
+            "restartPolicy": "Always",
+            "terminationGracePeriodSeconds": 30,
+            "dnsPolicy": "ClusterFirst",
+            "serviceAccountName": "agent-sa",
+            "serviceAccount": "agent-sa",
+            "automountServiceAccountToken": true,
+            "hostNetwork": true,
+            "hostPID": true,
+            "hostIPC": true,
+            "securityContext": {
+
+            },
+            "schedulerName": "default-scheduler",
+            "tolerations": [
+              {
+                "key": "node-role.kubernetes.io/master",
+                "operator": "Exists",
+                "effect": "NoSchedule"
+              },
+              {
+                "key": "node-role.kubernetes.io/master",
+                "operator": "Exists",
+                "effect": "NoExecute"
+              }
+            ]
+          }
+        },
+        "updateStrategy": {
+          "type": "RollingUpdate",
+          "rollingUpdate": {
+            "maxUnavailable": 1
+          }
+        },
+        "revisionHistoryLimit": 10
+      },
+      "status": {
+        "currentNumberScheduled": 4,
+        "numberMisscheduled": 0,
+        "desiredNumberScheduled": 4,
+        "numberReady": 4,
+        "observedGeneration": 1,
+        "updatedNumberScheduled": 4,
+        "numberAvailable": 4
+      }
+    }
+  ]
+}
