@@ -11,7 +11,7 @@ ENV LC_ALL ko_KR.UTF-8
 MAINTAINER NexCloud
 
 VOLUME /tmp
-COPY --from=build /home/app/target/*.war /usr/local/lib/app.war
+COPY --from=build /home/app/target/*.jar /usr/local/lib/app.jar
 #ADD ./target/NexclipperAPI-0.0.1.war NexclipperAPI.war
 #RUN sh -c 'touch /NexclipperAPI.war'
 
