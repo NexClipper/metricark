@@ -179,30 +179,30 @@ public class QueryService {
 		
 		return response;
 	}
-	
-	/**
-	 * Redis Test
-	 * @param model
-	 * @throws Exception
-	 */
-	public ResponseEntity<ResponseData> getRedisValue( String cluster_id, String key, String field )  throws Exception
-	{
-		ResponseEntity<ResponseData> response 		= null;
-		ResponseData resData						= new ResponseData();
-		try{
-			
-            resData.setData(redisClient.get(key, field));
-			resData.setMessage(Const.SUCCESS);
-
-			response = new ResponseEntity<ResponseData>(resData, HttpStatus.OK);
-		}catch(Exception e){
-			e.printStackTrace();
-			resData.setResponse_code(Const.INTERNAL_SERVER_ERROR);
-			resData.setMessage(Const.FAIL);
-			resData.setMessage(Util.makeStackTrace(e));
-			response = new ResponseEntity<ResponseData>(resData, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		
-		return response;
-	}
+//
+//	/**
+//	 * Redis Test
+//	 * @param model
+//	 * @throws Exception
+//	 */
+//	public ResponseEntity<ResponseData> getRedisValue( String cluster_id, String key, String field )  throws Exception
+//	{
+//		ResponseEntity<ResponseData> response 		= null;
+//		ResponseData resData						= new ResponseData();
+//		try{
+//
+//            resData.setData(redisClient.get(key, field));
+//			resData.setMessage(Const.SUCCESS);
+//
+//			response = new ResponseEntity<ResponseData>(resData, HttpStatus.OK);
+//		}catch(Exception e){
+//			e.printStackTrace();
+//			resData.setResponse_code(Const.INTERNAL_SERVER_ERROR);
+//			resData.setMessage(Const.FAIL);
+//			resData.setMessage(Util.makeStackTrace(e));
+//			response = new ResponseEntity<ResponseData>(resData, HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//
+//		return response;
+//	}
 }
