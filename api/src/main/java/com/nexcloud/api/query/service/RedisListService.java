@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RedisListService {
-    static final Logger logger = LoggerFactory.getLogger(QueryService.class);
+    static final Logger logger = LoggerFactory.getLogger(RedisListService.class);
 
     @Autowired private RedisClient redisClient;
     @Autowired private PrometheusClient prometheusClient;
@@ -29,7 +29,7 @@ public class RedisListService {
      * @param model
      * @throws Exception
      */
-    public ResponseEntity<ResponseData> getList(String cluster_id, String key, String field) throws Exception {
+    public ResponseEntity<ResponseData> getList(String cluster_id, String key, String field, String node) throws Exception {
         ResponseEntity<ResponseData> response = null;
         ResponseData resData = new ResponseData();
         JSONObject responseObject = new JSONObject();
@@ -46,6 +46,8 @@ public class RedisListService {
                 responseObject = rpList(key, field);
             } else if (field.equals("statefulsets")){
                 responseObject = sfList(key, field);
+            } else if (field.equals("nodes")){
+                responseObject = nodeList(key, field, node);
             }
 
 
@@ -291,4 +293,33 @@ public class RedisListService {
 
         return res;
     }
+
+    private JSONObject nodeList(String key, String field, String name) throws Exception{
+        JSONParser parser = new JSONParser();
+        JSONObject res = new JSONObject();
+
+        String node = null;
+
+        JSONObject jsonObject = (JSONObject) parser.parse(redisClient.get(key, field));
+        JSONArray itemArray = (JSONArray) jsonObject.get("items");
+
+        for (int i=0; i<itemArray.size(); i++){
+            JSONObject items = (JSONObject) itemArray.get(i);
+            JSONObject metadata = (JSONObject) items.get("metadata");
+
+            node = (String) metadata.get("name");
+
+            if (name == null || "".equals(name)){
+                res.put(metadata.get("name"), items);
+            } else{
+                if(node.equals(name)){
+                    res.put(metadata.get("name"), items);
+                }
+            }
+
+        }
+
+        return res;
+    }
+
 }
