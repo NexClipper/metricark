@@ -8,7 +8,6 @@ import com.nexcloud.util.Util;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RedisListService {
-    static final Logger logger = LoggerFactory.getLogger(RedisListService.class);
+public class QueryListService {
+    static final Logger logger = LoggerFactory.getLogger(QueryListService.class);
 
     @Autowired private RedisClient redisClient;
     @Autowired private PrometheusClient prometheusClient;
@@ -48,6 +47,8 @@ public class RedisListService {
                 responseObject = sfList(key, field);
             } else if (field.equals("nodes")){
                 responseObject = nodeList(key, field, node);
+            } else if (field.equals("services")){
+                responseObject = svcList(key, field);
             }
 
 
@@ -97,6 +98,7 @@ public class RedisListService {
             JSONObject items = (JSONObject) itemArray.get(i);
             JSONObject metadata = (JSONObject) items.get("metadata");
             JSONObject spec = (JSONObject) items.get("spec");
+            JSONObject status = (JSONObject) items.get("status");
             attrObj = null;
             attrObj = new JSONObject();
             metricObj = null;
@@ -107,6 +109,7 @@ public class RedisListService {
             attrObj.put("namespace", metadata.get("namespace"));
             attrObj.put("nodeName", spec.get("nodeName"));
             attrObj.put("kind", metadata.get("ownerReferences"));
+            attrObj.put("status", status.get("phase"));
 
             for(int j=0; j<cpuArray.size(); j++){
                 JSONObject cpu = (JSONObject) cpuArray.get(j);
@@ -307,6 +310,10 @@ public class RedisListService {
             JSONObject items = (JSONObject) itemArray.get(i);
             JSONObject metadata = (JSONObject) items.get("metadata");
 
+            metadata.remove("managedFields");
+
+            items.put("metadata", metadata);
+
             node = (String) metadata.get("name");
 
             if (name == null || "".equals(name)){
@@ -322,4 +329,31 @@ public class RedisListService {
         return res;
     }
 
+    private JSONObject svcList(String key, String field) throws Exception{
+        JSONParser parser = new JSONParser();
+        JSONObject attrObj = new JSONObject();
+        JSONObject res = new JSONObject();
+
+        JSONObject jsonObject = (JSONObject) parser.parse(redisClient.get(key, field));
+        JSONArray itemArray = (JSONArray) jsonObject.get("items");
+
+        for (int i=0; i<itemArray.size(); i++){
+            JSONObject items = (JSONObject) itemArray.get(i);
+            JSONObject metadata = (JSONObject) items.get("metadata");
+
+            attrObj = null;
+            attrObj = new JSONObject();
+
+            attrObj.put("name", metadata.get("name"));
+            attrObj.put("namespace", metadata.get("namespace"));
+            attrObj.put("labels", metadata.get("labels"));
+            attrObj.put("creationtime", metadata.get("creationTimestamp"));
+            attrObj.put("spec", items.get("spec"));
+            attrObj.put("status", items.get("status"));
+
+            res.put(metadata.get("name"), attrObj);
+        }
+
+        return res;
+    }
 }

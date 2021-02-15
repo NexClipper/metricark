@@ -16,8 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RedisDetailService{
-    static final Logger logger = LoggerFactory.getLogger(RedisDetailService.class);
+public class QueryDetailService {
+    static final Logger logger = LoggerFactory.getLogger(QueryDetailService.class);
 
     @Autowired private RedisClient redisClient;
     @Autowired private PrometheusClient prometheusClient;
@@ -43,6 +43,10 @@ public class RedisDetailService{
             for(int i=0; i<itemArray.size(); i++){
                 JSONObject items = (JSONObject) itemArray.get(i);
                 JSONObject metadata = (JSONObject) items.get("metadata");
+
+                metadata.remove("managedFields");
+
+                items.put("metadata", metadata);
 
                 pod = (String) metadata.get("name");
 

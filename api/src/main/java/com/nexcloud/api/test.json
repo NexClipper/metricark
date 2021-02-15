@@ -1,5 +1,5 @@
 {
-  "kind": "NodeList",
+  "kind": "ServiceList",
   "apiVersion": "v1",
   "metadata": {
     "resourceVersion": "2723537"
@@ -7,1200 +7,1235 @@
   "items": [
     {
       "metadata": {
-        "name": "node1",
-        "uid": "3698aa64-f3dc-4afc-9d5d-df076fb40b92",
-        "resourceVersion": "2723469",
-        "creationTimestamp": "2021-01-28T06:44:51Z",
+        "name": "kubernetes",
+        "namespace": "default",
+        "uid": "0790ef59-020d-439e-8550-ec94e0671d52",
+        "resourceVersion": "202",
+        "creationTimestamp": "2021-01-28T06:44:53Z",
         "labels": {
-          "beta.kubernetes.io/arch": "amd64",
-          "beta.kubernetes.io/os": "linux",
-          "kubernetes.io/arch": "amd64",
-          "kubernetes.io/hostname": "node1",
-          "kubernetes.io/os": "linux",
-          "node-role.kubernetes.io/control-plane": "",
-          "node-role.kubernetes.io/master": ""
-        },
-        "annotations": {
-          "kubeadm.alpha.kubernetes.io/cri-socket": "/var/run/dockershim.sock",
-          "node.alpha.kubernetes.io/ttl": "0",
-          "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+          "component": "apiserver",
+          "provider": "kubernetes"
         },
         "managedFields": [
           {
-            "manager": "kubelet",
+            "manager": "kube-apiserver",
             "operation": "Update",
             "apiVersion": "v1",
-            "time": "2021-01-28T06:44:51Z",
+            "time": "2021-01-28T06:44:53Z",
             "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:volumes.kubernetes.io/controller-managed-attach-detach":{}},"f:labels":{".":{},"f:beta.kubernetes.io/arch":{},"f:beta.kubernetes.io/os":{},"f:kubernetes.io/arch":{},"f:kubernetes.io/hostname":{},"f:kubernetes.io/os":{}}},"f:status":{"f:addresses":{".":{},"k:{\"type\":\"Hostname\"}":{".":{},"f:address":{},"f:type":{}},"k:{\"type\":\"InternalIP\"}":{".":{},"f:address":{},"f:type":{}}},"f:allocatable":{".":{},"f:cpu":{},"f:ephemeral-storage":{},"f:hugepages-1Gi":{},"f:hugepages-2Mi":{},"f:memory":{},"f:pods":{}},"f:capacity":{".":{},"f:cpu":{},"f:ephemeral-storage":{},"f:hugepages-1Gi":{},"f:hugepages-2Mi":{},"f:memory":{},"f:pods":{}},"f:conditions":{".":{},"k:{\"type\":\"DiskPressure\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}},"k:{\"type\":\"MemoryPressure\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}},"k:{\"type\":\"PIDPressure\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Ready\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}}},"f:daemonEndpoints":{"f:kubeletEndpoint":{"f:Port":{}}},"f:images":{},"f:nodeInfo":{"f:architecture":{},"f:bootID":{},"f:containerRuntimeVersion":{},"f:kernelVersion":{},"f:kubeProxyVersion":{},"f:kubeletVersion":{},"f:machineID":{},"f:operatingSystem":{},"f:osImage":{},"f:systemUUID":{}}}}
-          },
+            "fieldsV1": {"f:metadata":{"f:labels":{".":{},"f:component":{},"f:provider":{}}},"f:spec":{"f:clusterIP":{},"f:ipFamilyPolicy":{},"f:ports":{".":{},"k:{\"port\":443,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:sessionAffinity":{},"f:type":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "https",
+            "protocol": "TCP",
+            "port": 443,
+            "targetPort": 6443
+          }
+        ],
+        "clusterIP": "10.96.0.1",
+        "clusterIPs": [
+          "10.96.0.1"
+        ],
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {
+
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "kube-dns",
+        "namespace": "kube-system",
+        "uid": "adb6194f-f105-4f4a-a040-d735d0adcf0c",
+        "resourceVersion": "282",
+        "creationTimestamp": "2021-01-28T06:44:55Z",
+        "labels": {
+          "k8s-app": "kube-dns",
+          "kubernetes.io/cluster-service": "true",
+          "kubernetes.io/name": "KubeDNS"
+        },
+        "annotations": {
+          "prometheus.io/port": "9153",
+          "prometheus.io/scrape": "true"
+        },
+        "managedFields": [
           {
             "manager": "kubeadm",
             "operation": "Update",
             "apiVersion": "v1",
             "time": "2021-01-28T06:44:55Z",
             "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{"f:kubeadm.alpha.kubernetes.io/cri-socket":{}},"f:labels":{"f:node-role.kubernetes.io/control-plane":{},"f:node-role.kubernetes.io/master":{}}}}
-          },
-          {
-            "manager": "kube-controller-manager",
-            "operation": "Update",
-            "apiVersion": "v1",
-            "time": "2021-01-28T06:48:03Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{"f:node.alpha.kubernetes.io/ttl":{}}},"f:spec":{"f:taints":{}}}
-          },
-          {
-            "manager": "kube-utils",
-            "operation": "Update",
-            "apiVersion": "v1",
-            "time": "2021-01-28T06:48:10Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:status":{"f:conditions":{"k:{\"type\":\"NetworkUnavailable\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}}}}}
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:prometheus.io/port":{},"f:prometheus.io/scrape":{}},"f:labels":{".":{},"f:k8s-app":{},"f:kubernetes.io/cluster-service":{},"f:kubernetes.io/name":{}}},"f:spec":{"f:clusterIP":{},"f:ports":{".":{},"k:{\"port\":53,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}},"k:{\"port\":53,\"protocol\":\"UDP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}},"k:{\"port\":9153,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:k8s-app":{}},"f:sessionAffinity":{},"f:type":{}}}
           }
         ]
       },
       "spec": {
-        "taints": [
+        "ports": [
           {
-            "key": "node-role.kubernetes.io/master",
-            "effect": "NoSchedule"
+            "name": "dns",
+            "protocol": "UDP",
+            "port": 53,
+            "targetPort": 53
+          },
+          {
+            "name": "dns-tcp",
+            "protocol": "TCP",
+            "port": 53,
+            "targetPort": 53
+          },
+          {
+            "name": "metrics",
+            "protocol": "TCP",
+            "port": 9153,
+            "targetPort": 9153
           }
-        ]
+        ],
+        "selector": {
+          "k8s-app": "kube-dns"
+        },
+        "clusterIP": "10.96.0.10",
+        "clusterIPs": [
+          "10.96.0.10"
+        ],
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
       },
       "status": {
-        "capacity": {
-          "cpu": "4",
-          "ephemeral-storage": "51340768Ki",
-          "hugepages-1Gi": "0",
-          "hugepages-2Mi": "0",
-          "memory": "8167564Ki",
-          "pods": "110"
-        },
-        "allocatable": {
-          "cpu": "4",
-          "ephemeral-storage": "47315651711",
-          "hugepages-1Gi": "0",
-          "hugepages-2Mi": "0",
-          "memory": "8065164Ki",
-          "pods": "110"
-        },
-        "conditions": [
-          {
-            "type": "NetworkUnavailable",
-            "status": "False",
-            "lastHeartbeatTime": "2021-01-28T06:48:10Z",
-            "lastTransitionTime": "2021-01-28T06:48:10Z",
-            "reason": "WeaveIsUp",
-            "message": "Weave pod has set this"
-          },
-          {
-            "type": "MemoryPressure",
-            "status": "False",
-            "lastHeartbeatTime": "2021-02-15T01:02:49Z",
-            "lastTransitionTime": "2021-01-28T06:44:48Z",
-            "reason": "KubeletHasSufficientMemory",
-            "message": "kubelet has sufficient memory available"
-          },
-          {
-            "type": "DiskPressure",
-            "status": "False",
-            "lastHeartbeatTime": "2021-02-15T01:02:49Z",
-            "lastTransitionTime": "2021-01-28T06:44:48Z",
-            "reason": "KubeletHasNoDiskPressure",
-            "message": "kubelet has no disk pressure"
-          },
-          {
-            "type": "PIDPressure",
-            "status": "False",
-            "lastHeartbeatTime": "2021-02-15T01:02:49Z",
-            "lastTransitionTime": "2021-01-28T06:44:48Z",
-            "reason": "KubeletHasSufficientPID",
-            "message": "kubelet has sufficient PID available"
-          },
-          {
-            "type": "Ready",
-            "status": "True",
-            "lastHeartbeatTime": "2021-02-15T01:02:49Z",
-            "lastTransitionTime": "2021-01-28T06:48:03Z",
-            "reason": "KubeletReady",
-            "message": "kubelet is posting ready status. AppArmor enabled"
-          }
-        ],
-        "addresses": [
-          {
-            "type": "InternalIP",
-            "address": "192.168.3.21"
-          },
-          {
-            "type": "Hostname",
-            "address": "node1"
-          }
-        ],
-        "daemonEndpoints": {
-          "kubeletEndpoint": {
-            "Port": 10250
-          }
-        },
-        "nodeInfo": {
-          "machineID": "e3a7c918e11343e1b49c8f57529a64d4",
-          "systemUUID": "E3A7C918-E113-43E1-B49C-8F57529A64D4",
-          "bootID": "e53f2c63-c04e-4756-b5aa-5bfbca4b420f",
-          "kernelVersion": "4.15.0-135-generic",
-          "osImage": "Ubuntu 18.04.4 LTS",
-          "containerRuntimeVersion": "docker://20.10.2",
-          "kubeletVersion": "v1.20.2",
-          "kubeProxyVersion": "v1.20.2",
-          "operatingSystem": "linux",
-          "architecture": "amd64"
-        },
-        "images": [
-          {
-            "names": [
-              "nexclipper/nexagent@sha256:2054807ec6ead03b5cbf0b166da24077435ae8ace34316b1023419ee61ac6b48",
-              "nexclipper/nexagent:0.1.0"
-            ],
-            "sizeBytes": 293308073
-          },
-          {
-            "names": [
-              "k8s.gcr.io/etcd@sha256:4ad90a11b55313b182afc186b9876c8e891531b8db4c9bf1541953021618d0e2",
-              "k8s.gcr.io/etcd:3.4.13-0"
-            ],
-            "sizeBytes": 253392289
-          },
-          {
-            "names": [
-              "k8s.gcr.io/kube-apiserver@sha256:465ba895d578fbc1c6e299e45689381fd01c54400beba9e8f1d7456077411411",
-              "k8s.gcr.io/kube-apiserver:v1.20.2"
-            ],
-            "sizeBytes": 121669114
-          },
-          {
-            "names": [
-              "k8s.gcr.io/kube-proxy@sha256:326fe8a4508a5db91cf234c4867eff5ba458bc4107c2a7e15c827a74faa19be9",
-              "k8s.gcr.io/kube-proxy:v1.20.2"
-            ],
-            "sizeBytes": 118400203
-          },
-          {
-            "names": [
-              "k8s.gcr.io/kube-controller-manager@sha256:842a071d4ad49b0018f7f7404ac8a4ddfc2bce2ce15b3f8131d89563fda36c9b",
-              "k8s.gcr.io/kube-controller-manager:v1.20.2"
-            ],
-            "sizeBytes": 115852794
-          },
-          {
-            "names": [
-              "weaveworks/weave-kube@sha256:d797338e7beb17222e10757b71400d8471bdbd9be13b5da38ce2ebf597fb4e63",
-              "weaveworks/weave-kube:2.8.1"
-            ],
-            "sizeBytes": 89037656
-          },
-          {
-            "names": [
-              "kubernetesui/dashboard@sha256:be8b4e180f7325c721acb5adba366ee30a7fce36beea344dbadf6d0f8534b70e",
-              "kubernetesui/dashboard:v2.0.0-beta1"
-            ],
-            "sizeBytes": 64577094
-          },
-          {
-            "names": [
-              "k8s.gcr.io/kube-scheduler@sha256:304b3d70497bd62498f19f82f9ef164d38948e5ae94966690abfe9d1858867e2",
-              "k8s.gcr.io/kube-scheduler:v1.20.2"
-            ],
-            "sizeBytes": 46384634
-          },
-          {
-            "names": [
-              "k8s.gcr.io/coredns@sha256:73ca82b4ce829766d4f1f10947c3a338888f876fbed0540dc849c89ff256e90c",
-              "k8s.gcr.io/coredns:1.7.0"
-            ],
-            "sizeBytes": 45227747
-          },
-          {
-            "names": [
-              "weaveworks/weave-npc@sha256:38d3e30a97a2260558f8deb0fc4c079442f7347f27c86660dbfc8ca91674f14c",
-              "weaveworks/weave-npc:2.8.1"
-            ],
-            "sizeBytes": 39273789
-          },
-          {
-            "names": [
-              "kubernetesui/metrics-scraper@sha256:d62574b33b50e1af00ce5e6ec4301491ae97288f7b7167a46a49ee480a8250a4",
-              "kubernetesui/metrics-scraper:v1.0.0"
-            ],
-            "sizeBytes": 36790062
-          },
-          {
-            "names": [
-              "prom/node-exporter@sha256:cf66a6bbd573fd819ea09c72e21b528e9252d58d01ae13564a29749de1e48e0f",
-              "prom/node-exporter:v1.0.1"
-            ],
-            "sizeBytes": 26430341
-          },
-          {
-            "names": [
-              "k8s.gcr.io/pause@sha256:927d98197ec1141a368550822d18fa1c60bdae27b78b0c004f705f548c07814f",
-              "k8s.gcr.io/pause:3.2"
-            ],
-            "sizeBytes": 682696
-          }
-        ]
+        "loadBalancer": {
+
+        }
       }
     },
     {
       "metadata": {
-        "name": "node2",
-        "uid": "407b10fa-3351-4f9e-9312-3dd18ab6cc9e",
-        "resourceVersion": "2723061",
-        "creationTimestamp": "2021-01-28T06:45:54Z",
-        "labels": {
-          "beta.kubernetes.io/arch": "amd64",
-          "beta.kubernetes.io/os": "linux",
-          "key": "node2",
-          "kubernetes.io/arch": "amd64",
-          "kubernetes.io/hostname": "node2",
-          "kubernetes.io/os": "linux"
-        },
+        "name": "metricops",
+        "namespace": "nex-system",
+        "uid": "ad7da572-0883-498b-9f7c-9432bab7ab2a",
+        "resourceVersion": "1027954",
+        "creationTimestamp": "2021-02-04T01:04:10Z",
         "annotations": {
-          "kubeadm.alpha.kubernetes.io/cri-socket": "/var/run/dockershim.sock",
-          "node.alpha.kubernetes.io/ttl": "0",
-          "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"metricops\",\"namespace\":\"nex-system\"},\"spec\":{\"ports\":[{\"name\":\"6379\",\"port\":6379,\"targetPort\":6379}],\"selector\":{\"app\":\"metricops\"}}}\n"
         },
         "managedFields": [
           {
-            "manager": "kubeadm",
+            "manager": "kubectl-client-side-apply",
             "operation": "Update",
             "apiVersion": "v1",
-            "time": "2021-01-28T06:45:54Z",
+            "time": "2021-02-04T01:04:10Z",
             "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{"f:kubeadm.alpha.kubernetes.io/cri-socket":{}}}}
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:kubectl.kubernetes.io/last-applied-configuration":{}}},"f:spec":{"f:ports":{".":{},"k:{\"port\":6379,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:app":{}},"f:sessionAffinity":{}}}
           },
           {
-            "manager": "kubelet",
+            "manager": "kubectl-edit",
             "operation": "Update",
             "apiVersion": "v1",
-            "time": "2021-01-28T06:46:24Z",
+            "time": "2021-02-04T01:04:36Z",
             "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:volumes.kubernetes.io/controller-managed-attach-detach":{}},"f:labels":{".":{},"f:beta.kubernetes.io/arch":{},"f:beta.kubernetes.io/os":{},"f:kubernetes.io/arch":{},"f:kubernetes.io/hostname":{},"f:kubernetes.io/os":{}}},"f:status":{"f:addresses":{".":{},"k:{\"type\":\"Hostname\"}":{".":{},"f:address":{},"f:type":{}},"k:{\"type\":\"InternalIP\"}":{".":{},"f:address":{},"f:type":{}}},"f:allocatable":{".":{},"f:cpu":{},"f:ephemeral-storage":{},"f:hugepages-1Gi":{},"f:hugepages-2Mi":{},"f:memory":{},"f:pods":{}},"f:capacity":{".":{},"f:cpu":{},"f:ephemeral-storage":{},"f:hugepages-1Gi":{},"f:hugepages-2Mi":{},"f:memory":{},"f:pods":{}},"f:conditions":{".":{},"k:{\"type\":\"DiskPressure\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}},"k:{\"type\":\"MemoryPressure\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}},"k:{\"type\":\"PIDPressure\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Ready\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}}},"f:daemonEndpoints":{"f:kubeletEndpoint":{"f:Port":{}}},"f:images":{},"f:nodeInfo":{"f:architecture":{},"f:bootID":{},"f:containerRuntimeVersion":{},"f:kernelVersion":{},"f:kubeProxyVersion":{},"f:kubeletVersion":{},"f:machineID":{},"f:operatingSystem":{},"f:osImage":{},"f:systemUUID":{}}}}
-          },
-          {
-            "manager": "kube-utils",
-            "operation": "Update",
-            "apiVersion": "v1",
-            "time": "2021-01-28T06:48:11Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:status":{"f:conditions":{"k:{\"type\":\"NetworkUnavailable\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}}}}}
-          },
-          {
-            "manager": "kubectl-label",
-            "operation": "Update",
-            "apiVersion": "v1",
-            "time": "2021-01-28T07:26:39Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:labels":{"f:key":{}}}}
-          },
-          {
-            "manager": "kube-controller-manager",
-            "operation": "Update",
-            "apiVersion": "v1",
-            "time": "2021-02-13T02:23:00Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{"f:node.alpha.kubernetes.io/ttl":{}}}}
+            "fieldsV1": {"f:spec":{"f:externalTrafficPolicy":{},"f:type":{}}}
           }
         ]
       },
       "spec": {
-
+        "ports": [
+          {
+            "name": "6379",
+            "protocol": "TCP",
+            "port": 6379,
+            "targetPort": 6379,
+            "nodePort": 32507
+          }
+        ],
+        "selector": {
+          "app": "metricops"
+        },
+        "clusterIP": "10.96.204.240",
+        "clusterIPs": [
+          "10.96.204.240"
+        ],
+        "type": "NodePort",
+        "sessionAffinity": "None",
+        "externalTrafficPolicy": "Cluster"
       },
       "status": {
-        "capacity": {
-          "cpu": "4",
-          "ephemeral-storage": "51340768Ki",
-          "hugepages-1Gi": "0",
-          "hugepages-2Mi": "0",
-          "memory": "8167604Ki",
-          "pods": "110"
-        },
-        "allocatable": {
-          "cpu": "4",
-          "ephemeral-storage": "47315651711",
-          "hugepages-1Gi": "0",
-          "hugepages-2Mi": "0",
-          "memory": "8065204Ki",
-          "pods": "110"
-        },
-        "conditions": [
-          {
-            "type": "NetworkUnavailable",
-            "status": "False",
-            "lastHeartbeatTime": "2021-01-28T06:48:11Z",
-            "lastTransitionTime": "2021-01-28T06:48:11Z",
-            "reason": "WeaveIsUp",
-            "message": "Weave pod has set this"
-          },
-          {
-            "type": "MemoryPressure",
-            "status": "False",
-            "lastHeartbeatTime": "2021-02-15T00:59:49Z",
-            "lastTransitionTime": "2021-01-28T06:45:54Z",
-            "reason": "KubeletHasSufficientMemory",
-            "message": "kubelet has sufficient memory available"
-          },
-          {
-            "type": "DiskPressure",
-            "status": "False",
-            "lastHeartbeatTime": "2021-02-15T00:59:49Z",
-            "lastTransitionTime": "2021-02-13T02:28:03Z",
-            "reason": "KubeletHasNoDiskPressure",
-            "message": "kubelet has no disk pressure"
-          },
-          {
-            "type": "PIDPressure",
-            "status": "False",
-            "lastHeartbeatTime": "2021-02-15T00:59:49Z",
-            "lastTransitionTime": "2021-01-28T06:45:54Z",
-            "reason": "KubeletHasSufficientPID",
-            "message": "kubelet has sufficient PID available"
-          },
-          {
-            "type": "Ready",
-            "status": "True",
-            "lastHeartbeatTime": "2021-02-15T00:59:49Z",
-            "lastTransitionTime": "2021-01-28T06:48:05Z",
-            "reason": "KubeletReady",
-            "message": "kubelet is posting ready status. AppArmor enabled"
-          }
-        ],
-        "addresses": [
-          {
-            "type": "InternalIP",
-            "address": "192.168.3.22"
-          },
-          {
-            "type": "Hostname",
-            "address": "node2"
-          }
-        ],
-        "daemonEndpoints": {
-          "kubeletEndpoint": {
-            "Port": 10250
-          }
-        },
-        "nodeInfo": {
-          "machineID": "c7e8636cafd641a6a71e00725d5a30d9",
-          "systemUUID": "C7E8636C-AFD6-41A6-A71E-00725D5A30D9",
-          "bootID": "408c9d9b-5400-4f3f-85c7-b9bb13cd664c",
-          "kernelVersion": "4.15.0-76-generic",
-          "osImage": "Ubuntu 18.04.4 LTS",
-          "containerRuntimeVersion": "docker://20.10.2",
-          "kubeletVersion": "v1.20.2",
-          "kubeProxyVersion": "v1.20.2",
-          "operatingSystem": "linux",
-          "architecture": "amd64"
-        },
-        "images": [
-          {
-            "names": [
-              "timescaledev/timescaledb-ha@sha256:4b790787388b1fadd2fc53506b40ec64d0981e3d6c26373ad8682e1433b57a32",
-              "timescaledev/timescaledb-ha:pg12-ts1.7-latest"
-            ],
-            "sizeBytes": 938147728
-          },
-          {
-            "names": [
-              "mysql@sha256:85a69965ab9cffd7bbfa70ac2dc2f2915859a91de7377fa4b59b363a9fe8c5d3",
-              "mysql:5.7.12"
-            ],
-            "sizeBytes": 378436587
-          },
-          {
-            "names": [
-              "nexclipper/nexagent@sha256:2054807ec6ead03b5cbf0b166da24077435ae8ace34316b1023419ee61ac6b48",
-              "nexclipper/nexagent:0.1.0"
-            ],
-            "sizeBytes": 293308073
-          },
-          {
-            "names": [
-              "nexclipper/nexservice@sha256:03125002466789f790effcb3e6f013817961925731dc585648e42e590e4578eb",
-              "nexclipper/nexservice:0.1.0"
-            ],
-            "sizeBytes": 247734703
-          },
-          {
-            "names": [
-              "nexclipper/klevr-agent@sha256:875e1882ec8a98710a1d631fa87439d5ef0b832f15222f04bdf661ff89e3c983",
-              "nexclipper/klevr-agent:0.2.4-SNAPSHOT"
-            ],
-            "sizeBytes": 216425824
-          },
-          {
-            "names": [
-              "prom/prometheus@sha256:d43417c260e516508eed1f1d59c10c49d96bbea93eafb4955b0df3aea5908971",
-              "prom/prometheus:v2.21.0"
-            ],
-            "sizeBytes": 167770615
-          },
-          {
-            "names": [
-              "postgres@sha256:a79ae641a58c376fe6d96f757b11f1bf383a9e066a6ad0c89ca21a7a06344aef",
-              "postgres:12-alpine"
-            ],
-            "sizeBytes": 158174430
-          },
-          {
-            "names": [
-              "rabbitmq@sha256:487b93521d72b4861aa54cb58b970bd68e5a7c75e194cb56fdf29fc52a5198cd",
-              "rabbitmq:3.7"
-            ],
-            "sizeBytes": 149557958
-          },
-          {
-            "names": [
-              "k8s.gcr.io/kube-proxy@sha256:326fe8a4508a5db91cf234c4867eff5ba458bc4107c2a7e15c827a74faa19be9",
-              "k8s.gcr.io/kube-proxy:v1.20.2"
-            ],
-            "sizeBytes": 118400203
-          },
-          {
-            "names": [
-              "redis@sha256:613b3726ddff603e2730f7f4ae7796d63632f17a9cd82d787d60084b8b0109f1",
-              "redis:3.2.9"
-            ],
-            "sizeBytes": 98944909
-          },
-          {
-            "names": [
-              "weaveworks/weave-kube@sha256:d797338e7beb17222e10757b71400d8471bdbd9be13b5da38ce2ebf597fb4e63",
-              "weaveworks/weave-kube:2.8.1"
-            ],
-            "sizeBytes": 89037656
-          },
-          {
-            "names": [
-              "prom/alertmanager@sha256:24a5204b418e8fa0214cfb628486749003b039c279c56b5bddb5b10cd100d926",
-              "prom/alertmanager:v0.21.0"
-            ],
-            "sizeBytes": 55508800
-          },
-          {
-            "names": [
-              "k8s.gcr.io/coredns@sha256:73ca82b4ce829766d4f1f10947c3a338888f876fbed0540dc849c89ff256e90c",
-              "k8s.gcr.io/coredns:1.7.0"
-            ],
-            "sizeBytes": 45227747
-          },
-          {
-            "names": [
-              "weaveworks/weave-npc@sha256:38d3e30a97a2260558f8deb0fc4c079442f7347f27c86660dbfc8ca91674f14c",
-              "weaveworks/weave-npc:2.8.1"
-            ],
-            "sizeBytes": 39273789
-          },
-          {
-            "names": [
-              "prom/node-exporter@sha256:cf66a6bbd573fd819ea09c72e21b528e9252d58d01ae13564a29749de1e48e0f",
-              "prom/node-exporter:v1.0.1"
-            ],
-            "sizeBytes": 26430341
-          },
-          {
-            "names": [
-              "jimmidyson/configmap-reload@sha256:17d34fd73f9e8a78ba7da269d96822ce8972391c2838e08d92a990136adb8e4a",
-              "jimmidyson/configmap-reload:v0.4.0"
-            ],
-            "sizeBytes": 10722150
-          },
-          {
-            "names": [
-              "k8s.gcr.io/pause@sha256:927d98197ec1141a368550822d18fa1c60bdae27b78b0c004f705f548c07814f",
-              "k8s.gcr.io/pause:3.2"
-            ],
-            "sizeBytes": 682696
-          }
-        ]
+        "loadBalancer": {
+
+        }
       }
     },
     {
       "metadata": {
-        "name": "node3",
-        "uid": "8c5d6a1d-9d13-4e02-9405-c67d3892f2d6",
-        "resourceVersion": "2722940",
-        "creationTimestamp": "2021-01-28T06:45:57Z",
-        "labels": {
-          "beta.kubernetes.io/arch": "amd64",
-          "beta.kubernetes.io/os": "linux",
-          "kubernetes.io/arch": "amd64",
-          "kubernetes.io/hostname": "node3",
-          "kubernetes.io/os": "linux"
-        },
+        "name": "provbee-service",
+        "namespace": "nex-system",
+        "uid": "9befa282-4540-4f56-b8a8-ac4e4510374c",
+        "resourceVersion": "921412",
+        "creationTimestamp": "2021-02-03T08:38:38Z",
         "annotations": {
-          "kubeadm.alpha.kubernetes.io/cri-socket": "/var/run/dockershim.sock",
-          "node.alpha.kubernetes.io/ttl": "0",
-          "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"provbee-service\",\"namespace\":\"nex-system\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"provbee\",\"port\":22,\"targetPort\":22}],\"selector\":{\"name\":\"provbee\"}}}\n"
         },
         "managedFields": [
           {
-            "manager": "kube-controller-manager",
+            "manager": "kubectl-client-side-apply",
             "operation": "Update",
             "apiVersion": "v1",
-            "time": "2021-01-28T06:45:57Z",
+            "time": "2021-02-03T08:38:38Z",
             "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{"f:node.alpha.kubernetes.io/ttl":{}}}}
-          },
-          {
-            "manager": "kubeadm",
-            "operation": "Update",
-            "apiVersion": "v1",
-            "time": "2021-01-28T06:45:57Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{"f:kubeadm.alpha.kubernetes.io/cri-socket":{}}}}
-          },
-          {
-            "manager": "kubelet",
-            "operation": "Update",
-            "apiVersion": "v1",
-            "time": "2021-01-28T06:46:27Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:volumes.kubernetes.io/controller-managed-attach-detach":{}},"f:labels":{".":{},"f:beta.kubernetes.io/arch":{},"f:beta.kubernetes.io/os":{},"f:kubernetes.io/arch":{},"f:kubernetes.io/hostname":{},"f:kubernetes.io/os":{}}},"f:status":{"f:addresses":{".":{},"k:{\"type\":\"Hostname\"}":{".":{},"f:address":{},"f:type":{}},"k:{\"type\":\"InternalIP\"}":{".":{},"f:address":{},"f:type":{}}},"f:allocatable":{".":{},"f:cpu":{},"f:ephemeral-storage":{},"f:hugepages-1Gi":{},"f:hugepages-2Mi":{},"f:memory":{},"f:pods":{}},"f:capacity":{".":{},"f:cpu":{},"f:ephemeral-storage":{},"f:hugepages-1Gi":{},"f:hugepages-2Mi":{},"f:memory":{},"f:pods":{}},"f:conditions":{".":{},"k:{\"type\":\"DiskPressure\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}},"k:{\"type\":\"MemoryPressure\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}},"k:{\"type\":\"PIDPressure\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Ready\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}}},"f:daemonEndpoints":{"f:kubeletEndpoint":{"f:Port":{}}},"f:images":{},"f:nodeInfo":{"f:architecture":{},"f:bootID":{},"f:containerRuntimeVersion":{},"f:kernelVersion":{},"f:kubeProxyVersion":{},"f:kubeletVersion":{},"f:machineID":{},"f:operatingSystem":{},"f:osImage":{},"f:systemUUID":{}}}}
-          },
-          {
-            "manager": "kube-utils",
-            "operation": "Update",
-            "apiVersion": "v1",
-            "time": "2021-01-28T06:48:10Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:status":{"f:conditions":{"k:{\"type\":\"NetworkUnavailable\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}}}}}
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:kubectl.kubernetes.io/last-applied-configuration":{}}},"f:spec":{"f:clusterIP":{},"f:ports":{".":{},"k:{\"port\":22,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:name":{}},"f:sessionAffinity":{},"f:type":{}}}
           }
         ]
       },
       "spec": {
-
+        "ports": [
+          {
+            "name": "provbee",
+            "protocol": "TCP",
+            "port": 22,
+            "targetPort": 22
+          }
+        ],
+        "selector": {
+          "name": "provbee"
+        },
+        "clusterIP": "None",
+        "clusterIPs": [
+          "None"
+        ],
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
       },
       "status": {
-        "capacity": {
-          "cpu": "4",
-          "ephemeral-storage": "51340768Ki",
-          "hugepages-1Gi": "0",
-          "hugepages-2Mi": "0",
-          "memory": "8167556Ki",
-          "pods": "110"
-        },
-        "allocatable": {
-          "cpu": "4",
-          "ephemeral-storage": "47315651711",
-          "hugepages-1Gi": "0",
-          "hugepages-2Mi": "0",
-          "memory": "8065156Ki",
-          "pods": "110"
-        },
-        "conditions": [
-          {
-            "type": "NetworkUnavailable",
-            "status": "False",
-            "lastHeartbeatTime": "2021-01-28T06:48:10Z",
-            "lastTransitionTime": "2021-01-28T06:48:10Z",
-            "reason": "WeaveIsUp",
-            "message": "Weave pod has set this"
-          },
-          {
-            "type": "MemoryPressure",
-            "status": "False",
-            "lastHeartbeatTime": "2021-02-15T00:58:39Z",
-            "lastTransitionTime": "2021-01-28T06:45:57Z",
-            "reason": "KubeletHasSufficientMemory",
-            "message": "kubelet has sufficient memory available"
-          },
-          {
-            "type": "DiskPressure",
-            "status": "False",
-            "lastHeartbeatTime": "2021-02-15T00:58:39Z",
-            "lastTransitionTime": "2021-01-28T06:45:57Z",
-            "reason": "KubeletHasNoDiskPressure",
-            "message": "kubelet has no disk pressure"
-          },
-          {
-            "type": "PIDPressure",
-            "status": "False",
-            "lastHeartbeatTime": "2021-02-15T00:58:39Z",
-            "lastTransitionTime": "2021-01-28T06:45:57Z",
-            "reason": "KubeletHasSufficientPID",
-            "message": "kubelet has sufficient PID available"
-          },
-          {
-            "type": "Ready",
-            "status": "True",
-            "lastHeartbeatTime": "2021-02-15T00:58:39Z",
-            "lastTransitionTime": "2021-01-28T06:48:08Z",
-            "reason": "KubeletReady",
-            "message": "kubelet is posting ready status. AppArmor enabled"
-          }
-        ],
-        "addresses": [
-          {
-            "type": "InternalIP",
-            "address": "192.168.3.23"
-          },
-          {
-            "type": "Hostname",
-            "address": "node3"
-          }
-        ],
-        "daemonEndpoints": {
-          "kubeletEndpoint": {
-            "Port": 10250
-          }
-        },
-        "nodeInfo": {
-          "machineID": "eb6f7c1fd6e348f69a2a7e668ad2f1c1",
-          "systemUUID": "EB6F7C1F-D6E3-48F6-9A2A-7E668AD2F1C1",
-          "bootID": "95bef926-0792-47b5-baea-16713df7344e",
-          "kernelVersion": "4.15.0-135-generic",
-          "osImage": "Ubuntu 18.04.4 LTS",
-          "containerRuntimeVersion": "docker://20.10.2",
-          "kubeletVersion": "v1.20.2",
-          "kubeProxyVersion": "v1.20.2",
-          "operatingSystem": "linux",
-          "architecture": "amd64"
-        },
-        "images": [
-          {
-            "names": [
-              "nexclipper/nexagent@sha256:2054807ec6ead03b5cbf0b166da24077435ae8ace34316b1023419ee61ac6b48",
-              "nexclipper/nexagent:0.1.0"
-            ],
-            "sizeBytes": 293308073
-          },
-          {
-            "names": [
-              "nexclipper/klevr-agent@sha256:875e1882ec8a98710a1d631fa87439d5ef0b832f15222f04bdf661ff89e3c983",
-              "nexclipper/klevr-agent:0.2.4-SNAPSHOT"
-            ],
-            "sizeBytes": 216425824
-          },
-          {
-            "names": [
-              "nexclipper/nexworkflow@sha256:d9f58d8c3665a8917af18912d1718e430f50f0b505818a5381bbdcff87f8fc33",
-              "nexclipper/nexworkflow:0.1.0"
-            ],
-            "sizeBytes": 187896967
-          },
-          {
-            "names": [
-              "grafana/grafana@sha256:9f43d0ac1fdecdd08a47bce4038fa5c9c67cc84fc025df78b87ae7b7b076aee9",
-              "grafana/grafana:7.3.1"
-            ],
-            "sizeBytes": 186251383
-          },
-          {
-            "names": [
-              "nexclipper/nexcollector@sha256:8ae25d3f4e44c08836ad06108a9f33bac31c74ffe68e564a5ed61a26d4d4b218",
-              "nexclipper/nexcollector:0.1.0"
-            ],
-            "sizeBytes": 182427819
-          },
-          {
-            "names": [
-              "postgres@sha256:530a317a6abe8067ecc3c75c5458f09e67744c28d40608e1d9af86efec70eeaf",
-              "postgres:12-alpine"
-            ],
-            "sizeBytes": 158759624
-          },
-          {
-            "names": [
-              "rabbitmq@sha256:487b93521d72b4861aa54cb58b970bd68e5a7c75e194cb56fdf29fc52a5198cd",
-              "rabbitmq:3.7"
-            ],
-            "sizeBytes": 149557958
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:ec2a46341367e337739eed3ca05f6673f351da8fb69aa6703c582dc025952b6e"
-            ],
-            "sizeBytes": 136086645
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:67d83f9d34ad17f270cc35931f26f18e4685a66a13e127b8428fc83bdc2829ad"
-            ],
-            "sizeBytes": 136086529
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:3fa8dd27340db7f0397e058e937177aaddcf97592652b1374d1b34c39753f337"
-            ],
-            "sizeBytes": 136086529
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:dd32898070d5f054b5a99f19cfc79d6b510bbbb9f7665f0cebc71dcba427e374"
-            ],
-            "sizeBytes": 136086357
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:0b06dedc7c09b30958d9bb19ac6ef1a47209d0d810536af0a07299057a71f2a2",
-              "p8s.me/nexclipper/monitorapi:0.3.4-dev"
-            ],
-            "sizeBytes": 136086339
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:fbeec13564b1713dcbdffa9344ffa3dc9d7b60449101b29411ec0714d5030a37",
-              "p8s.me/nexclipper/monitorapi:0.3.5-dev"
-            ],
-            "sizeBytes": 136086313
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:06a6e1c30d83afcba5b8b9eeccb1eabb3c9e1ee561c9044d734b12806fab8686"
-            ],
-            "sizeBytes": 136086255
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:9adba1e8e695c91fd1bda63a522e99fed782c1d1c356a790c371ee73108bc325"
-            ],
-            "sizeBytes": 136086167
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:fd9f314b771bc8f27bfaac8d579dbd7d88a0308af4dd96ba19a0a6c486596416"
-            ],
-            "sizeBytes": 136086165
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:4a39e7d0f8806fa5f5b57b03d014cb4a60a2d6efbdfcd2c0074921e7cff46068"
-            ],
-            "sizeBytes": 136085923
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:7fad75c786b2f0a29dfe084602d9662a1ba82d3cddcef688a671d94442d369ed"
-            ],
-            "sizeBytes": 136085843
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:a7cf4d8f28963aa56752281e14618afe53b7dd9076d19d9c535a08aa08c544a2"
-            ],
-            "sizeBytes": 136085505
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:5e4d9df969ddd8afdad45d21b1ba04b57e3384df33772ea560aaa4d2dba86e71"
-            ],
-            "sizeBytes": 136084593
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:6f847f69c60ad43cfcfaf4d0709336016c061c84abb8463d9448f6baaf69f16a"
-            ],
-            "sizeBytes": 136084571
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:496da0cd113cbd5f07d98d069803e4984a2ab13074a186bb6b0d9dfbe6fe3be0"
-            ],
-            "sizeBytes": 136084493
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:45bfac1da3eaf06e73d2d2df10ec6b280de4942f389c36ba6e65386bd0f12993"
-            ],
-            "sizeBytes": 136084281
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:ecbd694e9e956a31bdaac446b9522717a6ed9178fb2a07059f2ec43cf5b364fb"
-            ],
-            "sizeBytes": 136084279
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:48be10ae559a4ecee771cb1570bd29c1dda369f4320860fc2290cee29b66ff09"
-            ],
-            "sizeBytes": 136084175
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:fefe8d59a51f21ebb323bde7f273b6c2ba687e56b2ef392c515a5b1ef0758a77"
-            ],
-            "sizeBytes": 136084103
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:f9c06dbcf6991525045579289d18aa7f43a58127a85ffdaf232a0c5254ce0d24"
-            ],
-            "sizeBytes": 136084059
-          },
-          {
-            "names": [
-              "p8s.me/nexclipper/monitorapi@sha256:54030a9220a6ab1955eed14fd89fe4b82c23b776643db3bfaac13967703e719b"
-            ],
-            "sizeBytes": 136083935
-          },
-          {
-            "names": [
-              "k8s.gcr.io/kube-proxy@sha256:326fe8a4508a5db91cf234c4867eff5ba458bc4107c2a7e15c827a74faa19be9",
-              "k8s.gcr.io/kube-proxy:v1.20.2"
-            ],
-            "sizeBytes": 118400203
-          },
-          {
-            "names": [
-              "weaveworks/weave-kube@sha256:d797338e7beb17222e10757b71400d8471bdbd9be13b5da38ce2ebf597fb4e63",
-              "weaveworks/weave-kube:2.8.1"
-            ],
-            "sizeBytes": 89037656
-          },
-          {
-            "names": [
-              "kiwigrid/k8s-sidecar@sha256:3e86186656d346b440519bf1f41c2784d10fc63f907eac7e4f2a4bda1a7331f0",
-              "kiwigrid/k8s-sidecar:1.1.0"
-            ],
-            "sizeBytes": 81991802
-          },
-          {
-            "names": [
-              "nexclipper/webstork@sha256:520e29ec0c45d37acd5ee262035b54bf0729443880975c9a4dfeb10853d45fe4",
-              "nexclipper/webstork:latest"
-            ],
-            "sizeBytes": 63509061
-          },
-          {
-            "names": [
-              "weaveworks/weave-npc@sha256:38d3e30a97a2260558f8deb0fc4c079442f7347f27c86660dbfc8ca91674f14c",
-              "weaveworks/weave-npc:2.8.1"
-            ],
-            "sizeBytes": 39273789
-          },
-          {
-            "names": [
-              "nexclipper/metric-operator@sha256:413e52f7527a81c02ee440974dcf41f546a93a421fca3f9f2e8dba21eed15835",
-              "nexclipper/metric-operator:0.2.0"
-            ],
-            "sizeBytes": 34108043
-          },
-          {
-            "names": [
-              "prom/node-exporter@sha256:cf66a6bbd573fd819ea09c72e21b528e9252d58d01ae13564a29749de1e48e0f",
-              "prom/node-exporter:v1.0.1"
-            ],
-            "sizeBytes": 26430341
-          },
-          {
-            "names": [
-              "prom/pushgateway@sha256:0a9031142481adfb964fe7f65e698d01a6260de982f0322bc44496c3dcc866f1",
-              "prom/pushgateway:v1.2.0"
-            ],
-            "sizeBytes": 19428825
-          },
-          {
-            "names": [
-              "k8s.gcr.io/pause@sha256:927d98197ec1141a368550822d18fa1c60bdae27b78b0c004f705f548c07814f",
-              "k8s.gcr.io/pause:3.2"
-            ],
-            "sizeBytes": 682696
-          }
-        ]
+        "loadBalancer": {
+
+        }
       }
     },
     {
       "metadata": {
-        "name": "node4",
-        "uid": "a4a69ec4-0b6b-4d15-ae30-db1bb89502d2",
-        "resourceVersion": "2723060",
-        "creationTimestamp": "2021-01-28T06:46:00Z",
+        "name": "influx",
+        "namespace": "nexclipper",
+        "uid": "7de58afb-c9cb-45f8-a9ec-fac8a989dd2b",
+        "resourceVersion": "3061",
+        "creationTimestamp": "2021-01-28T07:10:40Z",
         "labels": {
-          "beta.kubernetes.io/arch": "amd64",
-          "beta.kubernetes.io/os": "linux",
-          "key": "node4",
-          "kubernetes.io/arch": "amd64",
-          "kubernetes.io/hostname": "node4",
-          "kubernetes.io/os": "linux"
+          "app.kubernetes.io/managed-by": "Helm"
         },
         "annotations": {
-          "kubeadm.alpha.kubernetes.io/cri-socket": "/var/run/dockershim.sock",
-          "node.alpha.kubernetes.io/ttl": "0",
-          "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+          "meta.helm.sh/release-name": "nex",
+          "meta.helm.sh/release-namespace": "default"
         },
         "managedFields": [
           {
-            "manager": "kubeadm",
+            "manager": "Go-http-client",
             "operation": "Update",
             "apiVersion": "v1",
-            "time": "2021-01-28T06:46:01Z",
+            "time": "2021-01-28T07:10:40Z",
             "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{"f:kubeadm.alpha.kubernetes.io/cri-socket":{}}}}
-          },
-          {
-            "manager": "kubelet",
-            "operation": "Update",
-            "apiVersion": "v1",
-            "time": "2021-01-28T06:46:31Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:volumes.kubernetes.io/controller-managed-attach-detach":{}},"f:labels":{".":{},"f:beta.kubernetes.io/arch":{},"f:beta.kubernetes.io/os":{},"f:kubernetes.io/arch":{},"f:kubernetes.io/hostname":{},"f:kubernetes.io/os":{}}},"f:status":{"f:addresses":{".":{},"k:{\"type\":\"Hostname\"}":{".":{},"f:address":{},"f:type":{}},"k:{\"type\":\"InternalIP\"}":{".":{},"f:address":{},"f:type":{}}},"f:allocatable":{".":{},"f:cpu":{},"f:ephemeral-storage":{},"f:hugepages-1Gi":{},"f:hugepages-2Mi":{},"f:memory":{},"f:pods":{}},"f:capacity":{".":{},"f:cpu":{},"f:ephemeral-storage":{},"f:hugepages-1Gi":{},"f:hugepages-2Mi":{},"f:memory":{},"f:pods":{}},"f:conditions":{".":{},"k:{\"type\":\"DiskPressure\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}},"k:{\"type\":\"MemoryPressure\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}},"k:{\"type\":\"PIDPressure\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Ready\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}}},"f:daemonEndpoints":{"f:kubeletEndpoint":{"f:Port":{}}},"f:images":{},"f:nodeInfo":{"f:architecture":{},"f:bootID":{},"f:containerRuntimeVersion":{},"f:kernelVersion":{},"f:kubeProxyVersion":{},"f:kubeletVersion":{},"f:machineID":{},"f:operatingSystem":{},"f:osImage":{},"f:systemUUID":{}}}}
-          },
-          {
-            "manager": "kube-utils",
-            "operation": "Update",
-            "apiVersion": "v1",
-            "time": "2021-01-28T06:48:09Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:status":{"f:conditions":{"k:{\"type\":\"NetworkUnavailable\"}":{".":{},"f:lastHeartbeatTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}}}}}
-          },
-          {
-            "manager": "kubectl-label",
-            "operation": "Update",
-            "apiVersion": "v1",
-            "time": "2021-01-28T07:26:45Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:labels":{"f:key":{}}}}
-          },
-          {
-            "manager": "kube-controller-manager",
-            "operation": "Update",
-            "apiVersion": "v1",
-            "time": "2021-02-11T06:54:17Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{"f:node.alpha.kubernetes.io/ttl":{}}}}
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app.kubernetes.io/managed-by":{}}},"f:spec":{"f:externalTrafficPolicy":{},"f:ports":{".":{},"k:{\"port\":8084,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}},"k:{\"port\":8087,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:app":{}},"f:sessionAffinity":{},"f:type":{}}}
           }
         ]
       },
       "spec": {
-
+        "ports": [
+          {
+            "name": "8083",
+            "protocol": "TCP",
+            "port": 8084,
+            "targetPort": 8083,
+            "nodePort": 30087
+          },
+          {
+            "name": "8086",
+            "protocol": "TCP",
+            "port": 8087,
+            "targetPort": 8086,
+            "nodePort": 32636
+          }
+        ],
+        "selector": {
+          "app": "influx"
+        },
+        "clusterIP": "10.105.74.109",
+        "clusterIPs": [
+          "10.105.74.109"
+        ],
+        "type": "NodePort",
+        "sessionAffinity": "None",
+        "externalTrafficPolicy": "Cluster"
       },
       "status": {
-        "capacity": {
-          "cpu": "4",
-          "ephemeral-storage": "51340768Ki",
-          "hugepages-1Gi": "0",
-          "hugepages-2Mi": "0",
-          "memory": "8167556Ki",
-          "pods": "110"
+        "loadBalancer": {
+
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "mysql",
+        "namespace": "nexclipper",
+        "uid": "d4c3cbb5-80c2-4b45-876f-bf962dd83fee",
+        "resourceVersion": "3045",
+        "creationTimestamp": "2021-01-28T07:10:40Z",
+        "labels": {
+          "app.kubernetes.io/managed-by": "Helm"
         },
-        "allocatable": {
-          "cpu": "4",
-          "ephemeral-storage": "47315651711",
-          "hugepages-1Gi": "0",
-          "hugepages-2Mi": "0",
-          "memory": "8065156Ki",
-          "pods": "110"
+        "annotations": {
+          "meta.helm.sh/release-name": "nex",
+          "meta.helm.sh/release-namespace": "default"
         },
-        "conditions": [
+        "managedFields": [
           {
-            "type": "NetworkUnavailable",
-            "status": "False",
-            "lastHeartbeatTime": "2021-01-28T06:48:09Z",
-            "lastTransitionTime": "2021-01-28T06:48:09Z",
-            "reason": "WeaveIsUp",
-            "message": "Weave pod has set this"
-          },
-          {
-            "type": "MemoryPressure",
-            "status": "False",
-            "lastHeartbeatTime": "2021-02-15T00:59:49Z",
-            "lastTransitionTime": "2021-01-28T06:46:00Z",
-            "reason": "KubeletHasSufficientMemory",
-            "message": "kubelet has sufficient memory available"
-          },
-          {
-            "type": "DiskPressure",
-            "status": "False",
-            "lastHeartbeatTime": "2021-02-15T00:59:49Z",
-            "lastTransitionTime": "2021-02-11T06:59:29Z",
-            "reason": "KubeletHasNoDiskPressure",
-            "message": "kubelet has no disk pressure"
-          },
-          {
-            "type": "PIDPressure",
-            "status": "False",
-            "lastHeartbeatTime": "2021-02-15T00:59:49Z",
-            "lastTransitionTime": "2021-01-28T06:46:00Z",
-            "reason": "KubeletHasSufficientPID",
-            "message": "kubelet has sufficient PID available"
-          },
-          {
-            "type": "Ready",
-            "status": "True",
-            "lastHeartbeatTime": "2021-02-15T00:59:49Z",
-            "lastTransitionTime": "2021-01-28T06:48:01Z",
-            "reason": "KubeletReady",
-            "message": "kubelet is posting ready status. AppArmor enabled"
-          }
-        ],
-        "addresses": [
-          {
-            "type": "InternalIP",
-            "address": "192.168.3.24"
-          },
-          {
-            "type": "Hostname",
-            "address": "node4"
-          }
-        ],
-        "daemonEndpoints": {
-          "kubeletEndpoint": {
-            "Port": 10250
-          }
-        },
-        "nodeInfo": {
-          "machineID": "78dc4be30231489091f1437e84a2329b",
-          "systemUUID": "78DC4BE3-0231-4890-91F1-437E84A2329B",
-          "bootID": "5cd6b714-5658-4b41-a1c6-7702c83ab8da",
-          "kernelVersion": "4.15.0-135-generic",
-          "osImage": "Ubuntu 18.04.4 LTS",
-          "containerRuntimeVersion": "docker://20.10.2",
-          "kubeletVersion": "v1.20.2",
-          "kubeProxyVersion": "v1.20.2",
-          "operatingSystem": "linux",
-          "architecture": "amd64"
-        },
-        "images": [
-          {
-            "names": [
-              "nexclipper/nexagent-k8s@sha256:bc0f5dba94d42aa61f521b68728cc65de6b24e5ea67a3ee3beddd4020853d0cb",
-              "nexclipper/nexagent-k8s:0.1.0"
-            ],
-            "sizeBytes": 303825201
-          },
-          {
-            "names": [
-              "nexclipper/nexagent@sha256:2054807ec6ead03b5cbf0b166da24077435ae8ace34316b1023419ee61ac6b48",
-              "nexclipper/nexagent:0.1.0"
-            ],
-            "sizeBytes": 293308073
-          },
-          {
-            "names": [
-              "nexclipper/provbee@sha256:4d36c02fe5604650e47bf6580062ab44afa1babb30aafc8fe642238be0db4473",
-              "nexclipper/provbee:latest"
-            ],
-            "sizeBytes": 222003271
-          },
-          {
-            "names": [
-              "nexclipper/klevr-agent@sha256:875e1882ec8a98710a1d631fa87439d5ef0b832f15222f04bdf661ff89e3c983",
-              "nexclipper/klevr-agent:0.2.4-SNAPSHOT"
-            ],
-            "sizeBytes": 216425824
-          },
-          {
-            "names": [
-              "nexclipper/influxdb@sha256:208b7b08ef35eb0e0625a57ae96df403bfb3e6d18b793e424964ce41ac94308a",
-              "nexclipper/influxdb:latest"
-            ],
-            "sizeBytes": 213095774
-          },
-          {
-            "names": [
-              "nexclipper/nexworkflow@sha256:d9f58d8c3665a8917af18912d1718e430f50f0b505818a5381bbdcff87f8fc33",
-              "nexclipper/nexworkflow:0.1.0"
-            ],
-            "sizeBytes": 187896967
-          },
-          {
-            "names": [
-              "postgres@sha256:6e36e574c7f30e7089ee07502bb227fb008c7be14b6497118829c95b5d345560",
-              "postgres:12-alpine"
-            ],
-            "sizeBytes": 158156760
-          },
-          {
-            "names": [
-              "k8s.gcr.io/kube-proxy@sha256:326fe8a4508a5db91cf234c4867eff5ba458bc4107c2a7e15c827a74faa19be9",
-              "k8s.gcr.io/kube-proxy:v1.20.2"
-            ],
-            "sizeBytes": 118400203
-          },
-          {
-            "names": [
-              "nexclipper/metricark-api@sha256:d31de5f7d1993d152649f594139c0d912b9d29374bab355e09da1c373506a0f0",
-              "nexclipper/metricark-api:main"
-            ],
-            "sizeBytes": 110504601
-          },
-          {
-            "names": [
-              "weaveworks/weave-kube@sha256:d797338e7beb17222e10757b71400d8471bdbd9be13b5da38ce2ebf597fb4e63",
-              "weaveworks/weave-kube:2.8.1"
-            ],
-            "sizeBytes": 89037656
-          },
-          {
-            "names": [
-              "nexclipper/metricark-api@sha256:c075a990451bd07f3062ad28d063f7a5a2077e001e3e02324f2eb7981cbd2c2a"
-            ],
-            "sizeBytes": 84920975
-          },
-          {
-            "names": [
-              "timescale/promscale@sha256:de1c4e0d0c5e6c91be2ba18faea7a663793db3535d18a57cbe5608e4e63cd41b",
-              "timescale/promscale:0.1.4"
-            ],
-            "sizeBytes": 56545810
-          },
-          {
-            "names": [
-              "k8s.gcr.io/coredns@sha256:73ca82b4ce829766d4f1f10947c3a338888f876fbed0540dc849c89ff256e90c",
-              "k8s.gcr.io/coredns:1.7.0"
-            ],
-            "sizeBytes": 45227747
-          },
-          {
-            "names": [
-              "weaveworks/weave-npc@sha256:38d3e30a97a2260558f8deb0fc4c079442f7347f27c86660dbfc8ca91674f14c",
-              "weaveworks/weave-npc:2.8.1"
-            ],
-            "sizeBytes": 39273789
-          },
-          {
-            "names": [
-              "nexclipper/metric-operator@sha256:413e52f7527a81c02ee440974dcf41f546a93a421fca3f9f2e8dba21eed15835",
-              "nexclipper/metric-operator:0.2.0"
-            ],
-            "sizeBytes": 34108043
-          },
-          {
-            "names": [
-              "promlabs/promlens@sha256:69aaabd1a7f3236074d6d10910dc41b016200d4159986d893c205920e76b31e7",
-              "promlabs/promlens:latest"
-            ],
-            "sizeBytes": 33531868
-          },
-          {
-            "names": [
-              "quay.io/coreos/kube-state-metrics@sha256:2f82f0da199c60a7699c43c63a295c44e673242de0b7ee1b17c2d5a23bec34cb",
-              "quay.io/coreos/kube-state-metrics:v1.9.7"
-            ],
-            "sizeBytes": 32818003
-          },
-          {
-            "names": [
-              "prom/node-exporter@sha256:cf66a6bbd573fd819ea09c72e21b528e9252d58d01ae13564a29749de1e48e0f",
-              "prom/node-exporter:v1.0.1"
-            ],
-            "sizeBytes": 26430341
-          },
-          {
-            "names": [
-              "prom/pushgateway@sha256:0a9031142481adfb964fe7f65e698d01a6260de982f0322bc44496c3dcc866f1",
-              "prom/pushgateway:v1.2.0"
-            ],
-            "sizeBytes": 19428825
-          },
-          {
-            "names": [
-              "k8s.gcr.io/pause@sha256:927d98197ec1141a368550822d18fa1c60bdae27b78b0c004f705f548c07814f",
-              "k8s.gcr.io/pause:3.2"
-            ],
-            "sizeBytes": 682696
+            "manager": "Go-http-client",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-01-28T07:10:40Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app.kubernetes.io/managed-by":{}}},"f:spec":{"f:externalTrafficPolicy":{},"f:ports":{".":{},"k:{\"port\":3306,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:app":{}},"f:sessionAffinity":{},"f:type":{}}}
           }
         ]
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "3306",
+            "protocol": "TCP",
+            "port": 3306,
+            "targetPort": 3306,
+            "nodePort": 30344
+          }
+        ],
+        "selector": {
+          "app": "mysql"
+        },
+        "clusterIP": "10.110.50.94",
+        "clusterIPs": [
+          "10.110.50.94"
+        ],
+        "type": "NodePort",
+        "sessionAffinity": "None",
+        "externalTrafficPolicy": "Cluster"
+      },
+      "status": {
+        "loadBalancer": {
+
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "nc",
+        "namespace": "nexclipper",
+        "uid": "2854ad5c-973c-488e-a3ad-b3f2f6a5d3cd",
+        "resourceVersion": "5721",
+        "creationTimestamp": "2021-01-28T07:28:27Z",
+        "labels": {
+          "app": "nc-timescaledb",
+          "app.kubernetes.io/managed-by": "Helm",
+          "chart": "timescaledb-single-0.5.5",
+          "cluster-name": "nc",
+          "heritage": "Helm",
+          "release": "nc",
+          "role": "master"
+        },
+        "annotations": {
+          "meta.helm.sh/release-name": "nc",
+          "meta.helm.sh/release-namespace": "nexclipper",
+          "service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout": "4000"
+        },
+        "managedFields": [
+          {
+            "manager": "Go-http-client",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-01-28T07:28:26Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{},"f:service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout":{}},"f:labels":{".":{},"f:app":{},"f:app.kubernetes.io/managed-by":{},"f:chart":{},"f:cluster-name":{},"f:heritage":{},"f:release":{},"f:role":{}}},"f:spec":{"f:ports":{".":{},"k:{\"port\":5432,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:sessionAffinity":{},"f:type":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "postgresql",
+            "protocol": "TCP",
+            "port": 5432,
+            "targetPort": "postgresql"
+          }
+        ],
+        "clusterIP": "10.106.127.196",
+        "clusterIPs": [
+          "10.106.127.196"
+        ],
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {
+
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "nc-config",
+        "namespace": "nexclipper",
+        "uid": "d6db456a-db2a-4386-af0d-aff017dc9791",
+        "resourceVersion": "5690",
+        "creationTimestamp": "2021-01-28T07:28:26Z",
+        "labels": {
+          "app": "nc-timescaledb",
+          "app.kubernetes.io/managed-by": "Helm",
+          "chart": "timescaledb-single-0.5.5",
+          "cluster-name": "nc",
+          "heritage": "Helm",
+          "release": "nc"
+        },
+        "annotations": {
+          "meta.helm.sh/release-name": "nc",
+          "meta.helm.sh/release-namespace": "nexclipper"
+        },
+        "managedFields": [
+          {
+            "manager": "Go-http-client",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-01-28T07:28:26Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:app.kubernetes.io/managed-by":{},"f:chart":{},"f:cluster-name":{},"f:heritage":{},"f:release":{}}},"f:spec":{"f:clusterIP":{},"f:ports":{".":{},"k:{\"port\":8008,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:app":{},"f:cluster-name":{}},"f:sessionAffinity":{},"f:type":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "patroni",
+            "protocol": "TCP",
+            "port": 8008,
+            "targetPort": 8008
+          }
+        ],
+        "selector": {
+          "app": "nc-timescaledb",
+          "cluster-name": "nc"
+        },
+        "clusterIP": "None",
+        "clusterIPs": [
+          "None"
+        ],
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {
+
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "nc-grafana",
+        "namespace": "nexclipper",
+        "uid": "b92e9255-feac-484e-8aeb-09c568cf77f9",
+        "resourceVersion": "6401",
+        "creationTimestamp": "2021-01-28T07:28:26Z",
+        "labels": {
+          "app.kubernetes.io/instance": "nc",
+          "app.kubernetes.io/managed-by": "Helm",
+          "app.kubernetes.io/name": "grafana",
+          "app.kubernetes.io/version": "7.3.1",
+          "helm.sh/chart": "grafana-6.1.0"
+        },
+        "annotations": {
+          "meta.helm.sh/release-name": "nc",
+          "meta.helm.sh/release-namespace": "nexclipper"
+        },
+        "managedFields": [
+          {
+            "manager": "Go-http-client",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-01-28T07:28:26Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app.kubernetes.io/instance":{},"f:app.kubernetes.io/managed-by":{},"f:app.kubernetes.io/name":{},"f:app.kubernetes.io/version":{},"f:helm.sh/chart":{}}},"f:spec":{"f:ports":{".":{},"k:{\"port\":80,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:app.kubernetes.io/instance":{},"f:app.kubernetes.io/name":{}},"f:sessionAffinity":{}}}
+          },
+          {
+            "manager": "kubectl-edit",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-01-28T07:31:05Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:spec":{"f:externalTrafficPolicy":{},"f:type":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "service",
+            "protocol": "TCP",
+            "port": 80,
+            "targetPort": 3000,
+            "nodePort": 32041
+          }
+        ],
+        "selector": {
+          "app.kubernetes.io/instance": "nc",
+          "app.kubernetes.io/name": "grafana"
+        },
+        "clusterIP": "10.96.193.19",
+        "clusterIPs": [
+          "10.96.193.19"
+        ],
+        "type": "NodePort",
+        "sessionAffinity": "None",
+        "externalTrafficPolicy": "Cluster"
+      },
+      "status": {
+        "loadBalancer": {
+
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "nc-kube-state-metrics",
+        "namespace": "nexclipper",
+        "uid": "50cfd73f-eaff-4e4c-bb72-ae0144ec10d2",
+        "resourceVersion": "5719",
+        "creationTimestamp": "2021-01-28T07:28:27Z",
+        "labels": {
+          "app.kubernetes.io/instance": "nc",
+          "app.kubernetes.io/managed-by": "Helm",
+          "app.kubernetes.io/name": "kube-state-metrics",
+          "helm.sh/chart": "kube-state-metrics-2.8.14"
+        },
+        "annotations": {
+          "meta.helm.sh/release-name": "nc",
+          "meta.helm.sh/release-namespace": "nexclipper",
+          "prometheus.io/scrape": "true"
+        },
+        "managedFields": [
+          {
+            "manager": "Go-http-client",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-01-28T07:28:26Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{},"f:prometheus.io/scrape":{}},"f:labels":{".":{},"f:app.kubernetes.io/instance":{},"f:app.kubernetes.io/managed-by":{},"f:app.kubernetes.io/name":{},"f:helm.sh/chart":{}}},"f:spec":{"f:ports":{".":{},"k:{\"port\":8080,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:app.kubernetes.io/instance":{},"f:app.kubernetes.io/name":{}},"f:sessionAffinity":{},"f:type":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "http",
+            "protocol": "TCP",
+            "port": 8080,
+            "targetPort": 8080
+          }
+        ],
+        "selector": {
+          "app.kubernetes.io/instance": "nc",
+          "app.kubernetes.io/name": "kube-state-metrics"
+        },
+        "clusterIP": "10.100.242.24",
+        "clusterIPs": [
+          "10.100.242.24"
+        ],
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {
+
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "nc-prometheus-alertmanager",
+        "namespace": "nexclipper",
+        "uid": "33271059-0241-4bb9-bab2-082ddba6a27a",
+        "resourceVersion": "5713",
+        "creationTimestamp": "2021-01-28T07:28:27Z",
+        "labels": {
+          "app": "prometheus",
+          "app.kubernetes.io/managed-by": "Helm",
+          "chart": "prometheus-11.16.7",
+          "component": "alertmanager",
+          "heritage": "Helm",
+          "release": "nc"
+        },
+        "annotations": {
+          "meta.helm.sh/release-name": "nc",
+          "meta.helm.sh/release-namespace": "nexclipper"
+        },
+        "managedFields": [
+          {
+            "manager": "Go-http-client",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-01-28T07:28:26Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:app.kubernetes.io/managed-by":{},"f:chart":{},"f:component":{},"f:heritage":{},"f:release":{}}},"f:spec":{"f:ports":{".":{},"k:{\"port\":80,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:app":{},"f:component":{},"f:release":{}},"f:sessionAffinity":{},"f:type":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "http",
+            "protocol": "TCP",
+            "port": 80,
+            "targetPort": 9093
+          }
+        ],
+        "selector": {
+          "app": "prometheus",
+          "component": "alertmanager",
+          "release": "nc"
+        },
+        "clusterIP": "10.108.175.143",
+        "clusterIPs": [
+          "10.108.175.143"
+        ],
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {
+
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "nc-prometheus-node-exporter",
+        "namespace": "nexclipper",
+        "uid": "6240925c-e28e-49ec-8182-f59e16d4bdf1",
+        "resourceVersion": "5691",
+        "creationTimestamp": "2021-01-28T07:28:26Z",
+        "labels": {
+          "app": "prometheus",
+          "app.kubernetes.io/managed-by": "Helm",
+          "chart": "prometheus-11.16.7",
+          "component": "node-exporter",
+          "heritage": "Helm",
+          "release": "nc"
+        },
+        "annotations": {
+          "meta.helm.sh/release-name": "nc",
+          "meta.helm.sh/release-namespace": "nexclipper",
+          "prometheus.io/scrape": "true"
+        },
+        "managedFields": [
+          {
+            "manager": "Go-http-client",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-01-28T07:28:26Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{},"f:prometheus.io/scrape":{}},"f:labels":{".":{},"f:app":{},"f:app.kubernetes.io/managed-by":{},"f:chart":{},"f:component":{},"f:heritage":{},"f:release":{}}},"f:spec":{"f:clusterIP":{},"f:ports":{".":{},"k:{\"port\":9100,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:app":{},"f:component":{},"f:release":{}},"f:sessionAffinity":{},"f:type":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "metrics",
+            "protocol": "TCP",
+            "port": 9100,
+            "targetPort": 9100
+          }
+        ],
+        "selector": {
+          "app": "prometheus",
+          "component": "node-exporter",
+          "release": "nc"
+        },
+        "clusterIP": "None",
+        "clusterIPs": [
+          "None"
+        ],
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {
+
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "nc-prometheus-pushgateway",
+        "namespace": "nexclipper",
+        "uid": "642656cf-3d22-44f9-b591-41195a7de35b",
+        "resourceVersion": "5707",
+        "creationTimestamp": "2021-01-28T07:28:27Z",
+        "labels": {
+          "app": "prometheus",
+          "app.kubernetes.io/managed-by": "Helm",
+          "chart": "prometheus-11.16.7",
+          "component": "pushgateway",
+          "heritage": "Helm",
+          "release": "nc"
+        },
+        "annotations": {
+          "meta.helm.sh/release-name": "nc",
+          "meta.helm.sh/release-namespace": "nexclipper",
+          "prometheus.io/probe": "pushgateway"
+        },
+        "managedFields": [
+          {
+            "manager": "Go-http-client",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-01-28T07:28:26Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{},"f:prometheus.io/probe":{}},"f:labels":{".":{},"f:app":{},"f:app.kubernetes.io/managed-by":{},"f:chart":{},"f:component":{},"f:heritage":{},"f:release":{}}},"f:spec":{"f:ports":{".":{},"k:{\"port\":9091,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:app":{},"f:component":{},"f:release":{}},"f:sessionAffinity":{},"f:type":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "http",
+            "protocol": "TCP",
+            "port": 9091,
+            "targetPort": 9091
+          }
+        ],
+        "selector": {
+          "app": "prometheus",
+          "component": "pushgateway",
+          "release": "nc"
+        },
+        "clusterIP": "10.110.206.182",
+        "clusterIPs": [
+          "10.110.206.182"
+        ],
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {
+
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "nc-prometheus-server",
+        "namespace": "nexclipper",
+        "uid": "6d3039af-c177-41df-9f25-5c1964751cef",
+        "resourceVersion": "6370",
+        "creationTimestamp": "2021-01-28T07:28:27Z",
+        "labels": {
+          "app": "prometheus",
+          "app.kubernetes.io/managed-by": "Helm",
+          "chart": "prometheus-11.16.7",
+          "component": "server",
+          "heritage": "Helm",
+          "release": "nc"
+        },
+        "annotations": {
+          "meta.helm.sh/release-name": "nc",
+          "meta.helm.sh/release-namespace": "nexclipper"
+        },
+        "managedFields": [
+          {
+            "manager": "Go-http-client",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-01-28T07:28:26Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:app.kubernetes.io/managed-by":{},"f:chart":{},"f:component":{},"f:heritage":{},"f:release":{}}},"f:spec":{"f:ports":{".":{},"k:{\"port\":80,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:app":{},"f:component":{},"f:release":{}},"f:sessionAffinity":{}}}
+          },
+          {
+            "manager": "kubectl-edit",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-01-28T07:30:50Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:spec":{"f:externalTrafficPolicy":{},"f:type":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "http",
+            "protocol": "TCP",
+            "port": 80,
+            "targetPort": 9090,
+            "nodePort": 30089
+          }
+        ],
+        "selector": {
+          "app": "prometheus",
+          "component": "server",
+          "release": "nc"
+        },
+        "clusterIP": "10.110.194.152",
+        "clusterIPs": [
+          "10.110.194.152"
+        ],
+        "type": "NodePort",
+        "sessionAffinity": "None",
+        "externalTrafficPolicy": "Cluster"
+      },
+      "status": {
+        "loadBalancer": {
+
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "nc-promlens",
+        "namespace": "nexclipper",
+        "uid": "00c7f8dc-00d1-45e6-8cc0-59f4fb6dc4ce",
+        "resourceVersion": "5729",
+        "creationTimestamp": "2021-01-28T07:28:27Z",
+        "labels": {
+          "app": "nc-tobs",
+          "app.kubernetes.io/managed-by": "Helm",
+          "chart": "tobs-0.1.4",
+          "component": "promlens",
+          "release": "nc"
+        },
+        "annotations": {
+          "meta.helm.sh/release-name": "nc",
+          "meta.helm.sh/release-namespace": "nexclipper"
+        },
+        "managedFields": [
+          {
+            "manager": "Go-http-client",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-01-28T07:28:26Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:app.kubernetes.io/managed-by":{},"f:chart":{},"f:component":{},"f:release":{}}},"f:spec":{"f:ports":{".":{},"k:{\"port\":80,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:app":{},"f:component":{}},"f:sessionAffinity":{},"f:type":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "promlens-port",
+            "protocol": "TCP",
+            "port": 80,
+            "targetPort": 8080
+          }
+        ],
+        "selector": {
+          "app": "nc-tobs",
+          "component": "promlens"
+        },
+        "clusterIP": "10.106.178.250",
+        "clusterIPs": [
+          "10.106.178.250"
+        ],
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {
+
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "nc-promscale-connector",
+        "namespace": "nexclipper",
+        "uid": "bfb8b302-0954-4865-bcd7-18fc42e1e298",
+        "resourceVersion": "5725",
+        "creationTimestamp": "2021-01-28T07:28:27Z",
+        "labels": {
+          "app": "nc-promscale",
+          "app.kubernetes.io/managed-by": "Helm",
+          "chart": "promscale-0.1.4",
+          "heritage": "Helm",
+          "release": "nc"
+        },
+        "annotations": {
+          "meta.helm.sh/release-name": "nc",
+          "meta.helm.sh/release-namespace": "nexclipper",
+          "service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout": "4000"
+        },
+        "managedFields": [
+          {
+            "manager": "Go-http-client",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-01-28T07:28:26Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{},"f:service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout":{}},"f:labels":{".":{},"f:app":{},"f:app.kubernetes.io/managed-by":{},"f:chart":{},"f:heritage":{},"f:release":{}}},"f:spec":{"f:ports":{".":{},"k:{\"port\":9201,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:app":{}},"f:sessionAffinity":{},"f:type":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "connector-port",
+            "protocol": "TCP",
+            "port": 9201,
+            "targetPort": 9201
+          }
+        ],
+        "selector": {
+          "app": "nc-promscale"
+        },
+        "clusterIP": "10.102.3.42",
+        "clusterIPs": [
+          "10.102.3.42"
+        ],
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {
+
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "nc-replica",
+        "namespace": "nexclipper",
+        "uid": "a0db67e8-de68-4281-a3a6-00015e253b96",
+        "resourceVersion": "5696",
+        "creationTimestamp": "2021-01-28T07:28:26Z",
+        "labels": {
+          "app": "nc-timescaledb",
+          "app.kubernetes.io/managed-by": "Helm",
+          "chart": "timescaledb-single-0.5.5",
+          "cluster-name": "nc",
+          "heritage": "Helm",
+          "release": "nc",
+          "role": "replica"
+        },
+        "annotations": {
+          "meta.helm.sh/release-name": "nc",
+          "meta.helm.sh/release-namespace": "nexclipper",
+          "service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout": "4000"
+        },
+        "managedFields": [
+          {
+            "manager": "Go-http-client",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-01-28T07:28:26Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{},"f:service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout":{}},"f:labels":{".":{},"f:app":{},"f:app.kubernetes.io/managed-by":{},"f:chart":{},"f:cluster-name":{},"f:heritage":{},"f:release":{},"f:role":{}}},"f:spec":{"f:ports":{".":{},"k:{\"port\":5432,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:app":{},"f:cluster-name":{},"f:role":{}},"f:sessionAffinity":{},"f:type":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "postgresql",
+            "protocol": "TCP",
+            "port": 5432,
+            "targetPort": 5432
+          }
+        ],
+        "selector": {
+          "app": "nc-timescaledb",
+          "cluster-name": "nc",
+          "role": "replica"
+        },
+        "clusterIP": "10.99.140.239",
+        "clusterIPs": [
+          "10.99.140.239"
+        ],
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+      },
+      "status": {
+        "loadBalancer": {
+
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "nexclipper-api",
+        "namespace": "nexclipper",
+        "uid": "db611f81-c632-4ee7-b1b6-3164684311b6",
+        "resourceVersion": "1837070",
+        "creationTimestamp": "2021-02-09T06:18:03Z",
+        "labels": {
+          "app": "nexclipper-api",
+          "version": "v0.1"
+        },
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"nexclipper-api\",\"version\":\"v0.1\"},\"name\":\"nexclipper-api\",\"namespace\":\"nexclipper\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"nodePort\":30100,\"port\":10130,\"protocol\":\"TCP\",\"targetPort\":9000}],\"selector\":{\"app\":\"nexclipper-api\"},\"type\":\"NodePort\"}}\n"
+        },
+        "managedFields": [
+          {
+            "manager": "kubectl-client-side-apply",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-09T06:18:03Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:kubectl.kubernetes.io/last-applied-configuration":{}},"f:labels":{".":{},"f:app":{},"f:version":{}}},"f:spec":{"f:externalTrafficPolicy":{},"f:ports":{".":{},"k:{\"port\":10130,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:nodePort":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:app":{}},"f:sessionAffinity":{},"f:type":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "http",
+            "protocol": "TCP",
+            "port": 10130,
+            "targetPort": 9000,
+            "nodePort": 30100
+          }
+        ],
+        "selector": {
+          "app": "nexclipper-api"
+        },
+        "clusterIP": "10.111.198.248",
+        "clusterIPs": [
+          "10.111.198.248"
+        ],
+        "type": "NodePort",
+        "sessionAffinity": "None",
+        "externalTrafficPolicy": "Cluster"
+      },
+      "status": {
+        "loadBalancer": {
+
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "nexclipper-collector",
+        "namespace": "nexclipper",
+        "uid": "3d39d757-b87f-4278-81d1-77380fbfb054",
+        "resourceVersion": "3039",
+        "creationTimestamp": "2021-01-28T07:10:40Z",
+        "labels": {
+          "app": "nexclipper-collector",
+          "app.kubernetes.io/managed-by": "Helm",
+          "version": "v0.1"
+        },
+        "annotations": {
+          "meta.helm.sh/release-name": "nex",
+          "meta.helm.sh/release-namespace": "default"
+        },
+        "managedFields": [
+          {
+            "manager": "Go-http-client",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-01-28T07:10:40Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:app.kubernetes.io/managed-by":{},"f:version":{}}},"f:spec":{"f:externalTrafficPolicy":{},"f:ports":{".":{},"k:{\"port\":10100,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:app":{}},"f:sessionAffinity":{},"f:type":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "http",
+            "protocol": "TCP",
+            "port": 10100,
+            "targetPort": 9000,
+            "nodePort": 31220
+          }
+        ],
+        "selector": {
+          "app": "nexclipper-collector"
+        },
+        "clusterIP": "10.111.62.29",
+        "clusterIPs": [
+          "10.111.62.29"
+        ],
+        "type": "NodePort",
+        "sessionAffinity": "None",
+        "externalTrafficPolicy": "Cluster"
+      },
+      "status": {
+        "loadBalancer": {
+
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "nexclipper-service",
+        "namespace": "nexclipper",
+        "uid": "0d2ac996-2593-447d-9494-c01d9a45ff6f",
+        "resourceVersion": "3034",
+        "creationTimestamp": "2021-01-28T07:10:40Z",
+        "labels": {
+          "app": "nexclipper-service",
+          "app.kubernetes.io/managed-by": "Helm",
+          "version": "v0.1"
+        },
+        "annotations": {
+          "meta.helm.sh/release-name": "nex",
+          "meta.helm.sh/release-namespace": "default"
+        },
+        "managedFields": [
+          {
+            "manager": "Go-http-client",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-01-28T07:10:40Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:app.kubernetes.io/managed-by":{},"f:version":{}}},"f:spec":{"f:externalTrafficPolicy":{},"f:ports":{".":{},"k:{\"port\":10180,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:app":{}},"f:sessionAffinity":{},"f:type":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "http",
+            "protocol": "TCP",
+            "port": 10180,
+            "targetPort": 9000,
+            "nodePort": 30543
+          }
+        ],
+        "selector": {
+          "app": "nexclipper-service"
+        },
+        "clusterIP": "10.107.135.4",
+        "clusterIPs": [
+          "10.107.135.4"
+        ],
+        "type": "NodePort",
+        "sessionAffinity": "None",
+        "externalTrafficPolicy": "Cluster"
+      },
+      "status": {
+        "loadBalancer": {
+
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "rabbitmq",
+        "namespace": "nexclipper",
+        "uid": "2320891d-b08b-4006-a95d-040e35fd0de1",
+        "resourceVersion": "3056",
+        "creationTimestamp": "2021-01-28T07:10:40Z",
+        "labels": {
+          "app": "rabbitmq",
+          "app.kubernetes.io/managed-by": "Helm",
+          "type": "LoadBalancer"
+        },
+        "annotations": {
+          "meta.helm.sh/release-name": "nex",
+          "meta.helm.sh/release-namespace": "default"
+        },
+        "managedFields": [
+          {
+            "manager": "Go-http-client",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-01-28T07:10:40Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:app.kubernetes.io/managed-by":{},"f:type":{}}},"f:spec":{"f:externalTrafficPolicy":{},"f:ports":{".":{},"k:{\"port\":5672,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:nodePort":{},"f:port":{},"f:protocol":{},"f:targetPort":{}},"k:{\"port\":15672,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:nodePort":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:app":{}},"f:sessionAffinity":{},"f:type":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "http",
+            "protocol": "TCP",
+            "port": 15672,
+            "targetPort": 15672,
+            "nodePort": 31672
+          },
+          {
+            "name": "amqp",
+            "protocol": "TCP",
+            "port": 5672,
+            "targetPort": 5672,
+            "nodePort": 30672
+          }
+        ],
+        "selector": {
+          "app": "rabbitmq"
+        },
+        "clusterIP": "10.107.177.8",
+        "clusterIPs": [
+          "10.107.177.8"
+        ],
+        "type": "NodePort",
+        "sessionAffinity": "None",
+        "externalTrafficPolicy": "Cluster"
+      },
+      "status": {
+        "loadBalancer": {
+
+        }
+      }
+    },
+    {
+      "metadata": {
+        "name": "redis",
+        "namespace": "nexclipper",
+        "uid": "80100ab3-47b5-44c6-92c8-7107f22615e7",
+        "resourceVersion": "3047",
+        "creationTimestamp": "2021-01-28T07:10:40Z",
+        "labels": {
+          "app.kubernetes.io/managed-by": "Helm"
+        },
+        "annotations": {
+          "meta.helm.sh/release-name": "nex",
+          "meta.helm.sh/release-namespace": "default"
+        },
+        "managedFields": [
+          {
+            "manager": "Go-http-client",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-01-28T07:10:40Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app.kubernetes.io/managed-by":{}}},"f:spec":{"f:externalTrafficPolicy":{},"f:ports":{".":{},"k:{\"port\":6379,\"protocol\":\"TCP\"}":{".":{},"f:name":{},"f:port":{},"f:protocol":{},"f:targetPort":{}}},"f:selector":{".":{},"f:app":{}},"f:sessionAffinity":{},"f:type":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "6379",
+            "protocol": "TCP",
+            "port": 6379,
+            "targetPort": 6379,
+            "nodePort": 31463
+          }
+        ],
+        "selector": {
+          "app": "redis"
+        },
+        "clusterIP": "10.101.236.141",
+        "clusterIPs": [
+          "10.101.236.141"
+        ],
+        "type": "NodePort",
+        "sessionAffinity": "None",
+        "externalTrafficPolicy": "Cluster"
+      },
+      "status": {
+        "loadBalancer": {
+
+        }
       }
     }
   ]
