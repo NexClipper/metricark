@@ -1,4 +1,6 @@
-# metricark
-Basic Metric Dashboard
+![MetricArk Logo](https://raw.githubusercontent.com/NexClipper/metricark/main/assets/logo_h.png)
 
-## installation
+# MetricArk
+* Basic Metric Dashboard
+
+## Installation
