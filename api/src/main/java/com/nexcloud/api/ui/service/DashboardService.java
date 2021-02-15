@@ -372,10 +372,10 @@ public class DashboardService {
 			// Node CPU Usage (%)
 			attrObj									= null;
             attrObj									= new JSONObject();
-            param									= "";
             param									= "{mode='idle'}";
 			query									= "(1 - avg(rate(node_cpu_seconds_total{param}[2m])) by (kubernetes_node)) * 100";
-            jsonObject 								= (JSONObject) parser.parse(entityData.getBody());                        
+			entityData								= prometheusClient.getQuery(query, param );
+			jsonObject 								= (JSONObject) parser.parse(entityData.getBody());
             attrObj.put("cpu", jsonObject.get("data"));
             
 			// Node Memory Usage (%)
