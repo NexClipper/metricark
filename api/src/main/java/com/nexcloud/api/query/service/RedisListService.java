@@ -40,6 +40,8 @@ public class RedisListService {
                 responseObject = podList(key, field);
             } else if (field.equals("daemonsets")){
                 responseObject = dsList(key, field);
+            } else if (field.equals("deployments")){
+                responseObject = dpList(key, field);
             }
 
 
@@ -163,4 +165,44 @@ public class RedisListService {
         return res;
     }
 
+    private JSONObject dpList(String key, String field) throws Exception{
+        JSONParser parser = new JSONParser();
+        JSONObject attrObj = new JSONObject();
+        JSONObject conObj = new JSONObject();
+        JSONObject res = new JSONObject();
+
+        JSONObject jsonObject = (JSONObject) parser.parse(redisClient.get(key, field));
+        JSONArray itemArray = (JSONArray) jsonObject.get("items");
+
+        for (int i=0; i<itemArray.size(); i++){
+            JSONObject items = (JSONObject) itemArray.get(i);
+            JSONObject metadata = (JSONObject) items.get("metadata");
+            JSONObject spec = (JSONObject) items.get("spec");
+            JSONObject template = (JSONObject) spec.get("template");
+            JSONObject specDetail = (JSONObject) template.get("spec");
+            JSONArray conArray = (JSONArray) specDetail.get("containers");
+
+            attrObj = null;
+            attrObj = new JSONObject();
+            conObj = null;
+            conObj = new JSONObject();
+
+            attrObj.put("name", metadata.get("name"));
+            attrObj.put("namespace", metadata.get("namespace"));
+            attrObj.put("labels", metadata.get("labels"));
+            attrObj.put("creationtime", metadata.get("creationTimestamp"));
+
+            for(int j=0; j<conArray.size(); j++){
+                JSONObject con = (JSONObject) conArray.get(j);
+
+                conObj.put(con.get("name"), con.get("image"));
+            }
+            attrObj.put("containers", conObj);
+            attrObj.put("status", items.get("status"));
+
+            res.put(metadata.get("name"), attrObj);
+        }
+
+        return res;
+    }
 }
