@@ -1,8 +1,7 @@
 import React, { ReactNode } from "react";
 import { x } from "@xstyled/emotion";
-// import { Card } from "antd";
 
-export const SimpleCard: React.FC<{ col: number; title: ReactNode }> = ({
+export const SimpleCard: React.FC<{ col?: number; title: ReactNode }> = ({
   col,
   title,
   children,

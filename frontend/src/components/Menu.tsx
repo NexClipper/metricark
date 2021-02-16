@@ -17,39 +17,39 @@ const menuList = [
     id: "kubernetes",
     icon: <AppstoreAddOutlined />,
     sub: [
-      {
-        id: "daemonset",
-        title: "Daemonset",
-      },
-      {
-        id: "deployment",
-        title: "Daemonset",
-      },
-      {
-        id: "replicaset",
-        title: "Replicaset",
-      },
-      {
-        id: "statefulset",
-        title: "Statefulset",
-      },
+      // {
+      //   id: "daemonset",
+      //   title: "Daemonset",
+      // },
+      // {
+      //   id: "deployment",
+      //   title: "Daemonset",
+      // },
+      // {
+      //   id: "replicaset",
+      //   title: "Replicaset",
+      // },
+      // {
+      //   id: "statefulset",
+      //   title: "Statefulset",
+      // },
       {
         id: "pod",
         title: "Pod",
       },
-      {
-        id: "pv",
-        title: "PVCs",
-      },
+      // {
+      //   id: "pv",
+      //   title: "PVCs",
+      // },
     ],
     active: true,
   },
-  {
-    title: "Manager",
-    id: "manager",
-    icon: <AppstoreAddOutlined />,
-    active: true,
-  },
+  // {
+  //   title: "Manager",
+  //   id: "manager",
+  //   icon: <AppstoreAddOutlined />,
+  //   active: true,
+  // },
 ];
 
 const SiderMenu = styled(Layout.Sider)`
@@ -85,7 +85,7 @@ function SideMenu() {
         theme="dark"
         selectedKeys={[defaultKey]}
         mode="inline"
-        openKeys={[""]}
+        openKeys={["kubernetes"]}
       >
         {menuList.map((menu) =>
           menu.sub ? (
