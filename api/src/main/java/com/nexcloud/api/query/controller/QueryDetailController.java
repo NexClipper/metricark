@@ -61,7 +61,7 @@ public class QueryDetailController extends SpringBootServletInitializer implemen
             @ApiResponse( code=500, message="Internal Server Error")
     })
 
-    @RequestMapping(value="/cluster/{cluster_id}/query/key/{key}/name/{name}", method= RequestMethod.GET)
+    @RequestMapping(value="/cluster/{cluster_id}/query/pods/name/{name}", method= RequestMethod.GET)
     @ResponseBody
     @Consumes({ MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_JSON })
