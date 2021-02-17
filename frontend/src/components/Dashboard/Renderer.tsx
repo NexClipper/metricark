@@ -100,8 +100,8 @@ export const ClusterUtilizationInfoRenderer: React.FC<{
         usage={usage}
         gaugeTitle={label}
         isByte={dataKey === "mem"}
-        used={formatNumber(getString(data.used))}
-        total={formatNumber(getString(data.total))}
+        used={formatNumber(getString(data.used)) || 0}
+        total={formatNumber(getString(data.total)) || 0}
       />
     </SimpleCard>
   );
