@@ -38,6 +38,9 @@ function getString(data) {
 }
 
 function formatNumber(number) {
+  if (number !== 0 && !number) {
+    return 0;
+  }
   return Number(Number(number).toFixed(2));
 }
 
@@ -133,7 +136,10 @@ export const ResourceComparisonInfoRenderer: React.FC<{
   cardSize: number;
 }> = ({ parentKey, dataKey, data, cardSize }) => {
   const resourceData = data[dataKey].result.map((row) => ({
-    name: row.metric.pod ?? row.metric.kubernetes_io_hostname,
+    name:
+      row.metric.pod ??
+      row.metric.kubernetes_node ??
+      row.metric.kubernetes_io_hostname,
     value: formatNumber(row.value[1]),
   }));
 

@@ -18,10 +18,12 @@ const Utilization: React.FC<{
         <x.div fontWeight="bold">{isByte ? pb(used) : used}</x.div>
         <x.div>Used</x.div>
       </x.div>
-      <x.div col={1 / 4}>
-        <x.div fontWeight="bold">{isByte ? pb(total) : total}</x.div>
-        <x.div>Total</x.div>
-      </x.div>
+      {!!total && (
+        <x.div col={1 / 4}>
+          <x.div fontWeight="bold">{isByte ? pb(total) : total}</x.div>
+          <x.div>Total</x.div>
+        </x.div>
+      )}
     </x.div>
   </>
 );

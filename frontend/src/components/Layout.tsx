@@ -14,7 +14,7 @@ const Layout: React.FC = ({ children }) => {
         </Sider>
         <Content>{children}</Content>
       </AntLayout>
-      <Footer>C 2021 Nexcloud</Footer>
+      <Footer>© 2021 Nexcloud</Footer>
     </AntLayout>
   );
 };
