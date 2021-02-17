@@ -10,8 +10,15 @@ const request = {
       `/v1/cluster/${clusterId}/nexcloud/dashboard/area${areaNumber}`
     );
   },
-  pods(key = "kubernetes", clusterId = 1) {
-    return instance.get(`/v1/cluster/${clusterId}/redis/key/${key}/pods`);
+  kubQueryList(fieldName: string, key = "kubernetes", clusterId = 1) {
+    return instance.get(
+      `/v1/cluster/${clusterId}/query/key/${key}/field/${fieldName}`
+    );
+  },
+  kubQueryDetail(id: string, fieldName = "pods", clusterId = 1) {
+    return instance.get(
+      `/v1/cluster/${clusterId}/query/${fieldName}/name/${id}`
+    );
   },
 };
 

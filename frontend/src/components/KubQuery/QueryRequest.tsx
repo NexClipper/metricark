@@ -1,20 +1,20 @@
 import React from "react";
 import { useQuery } from "react-query";
-import { Route, Switch, useRouteMatch } from "react-router-dom";
 import { Alert, Spin } from "antd";
 
 import request from "../Dashboard/request";
 import { SimpleCard } from "../Dashboard/shared";
 
-import PodList from "./List";
-import Pod from "./Pod";
+import { QueryFields } from "./types";
 
-function Pods() {
-  const { path } = useRouteMatch();
+const QueryRequest: React.FC<{
+  component: React.FC<{ data: any; field: QueryFields }>;
+  field: QueryFields;
+}> = ({ component: Component, field }) => {
   // @ts-ignore
   const { isLoading, error, data: response } = useQuery(
-    "pods",
-    () => request.pods(),
+    ["kubQuery", field],
+    () => request.kubQueryList(field),
     {
       notifyOnChangeProps: ["data"],
     }
@@ -38,16 +38,7 @@ function Pods() {
 
   const { data } = response.data;
 
-  return (
-    <Switch>
-      <Route path={`${path}/:podname`} exact>
-        <Pod data={data} />
-      </Route>
-      <Route path={`${path}`} exact>
-        <PodList data={data} />
-      </Route>
-    </Switch>
-  );
-}
+  return <Component data={data} field={field} />;
+};
 
-export default Pods;
+export default QueryRequest;

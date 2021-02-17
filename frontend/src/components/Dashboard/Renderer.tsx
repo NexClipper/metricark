@@ -67,7 +67,7 @@ export const ClusterTextInfoRenderer: React.FC<{
   if (simpleResultType.includes(dataKey)) {
     return (
       <SimpleCard title={dataKey} col={cardSize}>
-        {getString(data)}
+        {getString(data) || "(Data not available)"}
       </SimpleCard>
     );
   }
