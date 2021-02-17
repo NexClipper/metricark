@@ -38,6 +38,9 @@ function getString(data) {
 }
 
 function formatNumber(number) {
+  if (number !== 0 && !number) {
+    return 0;
+  }
   return Number(Number(number).toFixed(2));
 }
 
@@ -100,8 +103,8 @@ export const ClusterUtilizationInfoRenderer: React.FC<{
         usage={usage}
         gaugeTitle={label}
         isByte={dataKey === "mem"}
-        used={formatNumber(getString(data.used)) || 0}
-        total={formatNumber(getString(data.total)) || 0}
+        used={formatNumber(getString(data.used))}
+        total={formatNumber(getString(data.total))}
       />
     </SimpleCard>
   );
