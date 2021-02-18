@@ -42,7 +42,7 @@ public class ContainerMemoryService {
 				pod_name							= ".*";
 			
 			param									= "{image!='',name=~'^k8s_.*',container!='POD', container=~'"+container_name+"', pod=~'"+pod_name+"', namespace=~'"+namespace+"', kubernetes_io_hostname=~'^"+node_name+"'}";
-			query									= "sum (rate (container_memory_working_set_bytes{param}[1m])) by (container, pod)";
+			query									= "sum (rate (container_memory_working_set_bytes{param}[3m])) by (container, pod)";
 			
 			//entityData								= prometheusClient.getQuery(query, param );
 			if( sub_query != null )
