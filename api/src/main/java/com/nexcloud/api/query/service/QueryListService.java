@@ -362,7 +362,7 @@ public class QueryListService {
         JSONParser parser = new JSONParser();
         JSONObject res = new JSONObject();
 
-        int pod = 0;
+        int pod = 1;
 
         JSONObject jsonObject = (JSONObject) parser.parse(redisClient.get("kubernetes", "pods"));
         JSONArray itemArray = (JSONArray) jsonObject.get("items");
