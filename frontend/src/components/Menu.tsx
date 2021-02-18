@@ -17,30 +17,34 @@ const menuList = [
     id: "kubernetes",
     icon: <AppstoreAddOutlined />,
     sub: [
-      // {
-      //   id: "daemonset",
-      //   title: "Daemonset",
-      // },
-      // {
-      //   id: "deployment",
-      //   title: "Daemonset",
-      // },
-      // {
-      //   id: "replicaset",
-      //   title: "Replicaset",
-      // },
-      // {
-      //   id: "statefulset",
-      //   title: "Statefulset",
-      // },
       {
-        id: "pod",
-        title: "Pod",
+        id: "daemonsets",
+        title: "Daemonset",
       },
-      // {
-      //   id: "pv",
-      //   title: "PVCs",
-      // },
+      {
+        id: "deployments",
+        title: "Deployments",
+      },
+      {
+        id: "replicasets",
+        title: "Replicasets",
+      },
+      {
+        id: "statefulsets",
+        title: "Statefulsets",
+      },
+      {
+        id: "pods",
+        title: "Pods",
+      },
+      {
+        id: "nodes",
+        title: "Nodes",
+      },
+      {
+        id: "services",
+        title: "Services",
+      },
     ],
     active: true,
   },
@@ -71,13 +75,15 @@ const SiderMenu = styled(Layout.Sider)`
 `;
 
 function SideMenu() {
-  const [defaultKey, setDefaultKey] = useState("detail");
+  const [defaultKey, setDefaultKey] = useState("");
   const history = useHistory();
 
   useEffect(() => {
-    const path = history.location.pathname.split("/");
-    setDefaultKey(path[path.length - 1]);
-  }, [history.location.pathname]);
+    history.listen(() => {
+      const path = history.location.pathname.split("/");
+      setDefaultKey(path[path.length - 1]);
+    });
+  }, [history]);
 
   return (
     <SiderMenu>
@@ -85,14 +91,17 @@ function SideMenu() {
         theme="dark"
         selectedKeys={[defaultKey]}
         mode="inline"
-        openKeys={["kubernetes"]}
+        defaultOpenKeys={["kubernetes"]}
       >
         {menuList.map((menu) =>
           menu.sub ? (
             <Menu.SubMenu key={menu.id} icon={menu.icon} title={menu.title}>
+              <Menu.Item key={menu.id}>
+                <Link to={`/${menu.id}`}>Dashboard</Link>
+              </Menu.Item>
               {menu.sub.map((sub) => (
                 <Menu.Item key={sub.id}>
-                  <Link to={`/${menu.id}/${sub.id}?}`}>{sub.title}</Link>
+                  <Link to={`/${menu.id}/${sub.id}`}>{sub.title}</Link>
                 </Menu.Item>
               ))}
             </Menu.SubMenu>

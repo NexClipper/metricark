@@ -4,7 +4,7 @@ import { x } from "@xstyled/emotion";
 import { Table } from "antd";
 import pb from "pretty-bytes";
 
-import { SimpleCard } from "../Dashboard/shared";
+import { SimpleCard } from "../../Dashboard/shared";
 
 const createStringSorter = (k) => (a, b) => a[k].localeCompare(b[k]);
 const createNumberSorter = (k) => (a, b) => a[k] - b[k];
@@ -24,6 +24,7 @@ const createTableData = (data) =>
         kind: obj.kind[0].kind,
         cpu: Number(obj.metric.cpu?.[1]) || 0,
         memory: Number(obj.metric.mem?.[1]) || 0,
+        status: obj.status,
       };
     });
 
@@ -43,7 +44,7 @@ const filterTableData = (objs, filter) =>
     return ret.every((r) => r === true);
   });
 
-const PodList: React.FC<{ data: any }> = ({ data }) => {
+const PodsList: React.FC<{ data: any }> = ({ data }) => {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState(null);
   const tableData = createTableData(data);
@@ -51,11 +52,18 @@ const PodList: React.FC<{ data: any }> = ({ data }) => {
 
   const columns = [
     {
+      title: "Status",
+      dataIndex: "status",
+      onFilter: (value, record) => record.name.includes(value),
+      sorter: createStringSorter("status"),
+      width: "5%",
+    },
+    {
       title: "Name",
       dataIndex: "name",
       onFilter: (value, record) => record.name.includes(value),
       sorter: createStringSorter("name"),
-      width: "50%",
+      width: "45%",
     },
     {
       title: "Node",
@@ -100,7 +108,7 @@ const PodList: React.FC<{ data: any }> = ({ data }) => {
 
   return (
     <x.div p={20}>
-      <SimpleCard title="List" col={1}>
+      <SimpleCard title="Pods List" col={1}>
         <Table
           columns={columns}
           rowKey={(record) => record.name}
@@ -121,4 +129,4 @@ const PodList: React.FC<{ data: any }> = ({ data }) => {
   );
 };
 
-export default PodList;
+export default PodsList;
