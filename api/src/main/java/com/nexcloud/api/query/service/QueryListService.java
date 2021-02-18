@@ -167,6 +167,7 @@ public class QueryListService {
             }
             attrObj.put("containers", conObj);
             attrObj.put("status", items.get("status"));
+            attrObj.put("pods", podsOfDS((String) metadata.get("name")));
 
             res.put(metadata.get("name"), attrObj);
         }
@@ -352,6 +353,32 @@ public class QueryListService {
             attrObj.put("status", items.get("status"));
 
             res.put(metadata.get("name"), attrObj);
+        }
+
+        return res;
+    }
+
+    private JSONObject podsOfDS(String ds) throws Exception{
+        JSONParser parser = new JSONParser();
+        JSONObject res = new JSONObject();
+
+        int pod = 0;
+
+        JSONObject jsonObject = (JSONObject) parser.parse(redisClient.get("kubernetes", "pods"));
+        JSONArray itemArray = (JSONArray) jsonObject.get("items");
+
+        for (int i=0; i<itemArray.size(); i++){
+            JSONObject items = (JSONObject) itemArray.get(i);
+            JSONObject metadata = (JSONObject) items.get("metadata");
+            JSONArray ownerArray = (JSONArray) metadata.get("ownerReferences");
+
+            JSONObject owner = (JSONObject) ownerArray.get(0);
+            String name = (String) owner.get("name");
+
+            if(name.equals(ds)){
+                res.put("pod"+ pod++, metadata.get("name"));
+            }
+
         }
 
         return res;
