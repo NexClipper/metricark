@@ -40,7 +40,7 @@ public class QueryListController extends SpringBootServletInitializer implements
      * @return
      * @Throws Exception
      */
-    @ApiOperation(value = "Redis GET Pod list", httpMethod = "GET", notes = "")
+    @ApiOperation(value = "GET Kubernetes info to list", httpMethod = "GET", notes = "")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "cluster_id",

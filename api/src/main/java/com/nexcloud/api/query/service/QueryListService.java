@@ -23,9 +23,13 @@ public class QueryListService {
     @Autowired private PrometheusClient prometheusClient;
 
     /**
-     * Pod List
+     * Get Kubernetes infos
      *
-     * @param model
+     * @param cluster_id
+     * @param key
+     * @param field
+     * @param node
+     * @return
      * @throws Exception
      */
     public ResponseEntity<ResponseData> getList(String cluster_id, String key, String field, String node) throws Exception {
@@ -67,6 +71,9 @@ public class QueryListService {
         return response;
     }
 
+    /*
+    Get pod list
+     */
     private JSONObject podList(String key, String field) throws Exception {
         ResponseEntity<String> cpuData = null;
         ResponseEntity<String> memData = null;
@@ -133,6 +140,9 @@ public class QueryListService {
         return res;
     }
 
+    /*
+    Get daemonset list
+     */
     private JSONObject dsList(String key, String field) throws Exception{
         JSONParser parser = new JSONParser();
         JSONObject attrObj = new JSONObject();
@@ -167,7 +177,7 @@ public class QueryListService {
             }
             attrObj.put("containers", conObj);
             attrObj.put("status", items.get("status"));
-            attrObj.put("pods", podsOfDS((String) metadata.get("name")));
+            attrObj.put("pods", pods((String) metadata.get("name")));
 
             res.put(metadata.get("name"), attrObj);
         }
@@ -175,6 +185,9 @@ public class QueryListService {
         return res;
     }
 
+    /*
+    Get deployment list
+     */
     private JSONObject dpList(String key, String field) throws Exception{
         JSONParser parser = new JSONParser();
         JSONObject attrObj = new JSONObject();
@@ -209,6 +222,7 @@ public class QueryListService {
             }
             attrObj.put("containers", conObj);
             attrObj.put("status", items.get("status"));
+            attrObj.put("replicasets", rps((String) metadata.get("name")));
 
             res.put(metadata.get("name"), attrObj);
         }
@@ -216,6 +230,9 @@ public class QueryListService {
         return res;
     }
 
+    /*
+    Get replicaset list
+     */
     private JSONObject rpList(String key, String field) throws Exception{
         JSONParser parser = new JSONParser();
         JSONObject attrObj = new JSONObject();
@@ -250,6 +267,7 @@ public class QueryListService {
             }
             attrObj.put("containers", conObj);
             attrObj.put("status", items.get("status"));
+            attrObj.put("pods", pods((String) metadata.get("name")));
 
             res.put(metadata.get("name"), attrObj);
         }
@@ -257,6 +275,9 @@ public class QueryListService {
         return res;
     }
 
+    /*
+    Get statefulset list
+     */
     private JSONObject sfList(String key, String field) throws Exception{
         JSONParser parser = new JSONParser();
         JSONObject attrObj = new JSONObject();
@@ -291,6 +312,8 @@ public class QueryListService {
             }
             attrObj.put("containers", conObj);
             attrObj.put("status", items.get("status"));
+            attrObj.put("pods", pods((String) metadata.get("name")));
+
 
             res.put(metadata.get("name"), attrObj);
         }
@@ -298,6 +321,9 @@ public class QueryListService {
         return res;
     }
 
+    /*
+    Get node list
+     */
     private JSONObject nodeList(String key, String field, String name) throws Exception{
         JSONParser parser = new JSONParser();
         JSONObject res = new JSONObject();
@@ -330,6 +356,9 @@ public class QueryListService {
         return res;
     }
 
+    /*
+    Get service list
+     */
     private JSONObject svcList(String key, String field) throws Exception{
         JSONParser parser = new JSONParser();
         JSONObject attrObj = new JSONObject();
@@ -358,7 +387,10 @@ public class QueryListService {
         return res;
     }
 
-    private JSONObject podsOfDS(String ds) throws Exception{
+    /*
+    Get pods of specific daemonset
+     */
+    private JSONObject pods(String name) throws Exception{
         JSONParser parser = new JSONParser();
         JSONObject res = new JSONObject();
 
@@ -373,10 +405,36 @@ public class QueryListService {
             JSONArray ownerArray = (JSONArray) metadata.get("ownerReferences");
 
             JSONObject owner = (JSONObject) ownerArray.get(0);
-            String name = (String) owner.get("name");
+            String oName = (String) owner.get("name");
 
-            if(name.equals(ds)){
+            if(oName.equals(name)){
                 res.put("pod"+ pod++, metadata.get("name"));
+            }
+
+        }
+
+        return res;
+    }
+
+    private JSONObject rps(String name) throws Exception{
+        JSONParser parser = new JSONParser();
+        JSONObject res = new JSONObject();
+
+        int rp = 1;
+
+        JSONObject jsonObject = (JSONObject) parser.parse(redisClient.get("kubernetes", "replicasets"));
+        JSONArray itemArray = (JSONArray) jsonObject.get("items");
+
+        for (int i=0; i<itemArray.size(); i++){
+            JSONObject items = (JSONObject) itemArray.get(i);
+            JSONObject metadata = (JSONObject) items.get("metadata");
+            JSONArray ownerArray = (JSONArray) metadata.get("ownerReferences");
+
+            JSONObject owner = (JSONObject) ownerArray.get(0);
+            String oName = (String) owner.get("name");
+
+            if(oName.equals(name)){
+                res.put("replicaset"+ rp++, metadata.get("name"));
             }
 
         }

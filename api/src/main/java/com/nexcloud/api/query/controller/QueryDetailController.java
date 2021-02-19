@@ -39,7 +39,7 @@ public class QueryDetailController extends SpringBootServletInitializer implemen
      * @return
      * @Throws Exception
      */
-    @ApiOperation(value = "GET Pod Detail", httpMethod = "GET", notes = "")
+    @ApiOperation(value = "GET Pods Detail", httpMethod = "GET", notes = "")
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "cluster_id",
