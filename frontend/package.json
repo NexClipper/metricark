@@ -17,6 +17,7 @@
     "@xstyled/emotion": "^2.2.1",
     "antd": "^4.11.2",
     "axios": "^0.21.1",
+    "dayjs": "^1.10.4",
     "emotion": "^11.0.0",
     "jotai": "^0.13.0",
     "lodash-es": "^4.17.20",

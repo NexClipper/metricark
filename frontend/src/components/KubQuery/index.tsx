@@ -30,7 +30,7 @@ const Field = () => {
 
   return (
     <Switch>
-      <Route path={`${path}/:podname`} exact>
+      <Route path={`${path}/:detailName`} exact>
         <KubQueryDetail field={field} />
       </Route>
       <Route path={path} exact>

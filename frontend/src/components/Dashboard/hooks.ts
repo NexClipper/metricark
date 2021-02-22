@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useQuery } from "react-query";
 
-import request from "./request";
+import request from "../../request";
 
 function useDashboard<T extends any>(dataKey: string, areaNumber: number) {
   return useQuery<T>(dataKey, () => request.dashboard(areaNumber), {

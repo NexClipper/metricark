@@ -1,14 +1,17 @@
 import React, { ReactNode } from "react";
 import { x } from "@xstyled/emotion";
 
-export const SimpleCard: React.FC<{ col?: number; title: ReactNode }> = ({
-  col,
-  title,
-  children,
-}) => {
+export const SimpleCard: React.FC<{
+  col?: number;
+  title: ReactNode;
+  props?: any;
+  cardProps?: any;
+}> = ({ col, title, children, cardProps, ...props }) => {
   return (
-    <x.div col={col ?? 1 / 5} px={10}>
-      <Card title={title}>{children}</Card>
+    <x.div col={col ?? 1 / 5} px={10} {...props}>
+      <Card title={title} {...cardProps}>
+        {children}
+      </Card>
     </x.div>
   );
 };
