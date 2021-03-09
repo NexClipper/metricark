@@ -6,7 +6,7 @@ import QueryRequest from "./QueryRequest";
 function KubQueryDashboard() {
   return (
     <>
-      <QueryRequest component={PodsList} field="pods" />
+      <QueryRequest component={PodsList} type="list" field="pods" />
     </>
   );
 }

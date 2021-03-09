@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import { Alert, Spin } from "antd";
 
-import request from "../Dashboard/request";
+import request from "../../request";
 import { SimpleCard } from "../Dashboard/shared";
 
 import { QueryFields } from "./types";
@@ -10,13 +10,22 @@ import { QueryFields } from "./types";
 const QueryRequest: React.FC<{
   component: React.FC<{ data: any; field: QueryFields }>;
   field: QueryFields;
-}> = ({ component: Component, field }) => {
+  type: "list" | "detail";
+  name?: string;
+}> = ({ component: Component, field, name = "", type }) => {
   // @ts-ignore
-  const { isLoading, error, data: response } = useQuery(
-    ["kubQuery", field],
-    () => request.kubQueryList(field),
+  const { isLoading, error, data: response } = useQuery<any>(
+    ["kubQuery", `${field}${name}`],
+    () => {
+      if (type === "list") {
+        return request.kubQueryList(field);
+      } else if (type === "detail" && name) {
+        return request.kubQueryDetail(field, name);
+      }
+    },
     {
       notifyOnChangeProps: ["data"],
+      refetchOnWindowFocus: false,
     }
   );
 

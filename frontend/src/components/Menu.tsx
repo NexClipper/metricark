@@ -19,7 +19,7 @@ const menuList = [
     sub: [
       {
         id: "daemonsets",
-        title: "Daemonset",
+        title: "Daemonsets",
       },
       {
         id: "deployments",
@@ -79,10 +79,14 @@ function SideMenu() {
   const history = useHistory();
 
   useEffect(() => {
-    history.listen(() => {
+    const onChange = () => {
       const path = history.location.pathname.split("/");
-      setDefaultKey(path[path.length - 1]);
-    });
+      path.shift();
+      const k = path[Math.min(1, path.length - 1)];
+      setDefaultKey(k);
+    };
+    history.listen(onChange);
+    onChange();
   }, [history]);
 
   return (
