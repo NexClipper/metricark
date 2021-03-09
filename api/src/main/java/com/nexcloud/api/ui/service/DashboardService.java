@@ -369,14 +369,6 @@ public class DashboardService {
             
             
 			//////////////////////////////////// Node /////////////////////////////
-			// Node Memory Usage (%)
-			param									= "";
-			query									= "(100 * (1 - ((avg_over_time(node_memory_MemFree_bytes[10m]) + avg_over_time(node_memory_Cached_bytes[10m]) + avg_over_time(node_memory_Buffers_bytes[10m])) / avg_over_time(node_memory_MemTotal_bytes[10m]))))";
-			entityData								= prometheusClient.getQuery(query, param );
-			jsonObject 								= (JSONObject) parser.parse(entityData.getBody());
-			attrObj.put("mem", jsonObject.get("data"));
-
-
 			// Node CPU Usage (%)
 			attrObj									= null;
             attrObj									= new JSONObject();
@@ -385,6 +377,13 @@ public class DashboardService {
 			entityData								= prometheusClient.getQuery(query, param );
 			jsonObject 								= (JSONObject) parser.parse(entityData.getBody());
             attrObj.put("cpu", jsonObject.get("data"));
+
+			// Node Memory Usage (%)
+            param									= "";
+			query									= "(100 * (1 - ((avg_over_time(node_memory_MemFree_bytes[10m]) + avg_over_time(node_memory_Cached_bytes[10m]) + avg_over_time(node_memory_Buffers_bytes[10m])) / avg_over_time(node_memory_MemTotal_bytes[10m]))))";
+			entityData								= prometheusClient.getDynamicQuery(query, param );
+            jsonObject 								= (JSONObject) parser.parse(entityData.getBody());
+            attrObj.put("mem", jsonObject.get("data"));
             responseObject.put("node", attrObj); 
             
             resData.setData(responseObject);
