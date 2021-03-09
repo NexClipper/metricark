@@ -380,10 +380,10 @@ public class DashboardService {
             
 			// Node Memory Usage (%)
             param									= "";
-			query									= "(100 * (1 - ((avg_over_time(node_memory_MemFree_bytes[10m]) + avg_over_time(node_memory_Cached_bytes[10m]) + avg_over_time(node_memory_Buffers_bytes[10m])) / avg_over_time(node_memory_MemTotal_bytes[10m]))))";
+			query									= "(100 * (1 - (node_memory_MemFree_bytes + node_memory_Cached_bytes + node_memory_Buffers_bytes) / node_memory_MemTotal_bytes))";
 			entityData								= prometheusClient.getQuery(query, param );
-//            jsonObject 								= (JSONObject) parser.parse(entityData.getBody());
-            attrObj.put("mem", entityData);
+            jsonObject 								= (JSONObject) parser.parse(entityData.getBody());
+            attrObj.put("mem", jsonObject.get("data"));
             responseObject.put("node", attrObj); 
             
             resData.setData(responseObject);
