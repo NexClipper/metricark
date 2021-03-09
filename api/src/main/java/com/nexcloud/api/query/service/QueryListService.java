@@ -94,12 +94,12 @@ public class QueryListService {
         cpuData = prometheusClient.getQuery(cpuQuery, cpuParam);
         metrics = (JSONObject) parser.parse(cpuData.getBody());
         data = (JSONObject) metrics.get("data");
-        JSONArray cpuArray = (JSONArray) data.get("result");
+//        JSONArray cpuArray = (JSONArray) data.get("result");
 
         memData = prometheusClient.getQuery(memQuery, memParam);
         metrics = (JSONObject) parser.parse(memData.getBody());
         data = (JSONObject) metrics.get("data");
-        JSONArray memArray = (JSONArray) data.get("result");
+//        JSONArray memArray = (JSONArray) data.get("result");
 
         for (int i = 0; i < itemArray.size(); i++) {
             JSONObject items = (JSONObject) itemArray.get(i);

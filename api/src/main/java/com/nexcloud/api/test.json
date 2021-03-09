@@ -1,2814 +1,1414 @@
 {
-  "kind": "ReplicaSetList",
-  "apiVersion": "apps/v1",
+  "kind": "EventList",
+  "apiVersion": "v1",
   "metadata": {
-    "resourceVersion": "3379527"
+    "resourceVersion": "3998772"
   },
   "items": [
     {
       "metadata": {
-        "name": "coredns-74ff55c5b",
-        "namespace": "kube-system",
-        "uid": "9b12a876-6112-4dc5-838c-e7e20f704fee",
-        "resourceVersion": "1001",
-        "generation": 1,
-        "creationTimestamp": "2021-01-28T06:44:58Z",
-        "labels": {
-          "k8s-app": "kube-dns",
-          "pod-template-hash": "74ff55c5b"
-        },
-        "annotations": {
-          "deployment.kubernetes.io/desired-replicas": "2",
-          "deployment.kubernetes.io/max-replicas": "3",
-          "deployment.kubernetes.io/revision": "1"
-        },
-        "ownerReferences": [
-          {
-            "apiVersion": "apps/v1",
-            "kind": "Deployment",
-            "name": "coredns",
-            "uid": "89b3facd-d9ec-43b1-9089-3050e7aadf5e",
-            "controller": true,
-            "blockOwnerDeletion": true
-          }
-        ],
-        "managedFields": [
-          {
-            "manager": "kube-controller-manager",
-            "operation": "Update",
-            "apiVersion": "apps/v1",
-            "time": "2021-01-28T06:48:26Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/desired-replicas":{},"f:deployment.kubernetes.io/max-replicas":{},"f:deployment.kubernetes.io/revision":{}},"f:labels":{".":{},"f:k8s-app":{},"f:pod-template-hash":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"89b3facd-d9ec-43b1-9089-3050e7aadf5e\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:replicas":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:k8s-app":{},"f:pod-template-hash":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"coredns\"}":{".":{},"f:args":{},"f:image":{},"f:imagePullPolicy":{},"f:livenessProbe":{".":{},"f:failureThreshold":{},"f:httpGet":{".":{},"f:path":{},"f:port":{},"f:scheme":{}},"f:initialDelaySeconds":{},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":53,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}},"k:{\"containerPort\":53,\"protocol\":\"UDP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}},"k:{\"containerPort\":9153,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}}},"f:readinessProbe":{".":{},"f:failureThreshold":{},"f:httpGet":{".":{},"f:path":{},"f:port":{},"f:scheme":{}},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:resources":{".":{},"f:limits":{".":{},"f:memory":{}},"f:requests":{".":{},"f:cpu":{},"f:memory":{}}},"f:securityContext":{".":{},"f:allowPrivilegeEscalation":{},"f:capabilities":{".":{},"f:add":{},"f:drop":{}},"f:readOnlyRootFilesystem":{}},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/etc/coredns\"}":{".":{},"f:mountPath":{},"f:name":{},"f:readOnly":{}}}}},"f:dnsPolicy":{},"f:nodeSelector":{".":{},"f:kubernetes.io/os":{}},"f:priorityClassName":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:serviceAccount":{},"f:serviceAccountName":{},"f:terminationGracePeriodSeconds":{},"f:tolerations":{},"f:volumes":{".":{},"k:{\"name\":\"config-volume\"}":{".":{},"f:configMap":{".":{},"f:defaultMode":{},"f:items":{},"f:name":{}},"f:name":{}}}}}},"f:status":{"f:availableReplicas":{},"f:fullyLabeledReplicas":{},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{}}}
-          }
-        ]
-      },
-      "spec": {
-        "replicas": 2,
-        "selector": {
-          "matchLabels": {
-            "k8s-app": "kube-dns",
-            "pod-template-hash": "74ff55c5b"
-          }
-        },
-        "template": {
-          "metadata": {
-            "creationTimestamp": null,
-            "labels": {
-              "k8s-app": "kube-dns",
-              "pod-template-hash": "74ff55c5b"
-            }
-          },
-          "spec": {
-            "volumes": [
-              {
-                "name": "config-volume",
-                "configMap": {
-                  "name": "coredns",
-                  "items": [
-                    {
-                      "key": "Corefile",
-                      "path": "Corefile"
-                    }
-                  ],
-                  "defaultMode": 420
-                }
-              }
-            ],
-            "containers": [
-              {
-                "name": "coredns",
-                "image": "k8s.gcr.io/coredns:1.7.0",
-                "args": [
-                  "-conf",
-                  "/etc/coredns/Corefile"
-                ],
-                "ports": [
-                  {
-                    "name": "dns",
-                    "containerPort": 53,
-                    "protocol": "UDP"
-                  },
-                  {
-                    "name": "dns-tcp",
-                    "containerPort": 53,
-                    "protocol": "TCP"
-                  },
-                  {
-                    "name": "metrics",
-                    "containerPort": 9153,
-                    "protocol": "TCP"
-                  }
-                ],
-                "resources": {
-                  "limits": {
-                    "memory": "170Mi"
-                  },
-                  "requests": {
-                    "cpu": "100m",
-                    "memory": "70Mi"
-                  }
-                },
-                "volumeMounts": [
-                  {
-                    "name": "config-volume",
-                    "readOnly": true,
-                    "mountPath": "/etc/coredns"
-                  }
-                ],
-                "livenessProbe": {
-                  "httpGet": {
-                    "path": "/health",
-                    "port": 8080,
-                    "scheme": "HTTP"
-                  },
-                  "initialDelaySeconds": 60,
-                  "timeoutSeconds": 5,
-                  "periodSeconds": 10,
-                  "successThreshold": 1,
-                  "failureThreshold": 5
-                },
-                "readinessProbe": {
-                  "httpGet": {
-                    "path": "/ready",
-                    "port": 8181,
-                    "scheme": "HTTP"
-                  },
-                  "timeoutSeconds": 1,
-                  "periodSeconds": 10,
-                  "successThreshold": 1,
-                  "failureThreshold": 3
-                },
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "IfNotPresent",
-                "securityContext": {
-                  "capabilities": {
-                    "add": [
-                      "NET_BIND_SERVICE"
-                    ],
-                    "drop": [
-                      "all"
-                    ]
-                  },
-                  "readOnlyRootFilesystem": true,
-                  "allowPrivilegeEscalation": false
-                }
-              }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "Default",
-            "nodeSelector": {
-              "kubernetes.io/os": "linux"
-            },
-            "serviceAccountName": "coredns",
-            "serviceAccount": "coredns",
-            "securityContext": {
-
-            },
-            "schedulerName": "default-scheduler",
-            "tolerations": [
-              {
-                "key": "CriticalAddonsOnly",
-                "operator": "Exists"
-              },
-              {
-                "key": "node-role.kubernetes.io/master",
-                "effect": "NoSchedule"
-              },
-              {
-                "key": "node-role.kubernetes.io/control-plane",
-                "effect": "NoSchedule"
-              }
-            ],
-            "priorityClassName": "system-cluster-critical"
-          }
-        }
-      },
-      "status": {
-        "replicas": 2,
-        "fullyLabeledReplicas": 2,
-        "readyReplicas": 2,
-        "availableReplicas": 2,
-        "observedGeneration": 1
-      }
-    },
-    {
-      "metadata": {
-        "name": "metricops-68f87c9578",
-        "namespace": "nex-system",
-        "uid": "72e73994-811d-446a-b5de-953a4f143ddb",
-        "resourceVersion": "1027909",
-        "generation": 1,
-        "creationTimestamp": "2021-02-04T01:04:10Z",
-        "labels": {
-          "app": "metricops",
-          "pod-template-hash": "68f87c9578"
-        },
-        "annotations": {
-          "deployment.kubernetes.io/desired-replicas": "1",
-          "deployment.kubernetes.io/max-replicas": "2",
-          "deployment.kubernetes.io/revision": "1"
-        },
-        "ownerReferences": [
-          {
-            "apiVersion": "apps/v1",
-            "kind": "Deployment",
-            "name": "metricops",
-            "uid": "e7a4fd7e-144b-4ffb-a5dc-c6d8e9fa0387",
-            "controller": true,
-            "blockOwnerDeletion": true
-          }
-        ],
-        "managedFields": [
-          {
-            "manager": "kube-controller-manager",
-            "operation": "Update",
-            "apiVersion": "apps/v1",
-            "time": "2021-02-04T01:04:12Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/desired-replicas":{},"f:deployment.kubernetes.io/max-replicas":{},"f:deployment.kubernetes.io/revision":{}},"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"e7a4fd7e-144b-4ffb-a5dc-c6d8e9fa0387\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:replicas":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"metricops\"}":{".":{},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":6379,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:protocol":{}}},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/redis-master-data\"}":{".":{},"f:mountPath":{},"f:name":{}}}}},"f:dnsPolicy":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:serviceAccount":{},"f:serviceAccountName":{},"f:terminationGracePeriodSeconds":{},"f:volumes":{".":{},"k:{\"name\":\"data\"}":{".":{},"f:emptyDir":{},"f:name":{}}}}}},"f:status":{"f:availableReplicas":{},"f:fullyLabeledReplicas":{},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{}}}
-          }
-        ]
-      },
-      "spec": {
-        "replicas": 1,
-        "selector": {
-          "matchLabels": {
-            "app": "metricops",
-            "pod-template-hash": "68f87c9578"
-          }
-        },
-        "template": {
-          "metadata": {
-            "creationTimestamp": null,
-            "labels": {
-              "app": "metricops",
-              "pod-template-hash": "68f87c9578"
-            }
-          },
-          "spec": {
-            "volumes": [
-              {
-                "name": "data",
-                "emptyDir": {
-
-                }
-              }
-            ],
-            "containers": [
-              {
-                "name": "metricops",
-                "image": "nexclipper/metric-operator:0.2.0",
-                "ports": [
-                  {
-                    "containerPort": 6379,
-                    "protocol": "TCP"
-                  }
-                ],
-                "resources": {
-
-                },
-                "volumeMounts": [
-                  {
-                    "name": "data",
-                    "mountPath": "/redis-master-data"
-                  }
-                ],
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "IfNotPresent"
-              }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "ClusterFirst",
-            "serviceAccountName": "nexc",
-            "serviceAccount": "nexc",
-            "securityContext": {
-
-            },
-            "schedulerName": "default-scheduler"
-          }
-        }
-      },
-      "status": {
-        "replicas": 1,
-        "fullyLabeledReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "observedGeneration": 1
-      }
-    },
-    {
-      "metadata": {
-        "name": "provbee-67f8ffbf55",
-        "namespace": "nex-system",
-        "uid": "f121cc9c-f237-49ea-940a-caeffab155db",
-        "resourceVersion": "921501",
-        "generation": 1,
-        "creationTimestamp": "2021-02-03T08:38:38Z",
-        "labels": {
-          "name": "provbee",
-          "pod-template-hash": "67f8ffbf55"
-        },
-        "annotations": {
-          "deployment.kubernetes.io/desired-replicas": "1",
-          "deployment.kubernetes.io/max-replicas": "2",
-          "deployment.kubernetes.io/revision": "1"
-        },
-        "ownerReferences": [
-          {
-            "apiVersion": "apps/v1",
-            "kind": "Deployment",
-            "name": "provbee",
-            "uid": "5e53d2a3-b391-4e7c-871f-13b1205ec21a",
-            "controller": true,
-            "blockOwnerDeletion": true
-          }
-        ],
-        "managedFields": [
-          {
-            "manager": "kube-controller-manager",
-            "operation": "Update",
-            "apiVersion": "apps/v1",
-            "time": "2021-02-03T08:38:57Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/desired-replicas":{},"f:deployment.kubernetes.io/max-replicas":{},"f:deployment.kubernetes.io/revision":{}},"f:labels":{".":{},"f:name":{},"f:pod-template-hash":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"5e53d2a3-b391-4e7c-871f-13b1205ec21a\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:replicas":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:name":{},"f:pod-template-hash":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"provbee\"}":{".":{},"f:command":{},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/data/.provbee/\"}":{".":{},"f:mountPath":{},"f:name":{}}}}},"f:dnsPolicy":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:serviceAccount":{},"f:serviceAccountName":{},"f:terminationGracePeriodSeconds":{},"f:volumes":{".":{},"k:{\"name\":\"ssh-auth\"}":{".":{},"f:name":{},"f:secret":{".":{},"f:defaultMode":{},"f:items":{},"f:secretName":{}}}}}}},"f:status":{"f:availableReplicas":{},"f:fullyLabeledReplicas":{},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{}}}
-          }
-        ]
-      },
-      "spec": {
-        "replicas": 1,
-        "selector": {
-          "matchLabels": {
-            "name": "provbee",
-            "pod-template-hash": "67f8ffbf55"
-          }
-        },
-        "template": {
-          "metadata": {
-            "creationTimestamp": null,
-            "labels": {
-              "name": "provbee",
-              "pod-template-hash": "67f8ffbf55"
-            }
-          },
-          "spec": {
-            "volumes": [
-              {
-                "name": "ssh-auth",
-                "secret": {
-                  "secretName": "nexc-ssh-key",
-                  "items": [
-                    {
-                      "key": "pubkey",
-                      "path": "configmap_authkey"
-                    }
-                  ],
-                  "defaultMode": 420
-                }
-              }
-            ],
-            "containers": [
-              {
-                "name": "provbee",
-                "image": "nexclipper/provbee:latest",
-                "command": [
-                  "bash",
-                  "-c",
-                  "/entrypoint.sh"
-                ],
-                "resources": {
-
-                },
-                "volumeMounts": [
-                  {
-                    "name": "ssh-auth",
-                    "mountPath": "/data/.provbee/"
-                  }
-                ],
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "Always"
-              }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "ClusterFirst",
-            "serviceAccountName": "nexc",
-            "serviceAccount": "nexc",
-            "securityContext": {
-
-            },
-            "schedulerName": "default-scheduler"
-          }
-        }
-      },
-      "status": {
-        "replicas": 1,
-        "fullyLabeledReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "observedGeneration": 1
-      }
-    },
-    {
-      "metadata": {
-        "name": "webstork-fdbf78fd4",
-        "namespace": "nex-system",
-        "uid": "31f2f4aa-49a2-4a4c-bc07-f92c53f55e8c",
-        "resourceVersion": "922996",
-        "generation": 1,
-        "creationTimestamp": "2021-02-03T08:51:22Z",
-        "labels": {
-          "name": "webstork",
-          "pod-template-hash": "fdbf78fd4"
-        },
-        "annotations": {
-          "deployment.kubernetes.io/desired-replicas": "1",
-          "deployment.kubernetes.io/max-replicas": "2",
-          "deployment.kubernetes.io/revision": "1"
-        },
-        "ownerReferences": [
-          {
-            "apiVersion": "apps/v1",
-            "kind": "Deployment",
-            "name": "webstork",
-            "uid": "a7d2344b-42e3-4db1-93f2-3dda0364a45f",
-            "controller": true,
-            "blockOwnerDeletion": true
-          }
-        ],
-        "managedFields": [
-          {
-            "manager": "kube-controller-manager",
-            "operation": "Update",
-            "apiVersion": "apps/v1",
-            "time": "2021-02-03T08:51:32Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/desired-replicas":{},"f:deployment.kubernetes.io/max-replicas":{},"f:deployment.kubernetes.io/revision":{}},"f:labels":{".":{},"f:name":{},"f:pod-template-hash":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"a7d2344b-42e3-4db1-93f2-3dda0364a45f\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:replicas":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:name":{},"f:pod-template-hash":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"webstork\"}":{".":{},"f:command":{},"f:image":{},"f:imagePullPolicy":{},"f:livenessProbe":{".":{},"f:failureThreshold":{},"f:httpGet":{".":{},"f:path":{},"f:port":{},"f:scheme":{}},"f:initialDelaySeconds":{},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:name":{},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{}}},"f:dnsPolicy":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:serviceAccount":{},"f:serviceAccountName":{},"f:terminationGracePeriodSeconds":{}}}},"f:status":{"f:availableReplicas":{},"f:fullyLabeledReplicas":{},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{}}}
-          }
-        ]
-      },
-      "spec": {
-        "replicas": 1,
-        "selector": {
-          "matchLabels": {
-            "name": "webstork",
-            "pod-template-hash": "fdbf78fd4"
-          }
-        },
-        "template": {
-          "metadata": {
-            "creationTimestamp": null,
-            "labels": {
-              "name": "webstork",
-              "pod-template-hash": "fdbf78fd4"
-            }
-          },
-          "spec": {
-            "containers": [
-              {
-                "name": "webstork",
-                "image": "nexclipper/webstork:latest",
-                "command": [
-                  "sh",
-                  "-c",
-                  "/entrypoint.sh"
-                ],
-                "resources": {
-
-                },
-                "livenessProbe": {
-                  "httpGet": {
-                    "path": "/",
-                    "port": 8080,
-                    "scheme": "HTTP"
-                  },
-                  "initialDelaySeconds": 5,
-                  "timeoutSeconds": 1,
-                  "periodSeconds": 10,
-                  "successThreshold": 1,
-                  "failureThreshold": 3
-                },
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "Always"
-              }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "ClusterFirst",
-            "serviceAccountName": "nexc",
-            "serviceAccount": "nexc",
-            "securityContext": {
-
-            },
-            "schedulerName": "default-scheduler"
-          }
-        }
-      },
-      "status": {
-        "replicas": 1,
-        "fullyLabeledReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "observedGeneration": 1
-      }
-    },
-    {
-      "metadata": {
-        "name": "influx-7f797bfd",
+        "name": "nc-promscale-maintenance-1614060000-qqhq7.16664b06c38c84b8",
         "namespace": "nexclipper",
-        "uid": "93a52d77-1156-4063-ad7f-ed053f286782",
-        "resourceVersion": "2242891",
-        "generation": 1,
-        "creationTimestamp": "2021-01-28T07:10:40Z",
-        "labels": {
-          "app": "influx",
-          "pod-template-hash": "7f797bfd"
-        },
-        "annotations": {
-          "deployment.kubernetes.io/desired-replicas": "1",
-          "deployment.kubernetes.io/max-replicas": "2",
-          "deployment.kubernetes.io/revision": "1",
-          "meta.helm.sh/release-name": "nex",
-          "meta.helm.sh/release-namespace": "default"
-        },
-        "ownerReferences": [
-          {
-            "apiVersion": "apps/v1",
-            "kind": "Deployment",
-            "name": "influx",
-            "uid": "52805091-c954-448e-8be7-78446c418721",
-            "controller": true,
-            "blockOwnerDeletion": true
-          }
-        ],
+        "uid": "f08b3f3d-7e17-4808-bdb2-c57402408b1e",
+        "resourceVersion": "3993417",
+        "creationTimestamp": "2021-02-23T06:00:08Z",
         "managedFields": [
           {
-            "manager": "kube-controller-manager",
+            "manager": "kube-scheduler",
             "operation": "Update",
-            "apiVersion": "apps/v1",
-            "time": "2021-02-11T21:00:22Z",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:00:08Z",
             "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/desired-replicas":{},"f:deployment.kubernetes.io/max-replicas":{},"f:deployment.kubernetes.io/revision":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"52805091-c954-448e-8be7-78446c418721\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:replicas":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"influx\"}":{".":{},"f:env":{".":{},"k:{\"name\":\"PRE_CREATE_DB\"}":{".":{},"f:name":{},"f:value":{}}},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":8083,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:protocol":{}},"k:{\"containerPort\":8086,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:protocol":{}}},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/var/lib/influxdb\"}":{".":{},"f:mountPath":{},"f:name":{}}}}},"f:dnsPolicy":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:terminationGracePeriodSeconds":{},"f:volumes":{".":{},"k:{\"name\":\"influx-data\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}}}}}},"f:status":{"f:availableReplicas":{},"f:fullyLabeledReplicas":{},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{}}}
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
           }
         ]
       },
-      "spec": {
-        "replicas": 1,
-        "selector": {
-          "matchLabels": {
-            "app": "influx",
-            "pod-template-hash": "7f797bfd"
-          }
-        },
-        "template": {
-          "metadata": {
-            "creationTimestamp": null,
-            "labels": {
-              "app": "influx",
-              "pod-template-hash": "7f797bfd"
-            }
-          },
-          "spec": {
-            "volumes": [
-              {
-                "name": "influx-data",
-                "hostPath": {
-                  "path": "/nfs/influxdb",
-                  "type": ""
-                }
-              }
-            ],
-            "containers": [
-              {
-                "name": "influx",
-                "image": "nexclipper/influxdb",
-                "ports": [
-                  {
-                    "containerPort": 8083,
-                    "protocol": "TCP"
-                  },
-                  {
-                    "containerPort": 8086,
-                    "protocol": "TCP"
-                  }
-                ],
-                "env": [
-                  {
-                    "name": "PRE_CREATE_DB",
-                    "value": "dashboard"
-                  }
-                ],
-                "resources": {
-
-                },
-                "volumeMounts": [
-                  {
-                    "name": "influx-data",
-                    "mountPath": "/var/lib/influxdb"
-                  }
-                ],
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "IfNotPresent"
-              }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "ClusterFirst",
-            "securityContext": {
-
-            },
-            "schedulerName": "default-scheduler"
-          }
-        }
-      },
-      "status": {
-        "replicas": 1,
-        "fullyLabeledReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "observedGeneration": 1
-      }
-    },
-    {
-      "metadata": {
-        "name": "mysql-6b7f5c4679",
+      "involvedObject": {
+        "kind": "Pod",
         "namespace": "nexclipper",
-        "uid": "3569f46d-966a-4539-97a5-efe764b64e74",
-        "resourceVersion": "3478",
-        "generation": 1,
-        "creationTimestamp": "2021-01-28T07:10:40Z",
-        "labels": {
-          "app": "mysql",
-          "pod-template-hash": "6b7f5c4679"
-        },
-        "annotations": {
-          "deployment.kubernetes.io/desired-replicas": "1",
-          "deployment.kubernetes.io/max-replicas": "2",
-          "deployment.kubernetes.io/revision": "1",
-          "meta.helm.sh/release-name": "nex",
-          "meta.helm.sh/release-namespace": "default"
-        },
-        "ownerReferences": [
-          {
-            "apiVersion": "apps/v1",
-            "kind": "Deployment",
-            "name": "mysql",
-            "uid": "15bb3079-161e-440f-910c-76115afc22bf",
-            "controller": true,
-            "blockOwnerDeletion": true
-          }
-        ],
-        "managedFields": [
-          {
-            "manager": "kube-controller-manager",
-            "operation": "Update",
-            "apiVersion": "apps/v1",
-            "time": "2021-01-28T07:12:26Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/desired-replicas":{},"f:deployment.kubernetes.io/max-replicas":{},"f:deployment.kubernetes.io/revision":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"15bb3079-161e-440f-910c-76115afc22bf\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:replicas":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"mysql\"}":{".":{},"f:env":{".":{},"k:{\"name\":\"MYSQL_DATABASE\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"MYSQL_PASSWORD\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"MYSQL_ROOT_PASSWORD\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"MYSQL_USER\"}":{".":{},"f:name":{},"f:value":{}}},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":3306,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:protocol":{}}},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/var/lib/mysql\"}":{".":{},"f:mountPath":{},"f:name":{}}}}},"f:dnsPolicy":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:terminationGracePeriodSeconds":{},"f:volumes":{".":{},"k:{\"name\":\"mysql-data\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}}}}}},"f:status":{"f:availableReplicas":{},"f:fullyLabeledReplicas":{},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{}}}
-          }
-        ]
+        "name": "nc-promscale-maintenance-1614060000-qqhq7",
+        "uid": "4d445e89-d8af-4012-920b-e15d10dbb1e4",
+        "apiVersion": "v1",
+        "resourceVersion": "3993413"
       },
-      "spec": {
-        "replicas": 1,
-        "selector": {
-          "matchLabels": {
-            "app": "mysql",
-            "pod-template-hash": "6b7f5c4679"
-          }
-        },
-        "template": {
-          "metadata": {
-            "creationTimestamp": null,
-            "labels": {
-              "app": "mysql",
-              "pod-template-hash": "6b7f5c4679"
-            }
-          },
-          "spec": {
-            "volumes": [
-              {
-                "name": "mysql-data",
-                "hostPath": {
-                  "path": "/nfs/mysql",
-                  "type": ""
-                }
-              }
-            ],
-            "containers": [
-              {
-                "name": "mysql",
-                "image": "mysql:5.7.12",
-                "ports": [
-                  {
-                    "containerPort": 3306,
-                    "protocol": "TCP"
-                  }
-                ],
-                "env": [
-                  {
-                    "name": "MYSQL_DATABASE",
-                    "value": "defaultdb"
-                  },
-                  {
-                    "name": "MYSQL_PASSWORD",
-                    "value": "password"
-                  },
-                  {
-                    "name": "MYSQL_ROOT_PASSWORD",
-                    "value": "root"
-                  },
-                  {
-                    "name": "MYSQL_USER",
-                    "value": "admin"
-                  }
-                ],
-                "resources": {
-
-                },
-                "volumeMounts": [
-                  {
-                    "name": "mysql-data",
-                    "mountPath": "/var/lib/mysql"
-                  }
-                ],
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "IfNotPresent"
-              }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "ClusterFirst",
-            "securityContext": {
-
-            },
-            "schedulerName": "default-scheduler"
-          }
-        }
+      "reason": "Scheduled",
+      "message": "Successfully assigned nexclipper/nc-promscale-maintenance-1614060000-qqhq7 to node3",
+      "source": {
+        "component": "default-scheduler"
       },
-      "status": {
-        "replicas": 1,
-        "fullyLabeledReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "observedGeneration": 1
-      }
+      "firstTimestamp": "2021-02-23T06:00:08Z",
+      "lastTimestamp": "2021-02-23T06:00:08Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
     },
     {
       "metadata": {
-        "name": "nc-grafana-7f447b844f",
+        "name": "nc-promscale-maintenance-1614060000-qqhq7.16664b071c0033da",
         "namespace": "nexclipper",
-        "uid": "a05d5285-a8b5-4539-831d-2dcfb57a39f9",
-        "resourceVersion": "2433555",
-        "generation": 1,
-        "creationTimestamp": "2021-01-28T07:28:27Z",
-        "labels": {
-          "app.kubernetes.io/instance": "nc",
-          "app.kubernetes.io/name": "grafana",
-          "pod-template-hash": "7f447b844f"
-        },
-        "annotations": {
-          "deployment.kubernetes.io/desired-replicas": "1",
-          "deployment.kubernetes.io/max-replicas": "2",
-          "deployment.kubernetes.io/revision": "1",
-          "meta.helm.sh/release-name": "nc",
-          "meta.helm.sh/release-namespace": "nexclipper"
-        },
-        "ownerReferences": [
-          {
-            "apiVersion": "apps/v1",
-            "kind": "Deployment",
-            "name": "nc-grafana",
-            "uid": "6e0f49b9-63a2-40e4-a86a-4985beca2de7",
-            "controller": true,
-            "blockOwnerDeletion": true
-          }
-        ],
+        "uid": "f7041436-12f8-4c85-9870-7f4133ca4234",
+        "resourceVersion": "3993422",
+        "creationTimestamp": "2021-02-23T06:00:10Z",
         "managedFields": [
           {
-            "manager": "kube-controller-manager",
+            "manager": "kubelet",
             "operation": "Update",
-            "apiVersion": "apps/v1",
-            "time": "2021-02-13T02:13:28Z",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:00:10Z",
             "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/desired-replicas":{},"f:deployment.kubernetes.io/max-replicas":{},"f:deployment.kubernetes.io/revision":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app.kubernetes.io/instance":{},"f:app.kubernetes.io/name":{},"f:pod-template-hash":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"6e0f49b9-63a2-40e4-a86a-4985beca2de7\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:replicas":{},"f:selector":{},"f:template":{"f:metadata":{"f:annotations":{".":{},"f:checksum/config":{},"f:checksum/dashboards-json-config":{},"f:checksum/sc-dashboard-provider-config":{},"f:checksum/secret":{}},"f:labels":{".":{},"f:app.kubernetes.io/instance":{},"f:app.kubernetes.io/name":{},"f:pod-template-hash":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"grafana\"}":{".":{},"f:env":{".":{},"k:{\"name\":\"GF_SECURITY_ADMIN_PASSWORD\"}":{".":{},"f:name":{},"f:valueFrom":{".":{},"f:secretKeyRef":{".":{},"f:key":{},"f:name":{}}}},"k:{\"name\":\"GF_SECURITY_ADMIN_USER\"}":{".":{},"f:name":{},"f:valueFrom":{".":{},"f:secretKeyRef":{".":{},"f:key":{},"f:name":{}}}}},"f:envFrom":{},"f:image":{},"f:imagePullPolicy":{},"f:livenessProbe":{".":{},"f:failureThreshold":{},"f:httpGet":{".":{},"f:path":{},"f:port":{},"f:scheme":{}},"f:initialDelaySeconds":{},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":80,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}},"k:{\"containerPort\":3000,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}}},"f:readinessProbe":{".":{},"f:failureThreshold":{},"f:httpGet":{".":{},"f:path":{},"f:port":{},"f:scheme":{}},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/etc/grafana/grafana.ini\"}":{".":{},"f:mountPath":{},"f:name":{},"f:subPath":{}},"k:{\"mountPath\":\"/etc/grafana/provisioning/dashboards/sc-dashboardproviders.yaml\"}":{".":{},"f:mountPath":{},"f:name":{},"f:subPath":{}},"k:{\"mountPath\":\"/etc/grafana/provisioning/datasources\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/tmp/dashboards\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/var/lib/grafana\"}":{".":{},"f:mountPath":{},"f:name":{}}}},"k:{\"name\":\"grafana-sc-dashboard\"}":{".":{},"f:env":{".":{},"k:{\"name\":\"FOLDER\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"LABEL\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"METHOD\"}":{".":{},"f:name":{}},"k:{\"name\":\"RESOURCE\"}":{".":{},"f:name":{},"f:value":{}}},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/tmp/dashboards\"}":{".":{},"f:mountPath":{},"f:name":{}}}}},"f:dnsPolicy":{},"f:initContainers":{".":{},"k:{\"name\":\"grafana-sc-datasources\"}":{".":{},"f:env":{".":{},"k:{\"name\":\"FOLDER\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"LABEL\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"METHOD\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"RESOURCE\"}":{".":{},"f:name":{},"f:value":{}}},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/etc/grafana/provisioning/datasources\"}":{".":{},"f:mountPath":{},"f:name":{}}}}},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{".":{},"f:fsGroup":{},"f:runAsGroup":{},"f:runAsUser":{}},"f:serviceAccount":{},"f:serviceAccountName":{},"f:terminationGracePeriodSeconds":{},"f:volumes":{".":{},"k:{\"name\":\"config\"}":{".":{},"f:configMap":{".":{},"f:defaultMode":{},"f:name":{}},"f:name":{}},"k:{\"name\":\"sc-dashboard-provider\"}":{".":{},"f:configMap":{".":{},"f:defaultMode":{},"f:name":{}},"f:name":{}},"k:{\"name\":\"sc-dashboard-volume\"}":{".":{},"f:emptyDir":{},"f:name":{}},"k:{\"name\":\"sc-datasources-volume\"}":{".":{},"f:emptyDir":{},"f:name":{}},"k:{\"name\":\"storage\"}":{".":{},"f:emptyDir":{},"f:name":{}}}}}},"f:status":{"f:availableReplicas":{},"f:fullyLabeledReplicas":{},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{}}}
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
           }
         ]
       },
-      "spec": {
-        "replicas": 1,
-        "selector": {
-          "matchLabels": {
-            "app.kubernetes.io/instance": "nc",
-            "app.kubernetes.io/name": "grafana",
-            "pod-template-hash": "7f447b844f"
-          }
-        },
-        "template": {
-          "metadata": {
-            "creationTimestamp": null,
-            "labels": {
-              "app.kubernetes.io/instance": "nc",
-              "app.kubernetes.io/name": "grafana",
-              "pod-template-hash": "7f447b844f"
-            },
-            "annotations": {
-              "checksum/config": "424f880484b5bba92e7abd79c0ae9778c2bc7786af554f58912033a9d06da010",
-              "checksum/dashboards-json-config": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
-              "checksum/sc-dashboard-provider-config": "61e980d5223265b230f4be46c286e1727c28493c248b60cf54d031d9055b3999",
-              "checksum/secret": "8a6bdd48bcefcfef21c8fc7397b7a439f349a68c92cd5982347e30e30c46e8ac"
-            }
-          },
-          "spec": {
-            "volumes": [
-              {
-                "name": "config",
-                "configMap": {
-                  "name": "nc-grafana",
-                  "defaultMode": 420
-                }
-              },
-              {
-                "name": "storage",
-                "emptyDir": {
-
-                }
-              },
-              {
-                "name": "sc-dashboard-volume",
-                "emptyDir": {
-
-                }
-              },
-              {
-                "name": "sc-dashboard-provider",
-                "configMap": {
-                  "name": "nc-grafana-config-dashboards",
-                  "defaultMode": 420
-                }
-              },
-              {
-                "name": "sc-datasources-volume",
-                "emptyDir": {
-
-                }
-              }
-            ],
-            "initContainers": [
-              {
-                "name": "grafana-sc-datasources",
-                "image": "kiwigrid/k8s-sidecar:1.1.0",
-                "env": [
-                  {
-                    "name": "METHOD",
-                    "value": "LIST"
-                  },
-                  {
-                    "name": "LABEL",
-                    "value": "grafana_datasource"
-                  },
-                  {
-                    "name": "FOLDER",
-                    "value": "/etc/grafana/provisioning/datasources"
-                  },
-                  {
-                    "name": "RESOURCE",
-                    "value": "both"
-                  }
-                ],
-                "resources": {
-
-                },
-                "volumeMounts": [
-                  {
-                    "name": "sc-datasources-volume",
-                    "mountPath": "/etc/grafana/provisioning/datasources"
-                  }
-                ],
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "IfNotPresent"
-              }
-            ],
-            "containers": [
-              {
-                "name": "grafana-sc-dashboard",
-                "image": "kiwigrid/k8s-sidecar:1.1.0",
-                "env": [
-                  {
-                    "name": "METHOD"
-                  },
-                  {
-                    "name": "LABEL",
-                    "value": "grafana_dashboard"
-                  },
-                  {
-                    "name": "FOLDER",
-                    "value": "/tmp/dashboards"
-                  },
-                  {
-                    "name": "RESOURCE",
-                    "value": "both"
-                  }
-                ],
-                "resources": {
-
-                },
-                "volumeMounts": [
-                  {
-                    "name": "sc-dashboard-volume",
-                    "mountPath": "/tmp/dashboards"
-                  }
-                ],
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "IfNotPresent"
-              },
-              {
-                "name": "grafana",
-                "image": "grafana/grafana:7.3.1",
-                "ports": [
-                  {
-                    "name": "service",
-                    "containerPort": 80,
-                    "protocol": "TCP"
-                  },
-                  {
-                    "name": "grafana",
-                    "containerPort": 3000,
-                    "protocol": "TCP"
-                  }
-                ],
-                "envFrom": [
-                  {
-                    "secretRef": {
-                      "name": "nc-grafana-db"
-                    }
-                  }
-                ],
-                "env": [
-                  {
-                    "name": "GF_SECURITY_ADMIN_USER",
-                    "valueFrom": {
-                      "secretKeyRef": {
-                        "name": "nc-grafana",
-                        "key": "admin-user"
-                      }
-                    }
-                  },
-                  {
-                    "name": "GF_SECURITY_ADMIN_PASSWORD",
-                    "valueFrom": {
-                      "secretKeyRef": {
-                        "name": "nc-grafana",
-                        "key": "admin-password"
-                      }
-                    }
-                  }
-                ],
-                "resources": {
-
-                },
-                "volumeMounts": [
-                  {
-                    "name": "config",
-                    "mountPath": "/etc/grafana/grafana.ini",
-                    "subPath": "grafana.ini"
-                  },
-                  {
-                    "name": "storage",
-                    "mountPath": "/var/lib/grafana"
-                  },
-                  {
-                    "name": "sc-dashboard-volume",
-                    "mountPath": "/tmp/dashboards"
-                  },
-                  {
-                    "name": "sc-dashboard-provider",
-                    "mountPath": "/etc/grafana/provisioning/dashboards/sc-dashboardproviders.yaml",
-                    "subPath": "provider.yaml"
-                  },
-                  {
-                    "name": "sc-datasources-volume",
-                    "mountPath": "/etc/grafana/provisioning/datasources"
-                  }
-                ],
-                "livenessProbe": {
-                  "httpGet": {
-                    "path": "/api/health",
-                    "port": 3000,
-                    "scheme": "HTTP"
-                  },
-                  "initialDelaySeconds": 60,
-                  "timeoutSeconds": 30,
-                  "periodSeconds": 10,
-                  "successThreshold": 1,
-                  "failureThreshold": 10
-                },
-                "readinessProbe": {
-                  "httpGet": {
-                    "path": "/api/health",
-                    "port": 3000,
-                    "scheme": "HTTP"
-                  },
-                  "timeoutSeconds": 1,
-                  "periodSeconds": 10,
-                  "successThreshold": 1,
-                  "failureThreshold": 3
-                },
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "IfNotPresent"
-              }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "ClusterFirst",
-            "serviceAccountName": "nc-grafana",
-            "serviceAccount": "nc-grafana",
-            "securityContext": {
-              "runAsUser": 472,
-              "runAsGroup": 472,
-              "fsGroup": 472
-            },
-            "schedulerName": "default-scheduler"
-          }
-        }
-      },
-      "status": {
-        "replicas": 1,
-        "fullyLabeledReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "observedGeneration": 1
-      }
-    },
-    {
-      "metadata": {
-        "name": "nc-kube-state-metrics-6bc76fb476",
+      "involvedObject": {
+        "kind": "Pod",
         "namespace": "nexclipper",
-        "uid": "cd9e3185-a4b2-49bf-a31e-18761e89ce2c",
-        "resourceVersion": "6034",
-        "generation": 1,
-        "creationTimestamp": "2021-01-28T07:28:27Z",
-        "labels": {
-          "app.kubernetes.io/instance": "nc",
-          "app.kubernetes.io/name": "kube-state-metrics",
-          "pod-template-hash": "6bc76fb476"
-        },
-        "annotations": {
-          "deployment.kubernetes.io/desired-replicas": "1",
-          "deployment.kubernetes.io/max-replicas": "2",
-          "deployment.kubernetes.io/revision": "1",
-          "meta.helm.sh/release-name": "nc",
-          "meta.helm.sh/release-namespace": "nexclipper"
-        },
-        "ownerReferences": [
-          {
-            "apiVersion": "apps/v1",
-            "kind": "Deployment",
-            "name": "nc-kube-state-metrics",
-            "uid": "5e1f7d45-a472-41ca-a9f7-6974b145ba6a",
-            "controller": true,
-            "blockOwnerDeletion": true
-          }
-        ],
-        "managedFields": [
-          {
-            "manager": "kube-controller-manager",
-            "operation": "Update",
-            "apiVersion": "apps/v1",
-            "time": "2021-01-28T07:28:44Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/desired-replicas":{},"f:deployment.kubernetes.io/max-replicas":{},"f:deployment.kubernetes.io/revision":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app.kubernetes.io/instance":{},"f:app.kubernetes.io/name":{},"f:pod-template-hash":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"5e1f7d45-a472-41ca-a9f7-6974b145ba6a\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:replicas":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:app.kubernetes.io/instance":{},"f:app.kubernetes.io/name":{},"f:pod-template-hash":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"kube-state-metrics\"}":{".":{},"f:args":{},"f:image":{},"f:imagePullPolicy":{},"f:livenessProbe":{".":{},"f:failureThreshold":{},"f:httpGet":{".":{},"f:path":{},"f:port":{},"f:scheme":{}},"f:initialDelaySeconds":{},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":8080,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:protocol":{}}},"f:readinessProbe":{".":{},"f:failureThreshold":{},"f:httpGet":{".":{},"f:path":{},"f:port":{},"f:scheme":{}},"f:initialDelaySeconds":{},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{}}},"f:dnsPolicy":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{".":{},"f:fsGroup":{},"f:runAsGroup":{},"f:runAsUser":{}},"f:serviceAccount":{},"f:serviceAccountName":{},"f:terminationGracePeriodSeconds":{}}}},"f:status":{"f:availableReplicas":{},"f:fullyLabeledReplicas":{},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{}}}
-          }
-        ]
+        "name": "nc-promscale-maintenance-1614060000-qqhq7",
+        "uid": "4d445e89-d8af-4012-920b-e15d10dbb1e4",
+        "apiVersion": "v1",
+        "resourceVersion": "3993416",
+        "fieldPath": "spec.containers{promscale-maintenance}"
       },
-      "spec": {
-        "replicas": 1,
-        "selector": {
-          "matchLabels": {
-            "app.kubernetes.io/name": "kube-state-metrics",
-            "pod-template-hash": "6bc76fb476"
-          }
-        },
-        "template": {
-          "metadata": {
-            "creationTimestamp": null,
-            "labels": {
-              "app.kubernetes.io/instance": "nc",
-              "app.kubernetes.io/name": "kube-state-metrics",
-              "pod-template-hash": "6bc76fb476"
-            }
-          },
-          "spec": {
-            "containers": [
-              {
-                "name": "kube-state-metrics",
-                "image": "quay.io/coreos/kube-state-metrics:v1.9.7",
-                "args": [
-                  "--collectors=certificatesigningrequests",
-                  "--collectors=configmaps",
-                  "--collectors=cronjobs",
-                  "--collectors=daemonsets",
-                  "--collectors=deployments",
-                  "--collectors=endpoints",
-                  "--collectors=horizontalpodautoscalers",
-                  "--collectors=ingresses",
-                  "--collectors=jobs",
-                  "--collectors=limitranges",
-                  "--collectors=mutatingwebhookconfigurations",
-                  "--collectors=namespaces",
-                  "--collectors=networkpolicies",
-                  "--collectors=nodes",
-                  "--collectors=persistentvolumeclaims",
-                  "--collectors=persistentvolumes",
-                  "--collectors=poddisruptionbudgets",
-                  "--collectors=pods",
-                  "--collectors=replicasets",
-                  "--collectors=replicationcontrollers",
-                  "--collectors=resourcequotas",
-                  "--collectors=secrets",
-                  "--collectors=services",
-                  "--collectors=statefulsets",
-                  "--collectors=storageclasses",
-                  "--collectors=validatingwebhookconfigurations",
-                  "--collectors=volumeattachments"
-                ],
-                "ports": [
-                  {
-                    "containerPort": 8080,
-                    "protocol": "TCP"
-                  }
-                ],
-                "resources": {
-
-                },
-                "livenessProbe": {
-                  "httpGet": {
-                    "path": "/healthz",
-                    "port": 8080,
-                    "scheme": "HTTP"
-                  },
-                  "initialDelaySeconds": 5,
-                  "timeoutSeconds": 5,
-                  "periodSeconds": 10,
-                  "successThreshold": 1,
-                  "failureThreshold": 3
-                },
-                "readinessProbe": {
-                  "httpGet": {
-                    "path": "/",
-                    "port": 8080,
-                    "scheme": "HTTP"
-                  },
-                  "initialDelaySeconds": 5,
-                  "timeoutSeconds": 5,
-                  "periodSeconds": 10,
-                  "successThreshold": 1,
-                  "failureThreshold": 3
-                },
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "IfNotPresent"
-              }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "ClusterFirst",
-            "serviceAccountName": "nc-kube-state-metrics",
-            "serviceAccount": "nc-kube-state-metrics",
-            "securityContext": {
-              "runAsUser": 65534,
-              "runAsGroup": 65534,
-              "fsGroup": 65534
-            },
-            "schedulerName": "default-scheduler"
-          }
-        }
+      "reason": "Pulled",
+      "message": "Container image \"postgres:12-alpine\" already present on machine",
+      "source": {
+        "component": "kubelet",
+        "host": "node3"
       },
-      "status": {
-        "replicas": 1,
-        "fullyLabeledReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "observedGeneration": 1
-      }
+      "firstTimestamp": "2021-02-23T06:00:10Z",
+      "lastTimestamp": "2021-02-23T06:00:10Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
     },
     {
       "metadata": {
-        "name": "nc-prometheus-alertmanager-5b87d87d6c",
+        "name": "nc-promscale-maintenance-1614060000-qqhq7.16664b0729d3d0aa",
         "namespace": "nexclipper",
-        "uid": "2119be4c-a802-46e0-a357-aab3cdc84656",
-        "resourceVersion": "6110",
-        "generation": 1,
-        "creationTimestamp": "2021-01-28T07:28:27Z",
-        "labels": {
-          "app": "prometheus",
-          "chart": "prometheus-11.16.7",
-          "component": "alertmanager",
-          "heritage": "Helm",
-          "pod-template-hash": "5b87d87d6c",
-          "release": "nc"
-        },
-        "annotations": {
-          "deployment.kubernetes.io/desired-replicas": "1",
-          "deployment.kubernetes.io/max-replicas": "2",
-          "deployment.kubernetes.io/revision": "1",
-          "meta.helm.sh/release-name": "nc",
-          "meta.helm.sh/release-namespace": "nexclipper"
-        },
-        "ownerReferences": [
-          {
-            "apiVersion": "apps/v1",
-            "kind": "Deployment",
-            "name": "nc-prometheus-alertmanager",
-            "uid": "f9b88e56-f9cd-4095-b529-bef454de978c",
-            "controller": true,
-            "blockOwnerDeletion": true
-          }
-        ],
+        "uid": "38fd1bd4-2b09-4284-b94b-15f9e4742822",
+        "resourceVersion": "3993423",
+        "creationTimestamp": "2021-02-23T06:00:10Z",
         "managedFields": [
           {
-            "manager": "kube-controller-manager",
+            "manager": "kubelet",
             "operation": "Update",
-            "apiVersion": "apps/v1",
-            "time": "2021-01-28T07:29:09Z",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:00:10Z",
             "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/desired-replicas":{},"f:deployment.kubernetes.io/max-replicas":{},"f:deployment.kubernetes.io/revision":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:chart":{},"f:component":{},"f:heritage":{},"f:pod-template-hash":{},"f:release":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"f9b88e56-f9cd-4095-b529-bef454de978c\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:replicas":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:app":{},"f:chart":{},"f:component":{},"f:heritage":{},"f:pod-template-hash":{},"f:release":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"prometheus-alertmanager\"}":{".":{},"f:args":{},"f:env":{".":{},"k:{\"name\":\"POD_IP\"}":{".":{},"f:name":{},"f:valueFrom":{".":{},"f:fieldRef":{".":{},"f:apiVersion":{},"f:fieldPath":{}}}}},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":9093,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:protocol":{}}},"f:readinessProbe":{".":{},"f:failureThreshold":{},"f:httpGet":{".":{},"f:path":{},"f:port":{},"f:scheme":{}},"f:initialDelaySeconds":{},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/data\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/etc/config\"}":{".":{},"f:mountPath":{},"f:name":{}}}},"k:{\"name\":\"prometheus-alertmanager-configmap-reload\"}":{".":{},"f:args":{},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/etc/config\"}":{".":{},"f:mountPath":{},"f:name":{},"f:readOnly":{}}}}},"f:dnsPolicy":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{".":{},"f:fsGroup":{},"f:runAsGroup":{},"f:runAsNonRoot":{},"f:runAsUser":{}},"f:serviceAccount":{},"f:serviceAccountName":{},"f:terminationGracePeriodSeconds":{},"f:volumes":{".":{},"k:{\"name\":\"config-volume\"}":{".":{},"f:configMap":{".":{},"f:defaultMode":{},"f:name":{}},"f:name":{}},"k:{\"name\":\"storage-volume\"}":{".":{},"f:name":{},"f:persistentVolumeClaim":{".":{},"f:claimName":{}}}}}}},"f:status":{"f:availableReplicas":{},"f:fullyLabeledReplicas":{},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{}}}
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
           }
         ]
       },
-      "spec": {
-        "replicas": 1,
-        "selector": {
-          "matchLabels": {
-            "app": "prometheus",
-            "component": "alertmanager",
-            "pod-template-hash": "5b87d87d6c",
-            "release": "nc"
-          }
-        },
-        "template": {
-          "metadata": {
-            "creationTimestamp": null,
-            "labels": {
-              "app": "prometheus",
-              "chart": "prometheus-11.16.7",
-              "component": "alertmanager",
-              "heritage": "Helm",
-              "pod-template-hash": "5b87d87d6c",
-              "release": "nc"
-            }
-          },
-          "spec": {
-            "volumes": [
-              {
-                "name": "config-volume",
-                "configMap": {
-                  "name": "nc-prometheus-alertmanager",
-                  "defaultMode": 420
-                }
-              },
-              {
-                "name": "storage-volume",
-                "persistentVolumeClaim": {
-                  "claimName": "nc-prometheus-alertmanager"
-                }
-              }
-            ],
-            "containers": [
-              {
-                "name": "prometheus-alertmanager",
-                "image": "prom/alertmanager:v0.21.0",
-                "args": [
-                  "--config.file=/etc/config/alertmanager.yml",
-                  "--storage.path=/data",
-                  "--cluster.advertise-address=$(POD_IP):6783",
-                  "--web.external-url=http://localhost:9093"
-                ],
-                "ports": [
-                  {
-                    "containerPort": 9093,
-                    "protocol": "TCP"
-                  }
-                ],
-                "env": [
-                  {
-                    "name": "POD_IP",
-                    "valueFrom": {
-                      "fieldRef": {
-                        "apiVersion": "v1",
-                        "fieldPath": "status.podIP"
-                      }
-                    }
-                  }
-                ],
-                "resources": {
-
-                },
-                "volumeMounts": [
-                  {
-                    "name": "config-volume",
-                    "mountPath": "/etc/config"
-                  },
-                  {
-                    "name": "storage-volume",
-                    "mountPath": "/data"
-                  }
-                ],
-                "readinessProbe": {
-                  "httpGet": {
-                    "path": "/-/ready",
-                    "port": 9093,
-                    "scheme": "HTTP"
-                  },
-                  "initialDelaySeconds": 30,
-                  "timeoutSeconds": 30,
-                  "periodSeconds": 10,
-                  "successThreshold": 1,
-                  "failureThreshold": 3
-                },
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "IfNotPresent"
-              },
-              {
-                "name": "prometheus-alertmanager-configmap-reload",
-                "image": "jimmidyson/configmap-reload:v0.4.0",
-                "args": [
-                  "--volume-dir=/etc/config",
-                  "--webhook-url=http://127.0.0.1:9093/-/reload"
-                ],
-                "resources": {
-
-                },
-                "volumeMounts": [
-                  {
-                    "name": "config-volume",
-                    "readOnly": true,
-                    "mountPath": "/etc/config"
-                  }
-                ],
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "IfNotPresent"
-              }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "ClusterFirst",
-            "serviceAccountName": "nc-prometheus-alertmanager",
-            "serviceAccount": "nc-prometheus-alertmanager",
-            "securityContext": {
-              "runAsUser": 65534,
-              "runAsGroup": 65534,
-              "runAsNonRoot": true,
-              "fsGroup": 65534
-            },
-            "schedulerName": "default-scheduler"
-          }
-        }
-      },
-      "status": {
-        "replicas": 1,
-        "fullyLabeledReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "observedGeneration": 1
-      }
-    },
-    {
-      "metadata": {
-        "name": "nc-prometheus-pushgateway-66d754bdfc",
+      "involvedObject": {
+        "kind": "Pod",
         "namespace": "nexclipper",
-        "uid": "000d7df3-80e0-4b67-a4ef-ef752f66ec3d",
-        "resourceVersion": "6069",
-        "generation": 1,
-        "creationTimestamp": "2021-01-28T07:28:27Z",
-        "labels": {
-          "app": "prometheus",
-          "chart": "prometheus-11.16.7",
-          "component": "pushgateway",
-          "heritage": "Helm",
-          "pod-template-hash": "66d754bdfc",
-          "release": "nc"
-        },
-        "annotations": {
-          "deployment.kubernetes.io/desired-replicas": "1",
-          "deployment.kubernetes.io/max-replicas": "2",
-          "deployment.kubernetes.io/revision": "1",
-          "meta.helm.sh/release-name": "nc",
-          "meta.helm.sh/release-namespace": "nexclipper"
-        },
-        "ownerReferences": [
-          {
-            "apiVersion": "apps/v1",
-            "kind": "Deployment",
-            "name": "nc-prometheus-pushgateway",
-            "uid": "c2a3411f-0661-4593-96a4-9f5ad19c7fee",
-            "controller": true,
-            "blockOwnerDeletion": true
-          }
-        ],
-        "managedFields": [
-          {
-            "manager": "kube-controller-manager",
-            "operation": "Update",
-            "apiVersion": "apps/v1",
-            "time": "2021-01-28T07:28:52Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/desired-replicas":{},"f:deployment.kubernetes.io/max-replicas":{},"f:deployment.kubernetes.io/revision":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:chart":{},"f:component":{},"f:heritage":{},"f:pod-template-hash":{},"f:release":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"c2a3411f-0661-4593-96a4-9f5ad19c7fee\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:replicas":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:app":{},"f:chart":{},"f:component":{},"f:heritage":{},"f:pod-template-hash":{},"f:release":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"prometheus-pushgateway\"}":{".":{},"f:image":{},"f:imagePullPolicy":{},"f:livenessProbe":{".":{},"f:failureThreshold":{},"f:httpGet":{".":{},"f:path":{},"f:port":{},"f:scheme":{}},"f:initialDelaySeconds":{},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":9091,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:protocol":{}}},"f:readinessProbe":{".":{},"f:failureThreshold":{},"f:httpGet":{".":{},"f:path":{},"f:port":{},"f:scheme":{}},"f:initialDelaySeconds":{},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{}}},"f:dnsPolicy":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{".":{},"f:runAsNonRoot":{},"f:runAsUser":{}},"f:serviceAccount":{},"f:serviceAccountName":{},"f:terminationGracePeriodSeconds":{}}}},"f:status":{"f:availableReplicas":{},"f:fullyLabeledReplicas":{},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{}}}
-          }
-        ]
+        "name": "nc-promscale-maintenance-1614060000-qqhq7",
+        "uid": "4d445e89-d8af-4012-920b-e15d10dbb1e4",
+        "apiVersion": "v1",
+        "resourceVersion": "3993416",
+        "fieldPath": "spec.containers{promscale-maintenance}"
       },
-      "spec": {
-        "replicas": 1,
-        "selector": {
-          "matchLabels": {
-            "app": "prometheus",
-            "component": "pushgateway",
-            "pod-template-hash": "66d754bdfc",
-            "release": "nc"
-          }
-        },
-        "template": {
-          "metadata": {
-            "creationTimestamp": null,
-            "labels": {
-              "app": "prometheus",
-              "chart": "prometheus-11.16.7",
-              "component": "pushgateway",
-              "heritage": "Helm",
-              "pod-template-hash": "66d754bdfc",
-              "release": "nc"
-            }
-          },
-          "spec": {
-            "containers": [
-              {
-                "name": "prometheus-pushgateway",
-                "image": "prom/pushgateway:v1.2.0",
-                "ports": [
-                  {
-                    "containerPort": 9091,
-                    "protocol": "TCP"
-                  }
-                ],
-                "resources": {
-
-                },
-                "livenessProbe": {
-                  "httpGet": {
-                    "path": "/-/healthy",
-                    "port": 9091,
-                    "scheme": "HTTP"
-                  },
-                  "initialDelaySeconds": 10,
-                  "timeoutSeconds": 10,
-                  "periodSeconds": 10,
-                  "successThreshold": 1,
-                  "failureThreshold": 3
-                },
-                "readinessProbe": {
-                  "httpGet": {
-                    "path": "/-/ready",
-                    "port": 9091,
-                    "scheme": "HTTP"
-                  },
-                  "initialDelaySeconds": 10,
-                  "timeoutSeconds": 10,
-                  "periodSeconds": 10,
-                  "successThreshold": 1,
-                  "failureThreshold": 3
-                },
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "IfNotPresent"
-              }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "ClusterFirst",
-            "serviceAccountName": "nc-prometheus-pushgateway",
-            "serviceAccount": "nc-prometheus-pushgateway",
-            "securityContext": {
-              "runAsUser": 65534,
-              "runAsNonRoot": true
-            },
-            "schedulerName": "default-scheduler"
-          }
-        }
+      "reason": "Created",
+      "message": "Created container promscale-maintenance",
+      "source": {
+        "component": "kubelet",
+        "host": "node3"
       },
-      "status": {
-        "replicas": 1,
-        "fullyLabeledReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "observedGeneration": 1
-      }
+      "firstTimestamp": "2021-02-23T06:00:10Z",
+      "lastTimestamp": "2021-02-23T06:00:10Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
     },
     {
       "metadata": {
-        "name": "nc-prometheus-server-58488d8457",
+        "name": "nc-promscale-maintenance-1614060000-qqhq7.16664b07372f6e46",
         "namespace": "nexclipper",
-        "uid": "f3541059-311f-47cd-95ab-7c029da2da8a",
-        "resourceVersion": "6152",
-        "generation": 1,
-        "creationTimestamp": "2021-01-28T07:28:27Z",
-        "labels": {
-          "app": "prometheus",
-          "chart": "prometheus-11.16.7",
-          "component": "server",
-          "heritage": "Helm",
-          "pod-template-hash": "58488d8457",
-          "release": "nc"
-        },
-        "annotations": {
-          "deployment.kubernetes.io/desired-replicas": "1",
-          "deployment.kubernetes.io/max-replicas": "2",
-          "deployment.kubernetes.io/revision": "1",
-          "meta.helm.sh/release-name": "nc",
-          "meta.helm.sh/release-namespace": "nexclipper"
-        },
-        "ownerReferences": [
-          {
-            "apiVersion": "apps/v1",
-            "kind": "Deployment",
-            "name": "nc-prometheus-server",
-            "uid": "4cd26e6b-4744-4421-a199-cf17c6b38fdf",
-            "controller": true,
-            "blockOwnerDeletion": true
-          }
-        ],
+        "uid": "cceaca4b-2b1a-4173-9947-328012eae534",
+        "resourceVersion": "3993424",
+        "creationTimestamp": "2021-02-23T06:00:10Z",
         "managedFields": [
           {
-            "manager": "kube-controller-manager",
+            "manager": "kubelet",
             "operation": "Update",
-            "apiVersion": "apps/v1",
-            "time": "2021-01-28T07:29:25Z",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:00:10Z",
             "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/desired-replicas":{},"f:deployment.kubernetes.io/max-replicas":{},"f:deployment.kubernetes.io/revision":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:chart":{},"f:component":{},"f:heritage":{},"f:pod-template-hash":{},"f:release":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"4cd26e6b-4744-4421-a199-cf17c6b38fdf\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:replicas":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:app":{},"f:chart":{},"f:component":{},"f:heritage":{},"f:pod-template-hash":{},"f:release":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"prometheus-server\"}":{".":{},"f:args":{},"f:image":{},"f:imagePullPolicy":{},"f:livenessProbe":{".":{},"f:failureThreshold":{},"f:httpGet":{".":{},"f:path":{},"f:port":{},"f:scheme":{}},"f:initialDelaySeconds":{},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":9090,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:protocol":{}}},"f:readinessProbe":{".":{},"f:failureThreshold":{},"f:httpGet":{".":{},"f:path":{},"f:port":{},"f:scheme":{}},"f:initialDelaySeconds":{},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/data\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/etc/config\"}":{".":{},"f:mountPath":{},"f:name":{}}}},"k:{\"name\":\"prometheus-server-configmap-reload\"}":{".":{},"f:args":{},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/etc/config\"}":{".":{},"f:mountPath":{},"f:name":{},"f:readOnly":{}}}}},"f:dnsPolicy":{},"f:nodeSelector":{".":{},"f:key":{}},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{".":{},"f:fsGroup":{},"f:runAsGroup":{},"f:runAsNonRoot":{},"f:runAsUser":{}},"f:serviceAccount":{},"f:serviceAccountName":{},"f:terminationGracePeriodSeconds":{},"f:volumes":{".":{},"k:{\"name\":\"config-volume\"}":{".":{},"f:configMap":{".":{},"f:defaultMode":{},"f:name":{}},"f:name":{}},"k:{\"name\":\"storage-volume\"}":{".":{},"f:name":{},"f:persistentVolumeClaim":{".":{},"f:claimName":{}}}}}}},"f:status":{"f:availableReplicas":{},"f:fullyLabeledReplicas":{},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{}}}
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
           }
         ]
       },
-      "spec": {
-        "replicas": 1,
-        "selector": {
-          "matchLabels": {
-            "app": "prometheus",
-            "component": "server",
-            "pod-template-hash": "58488d8457",
-            "release": "nc"
-          }
-        },
-        "template": {
-          "metadata": {
-            "creationTimestamp": null,
-            "labels": {
-              "app": "prometheus",
-              "chart": "prometheus-11.16.7",
-              "component": "server",
-              "heritage": "Helm",
-              "pod-template-hash": "58488d8457",
-              "release": "nc"
-            }
-          },
-          "spec": {
-            "volumes": [
-              {
-                "name": "config-volume",
-                "configMap": {
-                  "name": "nc-prometheus-config",
-                  "defaultMode": 420
-                }
-              },
-              {
-                "name": "storage-volume",
-                "persistentVolumeClaim": {
-                  "claimName": "nc-prometheus-server"
-                }
-              }
-            ],
-            "containers": [
-              {
-                "name": "prometheus-server-configmap-reload",
-                "image": "jimmidyson/configmap-reload:v0.4.0",
-                "args": [
-                  "--volume-dir=/etc/config",
-                  "--webhook-url=http://127.0.0.1:9090/-/reload"
-                ],
-                "resources": {
-
-                },
-                "volumeMounts": [
-                  {
-                    "name": "config-volume",
-                    "readOnly": true,
-                    "mountPath": "/etc/config"
-                  }
-                ],
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "IfNotPresent"
-              },
-              {
-                "name": "prometheus-server",
-                "image": "prom/prometheus:v2.21.0",
-                "args": [
-                  "--storage.tsdb.retention.time=15d",
-                  "--config.file=/etc/config/prometheus.yml",
-                  "--storage.tsdb.path=/data",
-                  "--web.console.libraries=/etc/prometheus/console_libraries",
-                  "--web.console.templates=/etc/prometheus/consoles",
-                  "--web.enable-lifecycle"
-                ],
-                "ports": [
-                  {
-                    "containerPort": 9090,
-                    "protocol": "TCP"
-                  }
-                ],
-                "resources": {
-
-                },
-                "volumeMounts": [
-                  {
-                    "name": "config-volume",
-                    "mountPath": "/etc/config"
-                  },
-                  {
-                    "name": "storage-volume",
-                    "mountPath": "/data"
-                  }
-                ],
-                "livenessProbe": {
-                  "httpGet": {
-                    "path": "/-/healthy",
-                    "port": 9090,
-                    "scheme": "HTTP"
-                  },
-                  "initialDelaySeconds": 30,
-                  "timeoutSeconds": 30,
-                  "periodSeconds": 15,
-                  "successThreshold": 1,
-                  "failureThreshold": 3
-                },
-                "readinessProbe": {
-                  "httpGet": {
-                    "path": "/-/ready",
-                    "port": 9090,
-                    "scheme": "HTTP"
-                  },
-                  "initialDelaySeconds": 30,
-                  "timeoutSeconds": 30,
-                  "periodSeconds": 5,
-                  "successThreshold": 1,
-                  "failureThreshold": 3
-                },
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "IfNotPresent"
-              }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 300,
-            "dnsPolicy": "ClusterFirst",
-            "nodeSelector": {
-              "key": "node2"
-            },
-            "serviceAccountName": "nc-prometheus-server",
-            "serviceAccount": "nc-prometheus-server",
-            "securityContext": {
-              "runAsUser": 65534,
-              "runAsGroup": 65534,
-              "runAsNonRoot": true,
-              "fsGroup": 65534
-            },
-            "schedulerName": "default-scheduler"
-          }
-        }
-      },
-      "status": {
-        "replicas": 1,
-        "fullyLabeledReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "observedGeneration": 1
-      }
-    },
-    {
-      "metadata": {
-        "name": "nc-promlens-67cb496b76",
+      "involvedObject": {
+        "kind": "Pod",
         "namespace": "nexclipper",
-        "uid": "8e5843f7-b2a0-4897-bec6-c8a7069a95c9",
-        "resourceVersion": "5964",
-        "generation": 1,
-        "creationTimestamp": "2021-01-28T07:28:27Z",
-        "labels": {
-          "app": "nc-tobs",
-          "component": "promlens",
-          "pod-template-hash": "67cb496b76"
-        },
-        "annotations": {
-          "deployment.kubernetes.io/desired-replicas": "1",
-          "deployment.kubernetes.io/max-replicas": "2",
-          "deployment.kubernetes.io/revision": "1",
-          "meta.helm.sh/release-name": "nc",
-          "meta.helm.sh/release-namespace": "nexclipper"
-        },
-        "ownerReferences": [
-          {
-            "apiVersion": "apps/v1",
-            "kind": "Deployment",
-            "name": "nc-promlens",
-            "uid": "19fef06f-f9a7-4b7f-8309-4cff44e3c088",
-            "controller": true,
-            "blockOwnerDeletion": true
-          }
-        ],
-        "managedFields": [
-          {
-            "manager": "kube-controller-manager",
-            "operation": "Update",
-            "apiVersion": "apps/v1",
-            "time": "2021-01-28T07:28:31Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/desired-replicas":{},"f:deployment.kubernetes.io/max-replicas":{},"f:deployment.kubernetes.io/revision":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:component":{},"f:pod-template-hash":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"19fef06f-f9a7-4b7f-8309-4cff44e3c088\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:replicas":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:app":{},"f:component":{},"f:pod-template-hash":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"promlens\"}":{".":{},"f:command":{},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":8080,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}}},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{}}},"f:dnsPolicy":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:terminationGracePeriodSeconds":{}}}},"f:status":{"f:availableReplicas":{},"f:fullyLabeledReplicas":{},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{}}}
-          }
-        ]
+        "name": "nc-promscale-maintenance-1614060000-qqhq7",
+        "uid": "4d445e89-d8af-4012-920b-e15d10dbb1e4",
+        "apiVersion": "v1",
+        "resourceVersion": "3993416",
+        "fieldPath": "spec.containers{promscale-maintenance}"
       },
-      "spec": {
-        "replicas": 1,
-        "selector": {
-          "matchLabels": {
-            "app": "nc-tobs",
-            "component": "promlens",
-            "pod-template-hash": "67cb496b76"
-          }
-        },
-        "template": {
-          "metadata": {
-            "creationTimestamp": null,
-            "labels": {
-              "app": "nc-tobs",
-              "component": "promlens",
-              "pod-template-hash": "67cb496b76"
-            }
-          },
-          "spec": {
-            "containers": [
-              {
-                "name": "promlens",
-                "image": "promlabs/promlens:latest",
-                "command": [
-                  "/promlens",
-                  "--web.default-prometheus-url",
-                  "http://localhost:9201",
-                  "--web.listen-address",
-                  ":8080"
-                ],
-                "ports": [
-                  {
-                    "name": "promlens-web",
-                    "containerPort": 8080,
-                    "protocol": "TCP"
-                  }
-                ],
-                "resources": {
-
-                },
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "IfNotPresent"
-              }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "ClusterFirst",
-            "securityContext": {
-
-            },
-            "schedulerName": "default-scheduler"
-          }
-        }
+      "reason": "Started",
+      "message": "Started container promscale-maintenance",
+      "source": {
+        "component": "kubelet",
+        "host": "node3"
       },
-      "status": {
-        "replicas": 1,
-        "fullyLabeledReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "observedGeneration": 1
-      }
+      "firstTimestamp": "2021-02-23T06:00:10Z",
+      "lastTimestamp": "2021-02-23T06:00:10Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
     },
     {
       "metadata": {
-        "name": "nc-promscale-8d878d6f6",
+        "name": "nc-promscale-maintenance-1614060000.16664b06c2ace00a",
         "namespace": "nexclipper",
-        "uid": "59a1bc24-be27-4088-b16b-211685793902",
-        "resourceVersion": "2382099",
-        "generation": 1,
-        "creationTimestamp": "2021-01-28T07:28:27Z",
-        "labels": {
-          "app": "nc-promscale",
-          "pod-template-hash": "8d878d6f6"
-        },
-        "annotations": {
-          "deployment.kubernetes.io/desired-replicas": "1",
-          "deployment.kubernetes.io/max-replicas": "2",
-          "deployment.kubernetes.io/revision": "1",
-          "meta.helm.sh/release-name": "nc",
-          "meta.helm.sh/release-namespace": "nexclipper"
-        },
-        "ownerReferences": [
-          {
-            "apiVersion": "apps/v1",
-            "kind": "Deployment",
-            "name": "nc-promscale",
-            "uid": "da9bcf5c-e872-4050-8e5b-5942d99a3279",
-            "controller": true,
-            "blockOwnerDeletion": true
-          }
-        ],
+        "uid": "5c7af2a7-68f8-4239-89f8-fcb168b3dcc9",
+        "resourceVersion": "3993415",
+        "creationTimestamp": "2021-02-23T06:00:08Z",
         "managedFields": [
           {
             "manager": "kube-controller-manager",
             "operation": "Update",
-            "apiVersion": "apps/v1",
-            "time": "2021-02-12T18:21:50Z",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:00:08Z",
             "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/desired-replicas":{},"f:deployment.kubernetes.io/max-replicas":{},"f:deployment.kubernetes.io/revision":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"da9bcf5c-e872-4050-8e5b-5942d99a3279\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:replicas":{},"f:selector":{},"f:template":{"f:metadata":{"f:annotations":{".":{},"f:prometheus.io/path":{},"f:prometheus.io/port":{},"f:prometheus.io/scrape":{}},"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"promscale-connector\"}":{".":{},"f:env":{".":{},"k:{\"name\":\"PROMSCALE_DB_HOST\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"PROMSCALE_DB_NAME\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"PROMSCALE_DB_PASSWORD\"}":{".":{},"f:name":{},"f:valueFrom":{".":{},"f:secretKeyRef":{".":{},"f:key":{},"f:name":{}}}},"k:{\"name\":\"PROMSCALE_DB_PORT\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"PROMSCALE_DB_SSL_MODE\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"PROMSCALE_DB_USER\"}":{".":{},"f:name":{},"f:value":{}}},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":9201,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}}},"f:resources":{".":{},"f:requests":{".":{},"f:cpu":{},"f:memory":{}}},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{}}},"f:dnsPolicy":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:terminationGracePeriodSeconds":{}}}},"f:status":{"f:availableReplicas":{},"f:fullyLabeledReplicas":{},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{}}}
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
           }
         ]
       },
-      "spec": {
-        "replicas": 1,
-        "selector": {
-          "matchLabels": {
-            "app": "nc-promscale",
-            "pod-template-hash": "8d878d6f6"
-          }
-        },
-        "template": {
-          "metadata": {
-            "creationTimestamp": null,
-            "labels": {
-              "app": "nc-promscale",
-              "pod-template-hash": "8d878d6f6"
-            },
-            "annotations": {
-              "prometheus.io/path": "/metrics",
-              "prometheus.io/port": "9201",
-              "prometheus.io/scrape": "true"
-            }
-          },
-          "spec": {
-            "containers": [
-              {
-                "name": "promscale-connector",
-                "image": "timescale/promscale:0.1.4",
-                "ports": [
-                  {
-                    "name": "connector-port",
-                    "containerPort": 9201,
-                    "protocol": "TCP"
-                  }
-                ],
-                "env": [
-                  {
-                    "name": "PROMSCALE_DB_PORT",
-                    "value": "5432"
-                  },
-                  {
-                    "name": "PROMSCALE_DB_USER",
-                    "value": "postgres"
-                  },
-                  {
-                    "name": "PROMSCALE_DB_PASSWORD",
-                    "valueFrom": {
-                      "secretKeyRef": {
-                        "name": "nc-timescaledb-passwords",
-                        "key": "postgres"
-                      }
-                    }
-                  },
-                  {
-                    "name": "PROMSCALE_DB_HOST",
-                    "value": "nc.nexclipper.svc.cluster.local"
-                  },
-                  {
-                    "name": "PROMSCALE_DB_NAME",
-                    "value": "postgres"
-                  },
-                  {
-                    "name": "PROMSCALE_DB_SSL_MODE",
-                    "value": "require"
-                  }
-                ],
-                "resources": {
-                  "requests": {
-                    "cpu": "1",
-                    "memory": "2Gi"
-                  }
-                },
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "IfNotPresent"
-              }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "ClusterFirst",
-            "securityContext": {
-
-            },
-            "schedulerName": "default-scheduler"
-          }
-        }
+      "involvedObject": {
+        "kind": "Job",
+        "namespace": "nexclipper",
+        "name": "nc-promscale-maintenance-1614060000",
+        "uid": "66f325ba-177c-4c71-a5e2-7dc181275c4d",
+        "apiVersion": "batch/v1",
+        "resourceVersion": "3993411"
       },
-      "status": {
-        "replicas": 1,
-        "fullyLabeledReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "observedGeneration": 1
-      }
+      "reason": "SuccessfulCreate",
+      "message": "Created pod: nc-promscale-maintenance-1614060000-qqhq7",
+      "source": {
+        "component": "job-controller"
+      },
+      "firstTimestamp": "2021-02-23T06:00:08Z",
+      "lastTimestamp": "2021-02-23T06:00:08Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
     },
     {
       "metadata": {
+        "name": "nc-promscale-maintenance-1614060000.16664b078da5ebb5",
+        "namespace": "nexclipper",
+        "uid": "1f00bd07-9fff-42d8-9ce4-16e9528ec40e",
+        "resourceVersion": "3993429",
+        "creationTimestamp": "2021-02-23T06:00:12Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:00:12Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "Job",
+        "namespace": "nexclipper",
+        "name": "nc-promscale-maintenance-1614060000",
+        "uid": "66f325ba-177c-4c71-a5e2-7dc181275c4d",
+        "apiVersion": "batch/v1",
+        "resourceVersion": "3993418"
+      },
+      "reason": "Completed",
+      "message": "Job completed",
+      "source": {
+        "component": "job-controller"
+      },
+      "firstTimestamp": "2021-02-23T06:00:12Z",
+      "lastTimestamp": "2021-02-23T06:00:12Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nc-promscale-maintenance-1614061800-xzcrh.16664caa04393228",
+        "namespace": "nexclipper",
+        "uid": "9a180d39-01cf-4f15-9b4a-bd96f6c5eae0",
+        "resourceVersion": "3996678",
+        "creationTimestamp": "2021-02-23T06:30:09Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:30:09Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "Pod",
+        "namespace": "nexclipper",
+        "name": "nc-promscale-maintenance-1614061800-xzcrh",
+        "uid": "385978ab-d7ff-4e82-ba1d-484d5dd007ba",
+        "apiVersion": "v1",
+        "resourceVersion": "3996674"
+      },
+      "reason": "Scheduled",
+      "message": "Successfully assigned nexclipper/nc-promscale-maintenance-1614061800-xzcrh to node3",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "firstTimestamp": "2021-02-23T06:30:09Z",
+      "lastTimestamp": "2021-02-23T06:30:09Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nc-promscale-maintenance-1614061800-xzcrh.16664caa539f6162",
+        "namespace": "nexclipper",
+        "uid": "24caa7c0-2d50-4136-801b-74bf4b8e1859",
+        "resourceVersion": "3996680",
+        "creationTimestamp": "2021-02-23T06:30:10Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:30:10Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "Pod",
+        "namespace": "nexclipper",
+        "name": "nc-promscale-maintenance-1614061800-xzcrh",
+        "uid": "385978ab-d7ff-4e82-ba1d-484d5dd007ba",
+        "apiVersion": "v1",
+        "resourceVersion": "3996676",
+        "fieldPath": "spec.containers{promscale-maintenance}"
+      },
+      "reason": "Pulled",
+      "message": "Container image \"postgres:12-alpine\" already present on machine",
+      "source": {
+        "component": "kubelet",
+        "host": "node3"
+      },
+      "firstTimestamp": "2021-02-23T06:30:10Z",
+      "lastTimestamp": "2021-02-23T06:30:10Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nc-promscale-maintenance-1614061800-xzcrh.16664caa60fe08e5",
+        "namespace": "nexclipper",
+        "uid": "ac349552-4711-4d5e-bc7b-f05aaa4fa58b",
+        "resourceVersion": "3996683",
+        "creationTimestamp": "2021-02-23T06:30:11Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:30:11Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "Pod",
+        "namespace": "nexclipper",
+        "name": "nc-promscale-maintenance-1614061800-xzcrh",
+        "uid": "385978ab-d7ff-4e82-ba1d-484d5dd007ba",
+        "apiVersion": "v1",
+        "resourceVersion": "3996676",
+        "fieldPath": "spec.containers{promscale-maintenance}"
+      },
+      "reason": "Created",
+      "message": "Created container promscale-maintenance",
+      "source": {
+        "component": "kubelet",
+        "host": "node3"
+      },
+      "firstTimestamp": "2021-02-23T06:30:11Z",
+      "lastTimestamp": "2021-02-23T06:30:11Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nc-promscale-maintenance-1614061800-xzcrh.16664caa6f82ad23",
+        "namespace": "nexclipper",
+        "uid": "67234b7a-fac3-45c0-aa1b-32ccd6e383df",
+        "resourceVersion": "3996684",
+        "creationTimestamp": "2021-02-23T06:30:11Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:30:11Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "Pod",
+        "namespace": "nexclipper",
+        "name": "nc-promscale-maintenance-1614061800-xzcrh",
+        "uid": "385978ab-d7ff-4e82-ba1d-484d5dd007ba",
+        "apiVersion": "v1",
+        "resourceVersion": "3996676",
+        "fieldPath": "spec.containers{promscale-maintenance}"
+      },
+      "reason": "Started",
+      "message": "Started container promscale-maintenance",
+      "source": {
+        "component": "kubelet",
+        "host": "node3"
+      },
+      "firstTimestamp": "2021-02-23T06:30:11Z",
+      "lastTimestamp": "2021-02-23T06:30:11Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nc-promscale-maintenance-1614061800.16664caa022c4640",
+        "namespace": "nexclipper",
+        "uid": "6afe69e8-a7f4-4a42-a241-f27b7b580b47",
+        "resourceVersion": "3996675",
+        "creationTimestamp": "2021-02-23T06:30:09Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:30:09Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "Job",
+        "namespace": "nexclipper",
+        "name": "nc-promscale-maintenance-1614061800",
+        "uid": "ccfdde05-bf1a-446d-aaf6-99a5787ba354",
+        "apiVersion": "batch/v1",
+        "resourceVersion": "3996671"
+      },
+      "reason": "SuccessfulCreate",
+      "message": "Created pod: nc-promscale-maintenance-1614061800-xzcrh",
+      "source": {
+        "component": "job-controller"
+      },
+      "firstTimestamp": "2021-02-23T06:30:09Z",
+      "lastTimestamp": "2021-02-23T06:30:09Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nc-promscale-maintenance-1614061800.16664caac5b59917",
+        "namespace": "nexclipper",
+        "uid": "ead5e49d-4eb8-4912-b8a9-fcfe6bfef1bb",
+        "resourceVersion": "3996688",
+        "creationTimestamp": "2021-02-23T06:30:12Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:30:12Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "Job",
+        "namespace": "nexclipper",
+        "name": "nc-promscale-maintenance-1614061800",
+        "uid": "ccfdde05-bf1a-446d-aaf6-99a5787ba354",
+        "apiVersion": "batch/v1",
+        "resourceVersion": "3996677"
+      },
+      "reason": "Completed",
+      "message": "Job completed",
+      "source": {
+        "component": "job-controller"
+      },
+      "firstTimestamp": "2021-02-23T06:30:12Z",
+      "lastTimestamp": "2021-02-23T06:30:12Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nc-promscale-maintenance.16664b06c24aa581",
+        "namespace": "nexclipper",
+        "uid": "9418918a-069d-4be6-864e-89359ae695c6",
+        "resourceVersion": "3993412",
+        "creationTimestamp": "2021-02-23T06:00:08Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:00:08Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "CronJob",
+        "namespace": "nexclipper",
+        "name": "nc-promscale-maintenance",
+        "uid": "d1876ed7-6849-46bd-bb54-b0e859b51c1f",
+        "apiVersion": "batch/v1beta1",
+        "resourceVersion": "3990184"
+      },
+      "reason": "SuccessfulCreate",
+      "message": "Created job nc-promscale-maintenance-1614060000",
+      "source": {
+        "component": "cronjob-controller"
+      },
+      "firstTimestamp": "2021-02-23T06:00:08Z",
+      "lastTimestamp": "2021-02-23T06:00:08Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nc-promscale-maintenance.16664b09199a7f57",
+        "namespace": "nexclipper",
+        "uid": "1dcf0e89-54ca-4803-a668-746ffb67d52f",
+        "resourceVersion": "3993444",
+        "creationTimestamp": "2021-02-23T06:00:18Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:00:18Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "CronJob",
+        "namespace": "nexclipper",
+        "name": "nc-promscale-maintenance",
+        "uid": "d1876ed7-6849-46bd-bb54-b0e859b51c1f",
+        "apiVersion": "batch/v1beta1",
+        "resourceVersion": "3993414"
+      },
+      "reason": "SawCompletedJob",
+      "message": "Saw completed job: nc-promscale-maintenance-1614060000, status: Complete",
+      "source": {
+        "component": "cronjob-controller"
+      },
+      "firstTimestamp": "2021-02-23T06:00:18Z",
+      "lastTimestamp": "2021-02-23T06:00:18Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nc-promscale-maintenance.16664b091ab55d20",
+        "namespace": "nexclipper",
+        "uid": "476b958d-7f1b-495d-862c-d88bde85ce23",
+        "resourceVersion": "3993447",
+        "creationTimestamp": "2021-02-23T06:00:18Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:00:18Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "CronJob",
+        "namespace": "nexclipper",
+        "name": "nc-promscale-maintenance",
+        "uid": "d1876ed7-6849-46bd-bb54-b0e859b51c1f",
+        "apiVersion": "batch/v1beta1",
+        "resourceVersion": "3993445"
+      },
+      "reason": "SuccessfulDelete",
+      "message": "Deleted job nc-promscale-maintenance-1614054600",
+      "source": {
+        "component": "cronjob-controller"
+      },
+      "firstTimestamp": "2021-02-23T06:00:18Z",
+      "lastTimestamp": "2021-02-23T06:00:18Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nc-promscale-maintenance.16664ca9ffe286f4",
+        "namespace": "nexclipper",
+        "uid": "b86982c3-4162-407d-86ce-2c48b328ce8d",
+        "resourceVersion": "3996672",
+        "creationTimestamp": "2021-02-23T06:30:09Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:30:09Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "CronJob",
+        "namespace": "nexclipper",
+        "name": "nc-promscale-maintenance",
+        "uid": "d1876ed7-6849-46bd-bb54-b0e859b51c1f",
+        "apiVersion": "batch/v1beta1",
+        "resourceVersion": "3993445"
+      },
+      "reason": "SuccessfulCreate",
+      "message": "Created job nc-promscale-maintenance-1614061800",
+      "source": {
+        "component": "cronjob-controller"
+      },
+      "firstTimestamp": "2021-02-23T06:30:09Z",
+      "lastTimestamp": "2021-02-23T06:30:09Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nc-promscale-maintenance.16664cac56d8e27e",
+        "namespace": "nexclipper",
+        "uid": "dc4481e4-6a53-4591-9248-d9d56776cad6",
+        "resourceVersion": "3996705",
+        "creationTimestamp": "2021-02-23T06:30:19Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:30:19Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "CronJob",
+        "namespace": "nexclipper",
+        "name": "nc-promscale-maintenance",
+        "uid": "d1876ed7-6849-46bd-bb54-b0e859b51c1f",
+        "apiVersion": "batch/v1beta1",
+        "resourceVersion": "3996673"
+      },
+      "reason": "SawCompletedJob",
+      "message": "Saw completed job: nc-promscale-maintenance-1614061800, status: Complete",
+      "source": {
+        "component": "cronjob-controller"
+      },
+      "firstTimestamp": "2021-02-23T06:30:19Z",
+      "lastTimestamp": "2021-02-23T06:30:19Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nc-promscale-maintenance.16664cac5854bd14",
+        "namespace": "nexclipper",
+        "uid": "1ca60824-d5f0-478a-8341-d3a2b53ef983",
+        "resourceVersion": "3996708",
+        "creationTimestamp": "2021-02-23T06:30:19Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:30:19Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "CronJob",
+        "namespace": "nexclipper",
+        "name": "nc-promscale-maintenance",
+        "uid": "d1876ed7-6849-46bd-bb54-b0e859b51c1f",
+        "apiVersion": "batch/v1beta1",
+        "resourceVersion": "3996706"
+      },
+      "reason": "SuccessfulDelete",
+      "message": "Deleted job nc-promscale-maintenance-1614056400",
+      "source": {
+        "component": "cronjob-controller"
+      },
+      "firstTimestamp": "2021-02-23T06:30:19Z",
+      "lastTimestamp": "2021-02-23T06:30:19Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nc-timescaledb-0.16642929976886b8",
+        "namespace": "nexclipper",
+        "uid": "d61a8d92-cec0-4fe4-93bd-08d897a0d71e",
+        "resourceVersion": "3996229",
+        "creationTimestamp": "2021-02-23T06:26:05Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:26:05Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "Pod",
+        "namespace": "nexclipper",
+        "name": "nc-timescaledb-0",
+        "uid": "e6accf1b-65ca-4446-90c5-0e85f8f8f499",
+        "apiVersion": "v1",
+        "resourceVersion": "2432680",
+        "fieldPath": "spec.containers{timescaledb}"
+      },
+      "reason": "Unhealthy",
+      "message": "Readiness probe failed: ",
+      "source": {
+        "component": "kubelet",
+        "host": "node2"
+      },
+      "firstTimestamp": "2021-02-16T07:17:05Z",
+      "lastTimestamp": "2021-02-23T06:26:05Z",
+      "count": 12,
+      "type": "Warning",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nexclipper-api-68ff654847-vllxj.16664dae42bff6f2",
+        "namespace": "nexclipper",
+        "uid": "84c002b2-fe81-416d-8f45-e1cc82b82b9b",
+        "resourceVersion": "3998700",
+        "creationTimestamp": "2021-02-23T06:48:47Z",
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:48:47Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "Pod",
+        "namespace": "nexclipper",
+        "name": "nexclipper-api-68ff654847-vllxj",
+        "uid": "2458c73a-fb8e-4ac3-9154-429e051a350f",
+        "apiVersion": "v1",
+        "resourceVersion": "3998696"
+      },
+      "reason": "Scheduled",
+      "message": "Successfully assigned nexclipper/nexclipper-api-68ff654847-vllxj to node3",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "firstTimestamp": "2021-02-23T06:48:47Z",
+      "lastTimestamp": "2021-02-23T06:48:47Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nexclipper-api-68ff654847-vllxj.16664dae95149464",
+        "namespace": "nexclipper",
+        "uid": "4d1d2f9e-f3d2-4a0e-8167-86d2d01f8a31",
+        "resourceVersion": "3998707",
+        "creationTimestamp": "2021-02-23T06:48:48Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:48:48Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "Pod",
+        "namespace": "nexclipper",
+        "name": "nexclipper-api-68ff654847-vllxj",
+        "uid": "2458c73a-fb8e-4ac3-9154-429e051a350f",
+        "apiVersion": "v1",
+        "resourceVersion": "3998697",
+        "fieldPath": "spec.containers{nexserivce}"
+      },
+      "reason": "Pulling",
+      "message": "Pulling image \"nexclipper/metricark-api:main\"",
+      "source": {
+        "component": "kubelet",
+        "host": "node3"
+      },
+      "firstTimestamp": "2021-02-23T06:48:48Z",
+      "lastTimestamp": "2021-02-23T06:48:48Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nexclipper-api-68ff654847-vllxj.16664daf321df596",
+        "namespace": "nexclipper",
+        "uid": "e8586d8c-1b69-4cb4-a1ea-830999a6740c",
+        "resourceVersion": "3998710",
+        "creationTimestamp": "2021-02-23T06:48:51Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:48:51Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "Pod",
+        "namespace": "nexclipper",
+        "name": "nexclipper-api-68ff654847-vllxj",
+        "uid": "2458c73a-fb8e-4ac3-9154-429e051a350f",
+        "apiVersion": "v1",
+        "resourceVersion": "3998697",
+        "fieldPath": "spec.containers{nexserivce}"
+      },
+      "reason": "Pulled",
+      "message": "Successfully pulled image \"nexclipper/metricark-api:main\" in 2.634614657s",
+      "source": {
+        "component": "kubelet",
+        "host": "node3"
+      },
+      "firstTimestamp": "2021-02-23T06:48:51Z",
+      "lastTimestamp": "2021-02-23T06:48:51Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nexclipper-api-68ff654847-vllxj.16664daf415fd38e",
+        "namespace": "nexclipper",
+        "uid": "916cfb05-3ac4-4b9c-b12e-21387e0d0a87",
+        "resourceVersion": "3998711",
+        "creationTimestamp": "2021-02-23T06:48:51Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:48:51Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "Pod",
+        "namespace": "nexclipper",
+        "name": "nexclipper-api-68ff654847-vllxj",
+        "uid": "2458c73a-fb8e-4ac3-9154-429e051a350f",
+        "apiVersion": "v1",
+        "resourceVersion": "3998697",
+        "fieldPath": "spec.containers{nexserivce}"
+      },
+      "reason": "Created",
+      "message": "Created container nexserivce",
+      "source": {
+        "component": "kubelet",
+        "host": "node3"
+      },
+      "firstTimestamp": "2021-02-23T06:48:51Z",
+      "lastTimestamp": "2021-02-23T06:48:51Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nexclipper-api-68ff654847-vllxj.16664daf5bf38daf",
+        "namespace": "nexclipper",
+        "uid": "7228e638-87f4-4289-8646-e534a1596fe9",
+        "resourceVersion": "3998714",
+        "creationTimestamp": "2021-02-23T06:48:52Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:48:52Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "Pod",
+        "namespace": "nexclipper",
+        "name": "nexclipper-api-68ff654847-vllxj",
+        "uid": "2458c73a-fb8e-4ac3-9154-429e051a350f",
+        "apiVersion": "v1",
+        "resourceVersion": "3998697",
+        "fieldPath": "spec.containers{nexserivce}"
+      },
+      "reason": "Started",
+      "message": "Started container nexserivce",
+      "source": {
+        "component": "kubelet",
+        "host": "node3"
+      },
+      "firstTimestamp": "2021-02-23T06:48:52Z",
+      "lastTimestamp": "2021-02-23T06:48:52Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nexclipper-api-68ff654847.16664dae42034138",
+        "namespace": "nexclipper",
+        "uid": "2840639a-da6e-4ab2-acef-24c418fbf6ef",
+        "resourceVersion": "3998698",
+        "creationTimestamp": "2021-02-23T06:48:47Z",
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:48:47Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "ReplicaSet",
+        "namespace": "nexclipper",
         "name": "nexclipper-api-68ff654847",
-        "namespace": "nexclipper",
-        "uid": "6b4902cd-6c89-4bb3-a405-c71968ccb35e",
-        "resourceVersion": "3226557",
-        "generation": 1,
-        "creationTimestamp": "2021-02-18T08:10:03Z",
-        "labels": {
-          "app": "nexclipper-api",
-          "pod-template-hash": "68ff654847"
-        },
-        "annotations": {
-          "deployment.kubernetes.io/desired-replicas": "1",
-          "deployment.kubernetes.io/max-replicas": "2",
-          "deployment.kubernetes.io/revision": "1"
-        },
-        "ownerReferences": [
-          {
-            "apiVersion": "apps/v1",
-            "kind": "Deployment",
-            "name": "nexclipper-api",
-            "uid": "9724824d-89cd-44ce-bd9b-dd1b3b6bd6d3",
-            "controller": true,
-            "blockOwnerDeletion": true
-          }
-        ],
-        "managedFields": [
-          {
-            "manager": "kube-controller-manager",
-            "operation": "Update",
-            "apiVersion": "apps/v1",
-            "time": "2021-02-18T08:10:15Z",
-            "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/desired-replicas":{},"f:deployment.kubernetes.io/max-replicas":{},"f:deployment.kubernetes.io/revision":{}},"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"9724824d-89cd-44ce-bd9b-dd1b3b6bd6d3\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:replicas":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}},"f:name":{}},"f:spec":{"f:containers":{"k:{\"name\":\"nexserivce\"}":{".":{},"f:env":{".":{},"k:{\"name\":\"PROMETHEUS_ENDPOINT\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"REDIS_ENDPOINT\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"REDIS_PORT\"}":{".":{},"f:name":{},"f:value":{}}},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":9000,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}}},"f:resources":{".":{},"f:limits":{".":{},"f:memory":{}},"f:requests":{".":{},"f:memory":{}}},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{}}},"f:dnsPolicy":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:terminationGracePeriodSeconds":{}}}},"f:status":{"f:availableReplicas":{},"f:fullyLabeledReplicas":{},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{}}}
-          }
-        ]
+        "uid": "a846a283-efa9-4f31-ab34-ced8a54f06c8",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "3998692"
       },
-      "spec": {
-        "replicas": 1,
-        "selector": {
-          "matchLabels": {
-            "app": "nexclipper-api",
-            "pod-template-hash": "68ff654847"
-          }
-        },
-        "template": {
-          "metadata": {
-            "name": "nexclipper-api",
-            "creationTimestamp": null,
-            "labels": {
-              "app": "nexclipper-api",
-              "pod-template-hash": "68ff654847"
-            }
-          },
-          "spec": {
-            "containers": [
-              {
-                "name": "nexserivce",
-                "image": "nexclipper/metricark-api:main",
-                "ports": [
-                  {
-                    "name": "nexclipper-api",
-                    "containerPort": 9000,
-                    "protocol": "TCP"
-                  }
-                ],
-                "env": [
-                  {
-                    "name": "PROMETHEUS_ENDPOINT",
-                    "value": "http://nc-promscale-connector.nexclipper:9201"
-                  },
-                  {
-                    "name": "REDIS_ENDPOINT",
-                    "value": "192.168.3.21"
-                  },
-                  {
-                    "name": "REDIS_PORT",
-                    "value": "32507"
-                  }
-                ],
-                "resources": {
-                  "limits": {
-                    "memory": "1Gi"
-                  },
-                  "requests": {
-                    "memory": "512Mi"
-                  }
-                },
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "Always"
-              }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "ClusterFirst",
-            "securityContext": {
-
-            },
-            "schedulerName": "default-scheduler"
-          }
-        }
+      "reason": "SuccessfulCreate",
+      "message": "Created pod: nexclipper-api-68ff654847-vllxj",
+      "source": {
+        "component": "replicaset-controller"
       },
-      "status": {
-        "replicas": 1,
-        "fullyLabeledReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "observedGeneration": 1
-      }
+      "firstTimestamp": "2021-02-23T06:48:47Z",
+      "lastTimestamp": "2021-02-23T06:48:47Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
     },
     {
       "metadata": {
-        "name": "nexclipper-collector-6b696759d6",
+        "name": "nexclipper-api.16664dae3e994e02",
         "namespace": "nexclipper",
-        "uid": "297a7470-8e60-429a-a214-cd41f6fa8e75",
-        "resourceVersion": "3379312",
-        "generation": 1,
-        "creationTimestamp": "2021-01-28T07:10:40Z",
-        "labels": {
-          "app": "nexclipper-collector",
-          "pod-template-hash": "6b696759d6"
-        },
-        "annotations": {
-          "deployment.kubernetes.io/desired-replicas": "2",
-          "deployment.kubernetes.io/max-replicas": "3",
-          "deployment.kubernetes.io/revision": "1",
-          "meta.helm.sh/release-name": "nex",
-          "meta.helm.sh/release-namespace": "default"
-        },
-        "ownerReferences": [
-          {
-            "apiVersion": "apps/v1",
-            "kind": "Deployment",
-            "name": "nexclipper-collector",
-            "uid": "20e78947-46ec-4864-b7e8-18164f42e72f",
-            "controller": true,
-            "blockOwnerDeletion": true
-          }
-        ],
+        "uid": "7951b71d-e1c2-4cfa-92e2-0e4774894710",
+        "resourceVersion": "3998694",
+        "creationTimestamp": "2021-02-23T06:48:47Z",
         "managedFields": [
           {
             "manager": "kube-controller-manager",
             "operation": "Update",
-            "apiVersion": "apps/v1",
-            "time": "2021-02-19T07:38:22Z",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:48:47Z",
             "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/desired-replicas":{},"f:deployment.kubernetes.io/max-replicas":{},"f:deployment.kubernetes.io/revision":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"20e78947-46ec-4864-b7e8-18164f42e72f\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:replicas":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}},"f:name":{}},"f:spec":{"f:containers":{"k:{\"name\":\"nexclipper-collector\"}":{".":{},"f:env":{".":{},"k:{\"name\":\"BROKER\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"INFLUXDB_DATASOURCE\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"INFLUXDB_ENDPOINT\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"KAFKA_HOST\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"KAFKA_PORT\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"KAFKA_ZOOKEEPER\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"MYSQL_DBNAME\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"MYSQL_PASSWORD\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"MYSQL_URL\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"MYSQL_USERNAME\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"PUSHGATEWAY_ENDPOINT\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"RABBITMQ_HOST\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"RABBITMQ_PASSWORD\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"RABBITMQ_PORT\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"RABBITMQ_USER\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"REDIS_HOST\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"REDIS_PORT\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"TDB\"}":{".":{},"f:name":{},"f:value":{}}},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":9000,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}}},"f:resources":{".":{},"f:limits":{".":{},"f:memory":{}},"f:requests":{".":{},"f:memory":{}}},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{}}},"f:dnsPolicy":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:terminationGracePeriodSeconds":{}}}},"f:status":{"f:fullyLabeledReplicas":{},"f:observedGeneration":{},"f:replicas":{}}}
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{}},"f:type":{}}
           }
         ]
       },
-      "spec": {
-        "replicas": 2,
-        "selector": {
-          "matchLabels": {
-            "app": "nexclipper-collector",
-            "pod-template-hash": "6b696759d6"
-          }
-        },
-        "template": {
-          "metadata": {
-            "name": "nexclipper-collector",
-            "creationTimestamp": null,
-            "labels": {
-              "app": "nexclipper-collector",
-              "pod-template-hash": "6b696759d6"
-            }
-          },
-          "spec": {
-            "containers": [
-              {
-                "name": "nexclipper-collector",
-                "image": "nexclipper/nexcollector:0.1.0",
-                "ports": [
-                  {
-                    "name": "collector",
-                    "containerPort": 9000,
-                    "protocol": "TCP"
-                  }
-                ],
-                "env": [
-                  {
-                    "name": "KAFKA_ZOOKEEPER",
-                    "value": "zk-svc.default:2181"
-                  },
-                  {
-                    "name": "KAFKA_PORT",
-                    "value": "9093"
-                  },
-                  {
-                    "name": "KAFKA_HOST",
-                    "value": "kafka-svc.default"
-                  },
-                  {
-                    "name": "MYSQL_DBNAME",
-                    "value": "defaultdb"
-                  },
-                  {
-                    "name": "MYSQL_URL",
-                    "value": "mysql.nexclipper:3306"
-                  },
-                  {
-                    "name": "MYSQL_PASSWORD",
-                    "value": "password"
-                  },
-                  {
-                    "name": "MYSQL_USERNAME",
-                    "value": "admin"
-                  },
-                  {
-                    "name": "REDIS_HOST",
-                    "value": "redis.nexclipper"
-                  },
-                  {
-                    "name": "REDIS_PORT",
-                    "value": "6379"
-                  },
-                  {
-                    "name": "INFLUXDB_ENDPOINT",
-                    "value": "http://influx.nexclipper:8087"
-                  },
-                  {
-                    "name": "INFLUXDB_DATASOURCE",
-                    "value": "nexclipper"
-                  },
-                  {
-                    "name": "TDB",
-                    "value": "INFLUX"
-                  },
-                  {
-                    "name": "PUSHGATEWAY_ENDPOINT",
-                    "value": "prometheus-h-pushgateway.prometheus:9091"
-                  },
-                  {
-                    "name": "BROKER",
-                    "value": "rabbitmq"
-                  },
-                  {
-                    "name": "RABBITMQ_HOST",
-                    "value": "rabbitmq.nexclipper"
-                  },
-                  {
-                    "name": "RABBITMQ_PORT",
-                    "value": "5672"
-                  },
-                  {
-                    "name": "RABBITMQ_USER",
-                    "value": "guest"
-                  },
-                  {
-                    "name": "RABBITMQ_PASSWORD",
-                    "value": "guest"
-                  }
-                ],
-                "resources": {
-                  "limits": {
-                    "memory": "1Gi"
-                  },
-                  "requests": {
-                    "memory": "512Mi"
-                  }
-                },
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "Always"
-              }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "ClusterFirst",
-            "securityContext": {
-
-            },
-            "schedulerName": "default-scheduler"
-          }
-        }
+      "involvedObject": {
+        "kind": "Deployment",
+        "namespace": "nexclipper",
+        "name": "nexclipper-api",
+        "uid": "d40f952b-08ab-4964-8c1c-6736cb729b7c",
+        "apiVersion": "apps/v1",
+        "resourceVersion": "3998691"
       },
-      "status": {
-        "replicas": 2,
-        "fullyLabeledReplicas": 2,
-        "observedGeneration": 1
-      }
+      "reason": "ScalingReplicaSet",
+      "message": "Scaled up replica set nexclipper-api-68ff654847 to 2",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "firstTimestamp": "2021-02-23T06:48:47Z",
+      "lastTimestamp": "2021-02-23T06:48:47Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
     },
     {
       "metadata": {
-        "name": "nexclipper-service-5bc78b78b5",
+        "name": "nexclipper-collector-6b696759d6-7f848.165f5deb66bf5996",
         "namespace": "nexclipper",
-        "uid": "89b8f617-18cf-4700-acde-eb700b2878c4",
-        "resourceVersion": "3428",
-        "generation": 1,
-        "creationTimestamp": "2021-01-28T07:10:40Z",
-        "labels": {
-          "app": "nexclipper-service",
-          "pod-template-hash": "5bc78b78b5"
-        },
-        "annotations": {
-          "deployment.kubernetes.io/desired-replicas": "1",
-          "deployment.kubernetes.io/max-replicas": "2",
-          "deployment.kubernetes.io/revision": "1",
-          "meta.helm.sh/release-name": "nex",
-          "meta.helm.sh/release-namespace": "default"
-        },
-        "ownerReferences": [
-          {
-            "apiVersion": "apps/v1",
-            "kind": "Deployment",
-            "name": "nexclipper-service",
-            "uid": "78d881a4-c280-4a77-96b0-01ba8baddd83",
-            "controller": true,
-            "blockOwnerDeletion": true
-          }
-        ],
+        "uid": "22646806-4e7e-45a4-80c1-1c124c60cd95",
+        "resourceVersion": "3998294",
+        "creationTimestamp": "2021-02-16T07:20:33Z",
         "managedFields": [
           {
-            "manager": "kube-controller-manager",
+            "manager": "kubelet",
             "operation": "Update",
-            "apiVersion": "apps/v1",
-            "time": "2021-01-28T07:12:04Z",
+            "apiVersion": "v1",
+            "time": "2021-02-16T07:20:33Z",
             "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/desired-replicas":{},"f:deployment.kubernetes.io/max-replicas":{},"f:deployment.kubernetes.io/revision":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"78d881a4-c280-4a77-96b0-01ba8baddd83\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:replicas":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}},"f:name":{}},"f:spec":{"f:containers":{"k:{\"name\":\"nexserivce\"}":{".":{},"f:env":{".":{},"k:{\"name\":\"ACTIVE\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"INFLUXDB_DATASOURCE\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"INFLUXDB_ENDPOINT\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"MYSQL_DBNAME\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"MYSQL_PASSWORD\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"MYSQL_PORT\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"MYSQL_URL\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"MYSQL_USERNAME\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"REDIS_ENDPOINT\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"REDIS_PORT\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"TSDB\"}":{".":{},"f:name":{},"f:value":{}}},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":9000,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}}},"f:resources":{".":{},"f:limits":{".":{},"f:memory":{}},"f:requests":{".":{},"f:memory":{}}},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{}}},"f:dnsPolicy":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:terminationGracePeriodSeconds":{}}}},"f:status":{"f:availableReplicas":{},"f:fullyLabeledReplicas":{},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{}}}
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
           }
         ]
       },
-      "spec": {
-        "replicas": 1,
-        "selector": {
-          "matchLabels": {
-            "app": "nexclipper-service",
-            "pod-template-hash": "5bc78b78b5"
-          }
-        },
-        "template": {
-          "metadata": {
-            "name": "nexclipper-service",
-            "creationTimestamp": null,
-            "labels": {
-              "app": "nexclipper-service",
-              "pod-template-hash": "5bc78b78b5"
-            }
-          },
-          "spec": {
-            "containers": [
-              {
-                "name": "nexserivce",
-                "image": "nexclipper/nexservice:0.1.0",
-                "ports": [
-                  {
-                    "name": "nex-service",
-                    "containerPort": 9000,
-                    "protocol": "TCP"
-                  }
-                ],
-                "env": [
-                  {
-                    "name": "MYSQL_DBNAME",
-                    "value": "defaultdb"
-                  },
-                  {
-                    "name": "MYSQL_URL",
-                    "value": "mysql.nexclipper"
-                  },
-                  {
-                    "name": "MYSQL_PORT",
-                    "value": "3306"
-                  },
-                  {
-                    "name": "MYSQL_USERNAME",
-                    "value": "admin"
-                  },
-                  {
-                    "name": "MYSQL_PASSWORD",
-                    "value": "password"
-                  },
-                  {
-                    "name": "REDIS_ENDPOINT",
-                    "value": "redis.nexclipper"
-                  },
-                  {
-                    "name": "REDIS_PORT",
-                    "value": "6379"
-                  },
-                  {
-                    "name": "TSDB",
-                    "value": "influx"
-                  },
-                  {
-                    "name": "INFLUXDB_ENDPOINT",
-                    "value": "http://influx.nexclipper:8087"
-                  },
-                  {
-                    "name": "INFLUXDB_DATASOURCE",
-                    "value": "nexclipper"
-                  },
-                  {
-                    "name": "ACTIVE",
-                    "value": "dev"
-                  }
-                ],
-                "resources": {
-                  "limits": {
-                    "memory": "1Gi"
-                  },
-                  "requests": {
-                    "memory": "512Mi"
-                  }
-                },
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "Always"
-              }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "ClusterFirst",
-            "securityContext": {
-
-            },
-            "schedulerName": "default-scheduler"
-          }
-        }
+      "involvedObject": {
+        "kind": "Pod",
+        "namespace": "nexclipper",
+        "name": "nexclipper-collector-6b696759d6-7f848",
+        "uid": "50bf02e3-d781-449c-9b1f-2899fc96cb38",
+        "apiVersion": "v1",
+        "resourceVersion": "3104",
+        "fieldPath": "spec.containers{nexclipper-collector}"
       },
-      "status": {
-        "replicas": 1,
-        "fullyLabeledReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "observedGeneration": 1
-      }
+      "reason": "BackOff",
+      "message": "Back-off restarting failed container",
+      "source": {
+        "component": "kubelet",
+        "host": "node3"
+      },
+      "firstTimestamp": "2021-01-31T16:27:37Z",
+      "lastTimestamp": "2021-02-23T06:45:02Z",
+      "count": 119772,
+      "type": "Warning",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
     },
     {
       "metadata": {
-        "name": "nexclipper-workflow-7d9b587dcc",
+        "name": "nexclipper-collector-6b696759d6-7f848.165f5f83b15ea820",
         "namespace": "nexclipper",
-        "uid": "74ccef2e-eeb6-47d5-be78-bec375166262",
-        "resourceVersion": "3378954",
-        "generation": 1,
-        "creationTimestamp": "2021-01-28T07:10:40Z",
-        "labels": {
-          "app": "nexclipper-workflow",
-          "pod-template-hash": "7d9b587dcc"
-        },
-        "annotations": {
-          "deployment.kubernetes.io/desired-replicas": "1",
-          "deployment.kubernetes.io/max-replicas": "2",
-          "deployment.kubernetes.io/revision": "1",
-          "meta.helm.sh/release-name": "nex",
-          "meta.helm.sh/release-namespace": "default"
-        },
-        "ownerReferences": [
-          {
-            "apiVersion": "apps/v1",
-            "kind": "Deployment",
-            "name": "nexclipper-workflow",
-            "uid": "bf17248d-0d71-4b74-86cb-f7f52d87f6e5",
-            "controller": true,
-            "blockOwnerDeletion": true
-          }
-        ],
+        "uid": "0b0223db-6e1a-48ca-98e4-8b7221be2498",
+        "resourceVersion": "3995565",
+        "creationTimestamp": "2021-02-23T06:20:03Z",
         "managedFields": [
           {
-            "manager": "kube-controller-manager",
+            "manager": "kubelet",
             "operation": "Update",
-            "apiVersion": "apps/v1",
-            "time": "2021-02-19T07:35:21Z",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:20:03Z",
             "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/desired-replicas":{},"f:deployment.kubernetes.io/max-replicas":{},"f:deployment.kubernetes.io/revision":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"bf17248d-0d71-4b74-86cb-f7f52d87f6e5\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:replicas":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}},"f:name":{}},"f:spec":{"f:containers":{"k:{\"name\":\"nexclipper-workflow\"}":{".":{},"f:env":{".":{},"k:{\"name\":\"BROKER\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"INFLUXDB_DATASOURCE\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"INFLUXDB_ENDPOINT\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"KAFKA_HOST\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"KAFKA_PORT\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"KAFKA_ZOOKEEPER\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"MYSQL_DBNAME\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"MYSQL_PASSWORD\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"MYSQL_URL\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"MYSQL_USERNAME\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"RABBITMQ_HOST\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"RABBITMQ_PASSWORD\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"RABBITMQ_PORT\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"RABBITMQ_USER\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"REDIS_HOST\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"REDIS_PORT\"}":{".":{},"f:name":{},"f:value":{}}},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":9000,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}}},"f:resources":{".":{},"f:limits":{".":{},"f:memory":{}},"f:requests":{".":{},"f:memory":{}}},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{}}},"f:dnsPolicy":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:terminationGracePeriodSeconds":{}}}},"f:status":{"f:availableReplicas":{},"f:fullyLabeledReplicas":{},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{}}}
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
           }
         ]
       },
-      "spec": {
-        "replicas": 1,
-        "selector": {
-          "matchLabels": {
-            "app": "nexclipper-workflow",
-            "pod-template-hash": "7d9b587dcc"
-          }
-        },
-        "template": {
-          "metadata": {
-            "name": "nexclipper-workflow",
-            "creationTimestamp": null,
-            "labels": {
-              "app": "nexclipper-workflow",
-              "pod-template-hash": "7d9b587dcc"
-            }
-          },
-          "spec": {
-            "containers": [
-              {
-                "name": "nexclipper-workflow",
-                "image": "nexclipper/nexworkflow:0.1.0",
-                "ports": [
-                  {
-                    "name": "nex-workflow",
-                    "containerPort": 9000,
-                    "protocol": "TCP"
-                  }
-                ],
-                "env": [
-                  {
-                    "name": "KAFKA_ZOOKEEPER",
-                    "value": "zk-svc.default:2181"
-                  },
-                  {
-                    "name": "KAFKA_PORT",
-                    "value": "9093"
-                  },
-                  {
-                    "name": "KAFKA_HOST",
-                    "value": "kafka-svc.default"
-                  },
-                  {
-                    "name": "MYSQL_DBNAME",
-                    "value": "defaultdb"
-                  },
-                  {
-                    "name": "MYSQL_URL",
-                    "value": "mysql.nexclipper:3306"
-                  },
-                  {
-                    "name": "MYSQL_PASSWORD",
-                    "value": "password"
-                  },
-                  {
-                    "name": "MYSQL_USERNAME",
-                    "value": "admin"
-                  },
-                  {
-                    "name": "REDIS_HOST",
-                    "value": "redis.nexclipper"
-                  },
-                  {
-                    "name": "REDIS_PORT",
-                    "value": "6379"
-                  },
-                  {
-                    "name": "INFLUXDB_ENDPOINT",
-                    "value": "http://influx.nexclipper:8087"
-                  },
-                  {
-                    "name": "INFLUXDB_DATASOURCE",
-                    "value": "nexclipper"
-                  },
-                  {
-                    "name": "BROKER",
-                    "value": "rabbitmq"
-                  },
-                  {
-                    "name": "RABBITMQ_HOST",
-                    "value": "rabbitmq.nexclipper"
-                  },
-                  {
-                    "name": "RABBITMQ_PORT",
-                    "value": "5672"
-                  },
-                  {
-                    "name": "RABBITMQ_USER",
-                    "value": "guest"
-                  },
-                  {
-                    "name": "RABBITMQ_PASSWORD",
-                    "value": "guest"
-                  }
-                ],
-                "resources": {
-                  "limits": {
-                    "memory": "1Gi"
-                  },
-                  "requests": {
-                    "memory": "512Mi"
-                  }
-                },
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "Always"
-              }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "ClusterFirst",
-            "securityContext": {
-
-            },
-            "schedulerName": "default-scheduler"
-          }
-        }
+      "involvedObject": {
+        "kind": "Pod",
+        "namespace": "nexclipper",
+        "name": "nexclipper-collector-6b696759d6-7f848",
+        "uid": "50bf02e3-d781-449c-9b1f-2899fc96cb38",
+        "apiVersion": "v1",
+        "resourceVersion": "3104",
+        "fieldPath": "spec.containers{nexclipper-collector}"
       },
-      "status": {
-        "replicas": 1,
-        "fullyLabeledReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "observedGeneration": 1
-      }
+      "reason": "Pulled",
+      "message": "(combined from similar events): Successfully pulled image \"nexclipper/nexcollector:0.1.0\" in 2.663583527s",
+      "source": {
+        "component": "kubelet",
+        "host": "node3"
+      },
+      "firstTimestamp": "2021-01-31T16:56:50Z",
+      "lastTimestamp": "2021-02-23T06:20:03Z",
+      "count": 5085,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
     },
     {
       "metadata": {
-        "name": "redis-7755f6d9dc",
+        "name": "nexclipper-collector-6b696759d6-8kwvw.165f5dec5a31f56c",
         "namespace": "nexclipper",
-        "uid": "327335f0-c54e-4c5f-8536-82b799f26757",
-        "resourceVersion": "3349",
-        "generation": 1,
-        "creationTimestamp": "2021-01-28T07:10:40Z",
-        "labels": {
-          "app": "redis",
-          "pod-template-hash": "7755f6d9dc"
-        },
-        "annotations": {
-          "deployment.kubernetes.io/desired-replicas": "1",
-          "deployment.kubernetes.io/max-replicas": "2",
-          "deployment.kubernetes.io/revision": "1",
-          "meta.helm.sh/release-name": "nex",
-          "meta.helm.sh/release-namespace": "default"
-        },
-        "ownerReferences": [
-          {
-            "apiVersion": "apps/v1",
-            "kind": "Deployment",
-            "name": "redis",
-            "uid": "35171734-d93f-4a8b-802c-8e76f1260183",
-            "controller": true,
-            "blockOwnerDeletion": true
-          }
-        ],
+        "uid": "a8aad8ff-0ea2-407a-ad58-fbea8d9d70ce",
+        "resourceVersion": "3998291",
+        "creationTimestamp": "2021-02-16T07:20:35Z",
         "managedFields": [
           {
-            "manager": "kube-controller-manager",
+            "manager": "kubelet",
             "operation": "Update",
-            "apiVersion": "apps/v1",
-            "time": "2021-01-28T07:11:29Z",
+            "apiVersion": "v1",
+            "time": "2021-02-16T07:20:35Z",
             "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/desired-replicas":{},"f:deployment.kubernetes.io/max-replicas":{},"f:deployment.kubernetes.io/revision":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"35171734-d93f-4a8b-802c-8e76f1260183\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:replicas":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"redis\"}":{".":{},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":6379,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:protocol":{}}},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/redis-master-data\"}":{".":{},"f:mountPath":{},"f:name":{}}}}},"f:dnsPolicy":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:terminationGracePeriodSeconds":{},"f:volumes":{".":{},"k:{\"name\":\"data\"}":{".":{},"f:emptyDir":{},"f:name":{}}}}}},"f:status":{"f:availableReplicas":{},"f:fullyLabeledReplicas":{},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{}}}
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
           }
         ]
       },
-      "spec": {
-        "replicas": 1,
-        "selector": {
-          "matchLabels": {
-            "app": "redis",
-            "pod-template-hash": "7755f6d9dc"
-          }
-        },
-        "template": {
-          "metadata": {
-            "creationTimestamp": null,
-            "labels": {
-              "app": "redis",
-              "pod-template-hash": "7755f6d9dc"
-            }
-          },
-          "spec": {
-            "volumes": [
-              {
-                "name": "data",
-                "emptyDir": {
-
-                }
-              }
-            ],
-            "containers": [
-              {
-                "name": "redis",
-                "image": "redis:3.2.9",
-                "ports": [
-                  {
-                    "containerPort": 6379,
-                    "protocol": "TCP"
-                  }
-                ],
-                "resources": {
-
-                },
-                "volumeMounts": [
-                  {
-                    "name": "data",
-                    "mountPath": "/redis-master-data"
-                  }
-                ],
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "IfNotPresent"
-              }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "ClusterFirst",
-            "securityContext": {
-
-            },
-            "schedulerName": "default-scheduler"
-          }
-        }
+      "involvedObject": {
+        "kind": "Pod",
+        "namespace": "nexclipper",
+        "name": "nexclipper-collector-6b696759d6-8kwvw",
+        "uid": "2aba6c46-7ded-47e7-a9cb-8fcad1ee838e",
+        "apiVersion": "v1",
+        "resourceVersion": "3124",
+        "fieldPath": "spec.containers{nexclipper-collector}"
       },
-      "status": {
-        "replicas": 1,
-        "fullyLabeledReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "observedGeneration": 1
-      }
+      "reason": "BackOff",
+      "message": "Back-off restarting failed container",
+      "source": {
+        "component": "kubelet",
+        "host": "node3"
+      },
+      "firstTimestamp": "2021-01-31T16:27:41Z",
+      "lastTimestamp": "2021-02-23T06:45:01Z",
+      "count": 119878,
+      "type": "Warning",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
     },
     {
       "metadata": {
-        "name": "nexclipper-agent-k8s-77686cf56d",
-        "namespace": "nexclipperagent",
-        "uid": "9b85bf15-d2c2-446a-b2a1-54d84c235962",
-        "resourceVersion": "3369",
-        "generation": 1,
-        "creationTimestamp": "2021-01-28T07:10:40Z",
-        "labels": {
-          "name": "nexclipper-agent-k8s",
-          "pod-template-hash": "77686cf56d"
-        },
-        "annotations": {
-          "deployment.kubernetes.io/desired-replicas": "1",
-          "deployment.kubernetes.io/max-replicas": "2",
-          "deployment.kubernetes.io/revision": "1",
-          "meta.helm.sh/release-name": "nex",
-          "meta.helm.sh/release-namespace": "default"
-        },
-        "ownerReferences": [
-          {
-            "apiVersion": "apps/v1",
-            "kind": "Deployment",
-            "name": "nexclipper-agent-k8s",
-            "uid": "23186aad-0e97-4d78-87e7-67d32d283e4b",
-            "controller": true,
-            "blockOwnerDeletion": true
-          }
-        ],
+        "name": "nexclipper-workflow-7d9b587dcc-fczng.1664c42466c4a4b0",
+        "namespace": "nexclipper",
+        "uid": "d5c3b83a-a035-4e02-a115-c867655d0190",
+        "resourceVersion": "3997892",
+        "creationTimestamp": "2021-02-18T06:37:07Z",
         "managedFields": [
           {
-            "manager": "kube-controller-manager",
+            "manager": "kubelet",
             "operation": "Update",
-            "apiVersion": "apps/v1",
-            "time": "2021-01-28T07:11:36Z",
+            "apiVersion": "v1",
+            "time": "2021-02-18T06:37:07Z",
             "fieldsType": "FieldsV1",
-            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/desired-replicas":{},"f:deployment.kubernetes.io/max-replicas":{},"f:deployment.kubernetes.io/revision":{},"f:meta.helm.sh/release-name":{},"f:meta.helm.sh/release-namespace":{}},"f:labels":{".":{},"f:name":{},"f:pod-template-hash":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"23186aad-0e97-4d78-87e7-67d32d283e4b\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:replicas":{},"f:selector":{},"f:template":{"f:metadata":{"f:labels":{".":{},"f:name":{},"f:pod-template-hash":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"nexclipper-agent-k8s\"}":{".":{},"f:env":{".":{},"k:{\"name\":\"cluster_id\"}":{".":{},"f:name":{},"f:value":{}}},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:resources":{".":{},"f:limits":{".":{},"f:memory":{}},"f:requests":{".":{},"f:memory":{}}},"f:securityContext":{".":{},"f:privileged":{}},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/dev\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/pki\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/sys\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/var/lib/docker\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/var/log\"}":{".":{},"f:mountPath":{},"f:name":{}}}}},"f:dnsPolicy":{},"f:hostIPC":{},"f:hostNetwork":{},"f:hostPID":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:serviceAccount":{},"f:serviceAccountName":{},"f:terminationGracePeriodSeconds":{},"f:volumes":{".":{},"k:{\"name\":\"dev\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}},"k:{\"name\":\"docker\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}},"k:{\"name\":\"log\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}},"k:{\"name\":\"pki\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}},"k:{\"name\":\"sys\"}":{".":{},"f:hostPath":{".":{},"f:path":{},"f:type":{}},"f:name":{}}}}}},"f:status":{"f:availableReplicas":{},"f:fullyLabeledReplicas":{},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{}}}
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
           }
         ]
       },
-      "spec": {
-        "replicas": 1,
-        "selector": {
-          "matchLabels": {
-            "name": "nexclipper-agent-k8s",
-            "pod-template-hash": "77686cf56d"
-          }
-        },
-        "template": {
-          "metadata": {
-            "creationTimestamp": null,
-            "labels": {
-              "name": "nexclipper-agent-k8s",
-              "pod-template-hash": "77686cf56d"
-            }
-          },
-          "spec": {
-            "volumes": [
-              {
-                "name": "dev",
-                "hostPath": {
-                  "path": "/dev",
-                  "type": ""
-                }
-              },
-              {
-                "name": "sys",
-                "hostPath": {
-                  "path": "/sys",
-                  "type": ""
-                }
-              },
-              {
-                "name": "log",
-                "hostPath": {
-                  "path": "/var/log",
-                  "type": ""
-                }
-              },
-              {
-                "name": "pki",
-                "hostPath": {
-                  "path": "/etc/kubernetes/certs",
-                  "type": ""
-                }
-              },
-              {
-                "name": "docker",
-                "hostPath": {
-                  "path": "/var/lib/docker",
-                  "type": ""
-                }
-              }
-            ],
-            "containers": [
-              {
-                "name": "nexclipper-agent-k8s",
-                "image": "nexclipper/nexagent-k8s:0.1.0",
-                "env": [
-                  {
-                    "name": "cluster_id",
-                    "value": "1"
-                  }
-                ],
-                "resources": {
-                  "limits": {
-                    "memory": "700Mi"
-                  },
-                  "requests": {
-                    "memory": "512Mi"
-                  }
-                },
-                "volumeMounts": [
-                  {
-                    "name": "dev",
-                    "mountPath": "/dev"
-                  },
-                  {
-                    "name": "sys",
-                    "mountPath": "/sys"
-                  },
-                  {
-                    "name": "log",
-                    "mountPath": "/var/log"
-                  },
-                  {
-                    "name": "pki",
-                    "mountPath": "/pki"
-                  },
-                  {
-                    "name": "docker",
-                    "mountPath": "/var/lib/docker"
-                  }
-                ],
-                "terminationMessagePath": "/dev/termination-log",
-                "terminationMessagePolicy": "File",
-                "imagePullPolicy": "Always",
-                "securityContext": {
-                  "privileged": true
-                }
-              }
-            ],
-            "restartPolicy": "Always",
-            "terminationGracePeriodSeconds": 30,
-            "dnsPolicy": "ClusterFirst",
-            "serviceAccountName": "agent-sa",
-            "serviceAccount": "agent-sa",
-            "hostNetwork": true,
-            "hostPID": true,
-            "hostIPC": true,
-            "securityContext": {
-
-            },
-            "schedulerName": "default-scheduler"
-          }
-        }
+      "involvedObject": {
+        "kind": "Pod",
+        "namespace": "nexclipper",
+        "name": "nexclipper-workflow-7d9b587dcc-fczng",
+        "uid": "7be6244f-9650-4808-91c1-173633f1f8ef",
+        "apiVersion": "v1",
+        "resourceVersion": "3216241",
+        "fieldPath": "spec.containers{nexclipper-workflow}"
       },
-      "status": {
-        "replicas": 1,
-        "fullyLabeledReplicas": 1,
-        "readyReplicas": 1,
-        "availableReplicas": 1,
-        "observedGeneration": 1
-      }
+      "reason": "Pulling",
+      "message": "Pulling image \"nexclipper/nexworkflow:0.1.0\"",
+      "source": {
+        "component": "kubelet",
+        "host": "node2"
+      },
+      "firstTimestamp": "2021-02-18T06:37:07Z",
+      "lastTimestamp": "2021-02-23T06:41:23Z",
+      "count": 764,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nexclipper-workflow-7d9b587dcc-fczng.1664c42922c8f340",
+        "namespace": "nexclipper",
+        "uid": "bf597b68-c71a-49aa-b459-96af94d8cc07",
+        "resourceVersion": "3997901",
+        "creationTimestamp": "2021-02-18T06:37:27Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-18T06:37:27Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "Pod",
+        "namespace": "nexclipper",
+        "name": "nexclipper-workflow-7d9b587dcc-fczng",
+        "uid": "7be6244f-9650-4808-91c1-173633f1f8ef",
+        "apiVersion": "v1",
+        "resourceVersion": "3216241",
+        "fieldPath": "spec.containers{nexclipper-workflow}"
+      },
+      "reason": "Created",
+      "message": "Created container nexclipper-workflow",
+      "source": {
+        "component": "kubelet",
+        "host": "node2"
+      },
+      "firstTimestamp": "2021-02-18T06:37:27Z",
+      "lastTimestamp": "2021-02-23T06:41:26Z",
+      "count": 764,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nexclipper-workflow-7d9b587dcc-fczng.16664ab474ea9b72",
+        "namespace": "nexclipper",
+        "uid": "4d89df3d-fa5f-4a60-9c82-5fdff90d7224",
+        "resourceVersion": "3992772",
+        "creationTimestamp": "2021-02-23T05:54:15Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T05:54:15Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "Pod",
+        "namespace": "nexclipper",
+        "name": "nexclipper-workflow-7d9b587dcc-fczng",
+        "uid": "7be6244f-9650-4808-91c1-173633f1f8ef",
+        "apiVersion": "v1",
+        "resourceVersion": "3216241",
+        "fieldPath": "spec.containers{nexclipper-workflow}"
+      },
+      "reason": "Pulled",
+      "message": "Successfully pulled image \"nexclipper/nexworkflow:0.1.0\" in 2.457014603s",
+      "source": {
+        "component": "kubelet",
+        "host": "node2"
+      },
+      "firstTimestamp": "2021-02-23T05:54:15Z",
+      "lastTimestamp": "2021-02-23T05:54:15Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nexclipper-workflow-7d9b587dcc-fczng.16664b8cb19d2b38",
+        "namespace": "nexclipper",
+        "uid": "0ab40ce0-d6d7-4684-bbad-0e2e3328dc04",
+        "resourceVersion": "3994463",
+        "creationTimestamp": "2021-02-23T06:09:44Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:09:44Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "Pod",
+        "namespace": "nexclipper",
+        "name": "nexclipper-workflow-7d9b587dcc-fczng",
+        "uid": "7be6244f-9650-4808-91c1-173633f1f8ef",
+        "apiVersion": "v1",
+        "resourceVersion": "3216241",
+        "fieldPath": "spec.containers{nexclipper-workflow}"
+      },
+      "reason": "Pulled",
+      "message": "Successfully pulled image \"nexclipper/nexworkflow:0.1.0\" in 2.634442801s",
+      "source": {
+        "component": "kubelet",
+        "host": "node2"
+      },
+      "firstTimestamp": "2021-02-23T06:09:44Z",
+      "lastTimestamp": "2021-02-23T06:09:44Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nexclipper-workflow-7d9b587dcc-fczng.16664c6a227fde85",
+        "namespace": "nexclipper",
+        "uid": "b57d9753-9d67-4066-bc0d-2aa7ed448185",
+        "resourceVersion": "3996167",
+        "creationTimestamp": "2021-02-23T06:25:35Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:25:35Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "Pod",
+        "namespace": "nexclipper",
+        "name": "nexclipper-workflow-7d9b587dcc-fczng",
+        "uid": "7be6244f-9650-4808-91c1-173633f1f8ef",
+        "apiVersion": "v1",
+        "resourceVersion": "3216241",
+        "fieldPath": "spec.containers{nexclipper-workflow}"
+      },
+      "reason": "Pulled",
+      "message": "Successfully pulled image \"nexclipper/nexworkflow:0.1.0\" in 2.516148803s",
+      "source": {
+        "component": "kubelet",
+        "host": "node2"
+      },
+      "firstTimestamp": "2021-02-23T06:25:35Z",
+      "lastTimestamp": "2021-02-23T06:25:35Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
+    },
+    {
+      "metadata": {
+        "name": "nexclipper-workflow-7d9b587dcc-fczng.16664d4795efb89a",
+        "namespace": "nexclipper",
+        "uid": "7338dd1f-767a-4cd7-99e4-da1242d343f5",
+        "resourceVersion": "3997900",
+        "creationTimestamp": "2021-02-23T06:41:26Z",
+        "managedFields": [
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2021-02-23T06:41:26Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:count":{},"f:firstTimestamp":{},"f:involvedObject":{"f:apiVersion":{},"f:fieldPath":{},"f:kind":{},"f:name":{},"f:namespace":{},"f:resourceVersion":{},"f:uid":{}},"f:lastTimestamp":{},"f:message":{},"f:reason":{},"f:source":{"f:component":{},"f:host":{}},"f:type":{}}
+          }
+        ]
+      },
+      "involvedObject": {
+        "kind": "Pod",
+        "namespace": "nexclipper",
+        "name": "nexclipper-workflow-7d9b587dcc-fczng",
+        "uid": "7be6244f-9650-4808-91c1-173633f1f8ef",
+        "apiVersion": "v1",
+        "resourceVersion": "3216241",
+        "fieldPath": "spec.containers{nexclipper-workflow}"
+      },
+      "reason": "Pulled",
+      "message": "Successfully pulled image \"nexclipper/nexworkflow:0.1.0\" in 2.591881231s",
+      "source": {
+        "component": "kubelet",
+        "host": "node2"
+      },
+      "firstTimestamp": "2021-02-23T06:41:26Z",
+      "lastTimestamp": "2021-02-23T06:41:26Z",
+      "count": 1,
+      "type": "Normal",
+      "eventTime": null,
+      "reportingComponent": "",
+      "reportingInstance": ""
     }
   ]
 }
