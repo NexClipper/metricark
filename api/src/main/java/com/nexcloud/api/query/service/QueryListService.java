@@ -118,20 +118,20 @@ public class QueryListService {
             attrObj.put("kind", metadata.get("ownerReferences"));
             attrObj.put("status", status.get("phase"));
 
-            for(int j=0; j<cpuArray.size(); j++){
-                JSONObject cpu = (JSONObject) cpuArray.get(j);
-                JSONObject cpuMetric = (JSONObject) cpu.get("metric");
-
-                JSONObject mem = (JSONObject) memArray.get(j);
-                JSONObject memMetric = (JSONObject) mem.get("metric");
-
-                if(metadata.get("name").equals(cpuMetric.get("pod"))){
-                    metricObj.put("cpu", cpu.get("value"));
-                }
-                if(metadata.get("name").equals(memMetric.get("pod"))){
-                    metricObj.put("mem", mem.get("value"));
-                }
-            }
+//            for(int j=0; j<cpuArray.size(); j++){
+//                JSONObject cpu = (JSONObject) cpuArray.get(j);
+//                JSONObject cpuMetric = (JSONObject) cpu.get("metric");
+//
+//                JSONObject mem = (JSONObject) memArray.get(j);
+//                JSONObject memMetric = (JSONObject) mem.get("metric");
+//
+//                if(metadata.get("name").equals(cpuMetric.get("pod"))){
+//                    metricObj.put("cpu", cpu.get("value"));
+//                }
+//                if(metadata.get("name").equals(memMetric.get("pod"))){
+//                    metricObj.put("mem", mem.get("value"));
+//                }
+//            }
 
             attrObj.put("metric", metricObj);
             res.put(metadata.get("name"), attrObj);
