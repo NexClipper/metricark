@@ -380,12 +380,11 @@ public class DashboardService {
             attrObj.put("cpu", jsonObject.get("data"));
 
             // Node Memory Usage (%)
-            JSONObject test = new JSONObject();
             param = "";
             query = "sum by (kubernetes_node) (100 * (1 - ((avg_over_time(node_memory_MemFree_bytes[5m]) + avg_over_time(node_memory_Cached_bytes[5m]) + avg_over_time(node_memory_Buffers_bytes[5m])) / avg_over_time(node_memory_MemTotal_bytes[5m]))))";
             entityData = prometheusClient.getDynamicQuery(query, param);
-            test = (JSONObject) parser.parse(entityData.getBody());
-            attrObj.put("mem", test.get("data"));
+//            jsonObject = (JSONObject) parser.parse(entityData.getBody());
+            attrObj.put("mem", entityData);
             responseObject.put("node", attrObj);
 
             resData.setData(responseObject);
