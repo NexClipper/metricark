@@ -7,7 +7,7 @@ const color = ["#F4664A", "#FAAD14", "#30BF78"];
 const UtilizationGaugeConfig = {
   range: {
     ticks: [0, 1],
-    color: ["l(0) 0:#F4664A 0.5:#FAAD14 1:#30BF78"],
+    color: ["l(0) 0:#30BF78 0.5:#FAAD14 1:#F4664A"],
   },
   indicator: {
     pointer: { style: { stroke: "#D0D0D0" } },
