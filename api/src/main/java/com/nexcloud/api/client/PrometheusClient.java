@@ -87,7 +87,10 @@ public class PrometheusClient {
 		
 		ResponseEntity<String> resData = null;
 		try {
-			resData = restTemplate.getForEntity(ENDPOINT + "/api/v1/query?query="+URLDecoder.decode(query, "UTF-8"), String.class, param);
+			if(param.equals(""))
+				resData = restTemplate.getForEntity(ENDPOINT + "/api/v1/query?query="+URLDecoder.decode(query, "UTF-8"), String.class);
+			else
+				resData = restTemplate.getForEntity(ENDPOINT + "/api/v1/query?query="+URLDecoder.decode(query, "UTF-8"), String.class, param);
 		} catch (RestClientException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
