@@ -381,7 +381,7 @@ public class DashboardService {
 
             // Node Memory Usage (%)
             param = "";
-            query = "(1 - (node_memory_MemAvailable_bytes / (node_memory_MemTotal_bytes)))* 100";
+            query = "sum by (kubernetes_node) (1 - (node_memory_MemAvailable_bytes / (node_memory_MemTotal_bytes)))* 100";
             entityData = prometheusClient.getQuery(query, param);
             jsonObject = (JSONObject) parser.parse(entityData.getBody());
             attrObj.put("mem", jsonObject.get("data"));
