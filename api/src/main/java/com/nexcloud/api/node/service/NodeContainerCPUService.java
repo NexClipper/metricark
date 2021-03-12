@@ -34,7 +34,7 @@ public class NodeContainerCPUService {
 		String sub_query							= "";
 		try{
 			sub_query								= Util.makeSubQuery(start, end);
-			param									= "{image!='',name!~'^k8s_.*',kubernetes_io_hostname=~'^"+node_name+"',name=~'"+container+"'}";
+			param									= "{image!='',name!~'^k8s_',kubernetes_io_hostname=~'^"+node_name+"',name=~'"+container+"'}";
 			query									= "sum (rate (container_cpu_usage_seconds_total{param}[3m])) by (kubernetes_io_hostname, name, image)";
 			ResponseEntity<String> entityData		= null;
 			

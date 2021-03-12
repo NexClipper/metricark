@@ -34,7 +34,7 @@ public class NodeContainerNetworkService {
 		String sub_query							= "";
 		try{
 			sub_query								= Util.makeSubQuery(start, end);
-			param									= "{image!='',name!~'^k8s_.*',kubernetes_io_hostname=~'^"+node_name+"',name=~'"+container+"'}";
+			param									= "{image!='',name!~'^k8s_',kubernetes_io_hostname=~'^"+node_name+"',name=~'"+container+"'}";
 			query									= "sum (rate (container_network_receive_bytes_total{param}[3m])) by (kubernetes_io_hostname, name, image)";
 			ResponseEntity<String> entityData		= null;
 			
@@ -76,7 +76,7 @@ public class NodeContainerNetworkService {
 		String sub_query							= "";
 		try{
 			sub_query								= Util.makeSubQuery(start, end);
-			param									= "{image!='',name!~'^k8s_.*',kubernetes_io_hostname=~'^"+node_name+"',name=~'"+container+"'}";
+			param									= "{image!='',name!~'^k8s_',kubernetes_io_hostname=~'^"+node_name+"',name=~'"+container+"'}";
 			query									= "- sum (rate (container_network_transmit_bytes_total{param}[3m])) by (kubernetes_io_hostname, name, image)";
 			ResponseEntity<String> entityData		= null;
 			
