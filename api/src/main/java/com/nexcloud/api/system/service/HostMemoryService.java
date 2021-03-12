@@ -37,7 +37,7 @@ public class HostMemoryService {
 			sub_query								= Util.makeSubQuery(start, end);
 			
 			param									= "{id!='/',kubernetes_io_hostname=~'^"+node_name+"'}";
-			query									= "sum (rate (container_memory_working_set_bytes{param}[1m])) by (id)";
+			query									= "sum (rate (container_memory_working_set_bytes{param}[5m])) by (id)";
 			
 			//entityData								= prometheusClient.getQuery(query, param );
 			if( sub_query != null )

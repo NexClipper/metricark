@@ -97,7 +97,7 @@ public class DashboardService {
 
             // Docker container running count
             param = "{container_state='running'}";
-            query = "sum(kubelet_running_container_count{param})";
+            query = "sum(kubelet_running_containers{param})";
             entityData = prometheusClient.getQuery(query, param);
             jsonObject = (JSONObject) parser.parse(entityData.getBody());
             responseObject.put("docker", jsonObject.get("data"));
