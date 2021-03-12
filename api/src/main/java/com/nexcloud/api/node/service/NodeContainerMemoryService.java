@@ -35,7 +35,7 @@ public class NodeContainerMemoryService {
 		try{
 			sub_query								= Util.makeSubQuery(start, end);
 			param									= "{image!='',name!~'^k8s_',kubernetes_io_hostname=~'^"+node_name+"',name=~'"+container+"'}";
-			query									= "sum (rate (container_memory_working_set_bytes{param}[1m])) by (kubernetes_io_hostname, name, image)";
+			query									= "sum (rate (container_memory_working_set_bytes{param}[5m])) by (kubernetes_io_hostname, name, image)";
 			ResponseEntity<String> entityData		= null;
 			
 			if( sub_query != null )
