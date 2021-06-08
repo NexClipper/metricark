@@ -379,6 +379,7 @@ public class DashboardService {
             jsonObject = (JSONObject) parser.parse(entityData.getBody());
             attrObj.put("cpu", jsonObject.get("data"));
 
+
             // Node Memory Usage (%)
             param = " ";
             query = "sum by (kubernetes_node) (1 - (node_memory_MemAvailable_bytes / (node_memory_MemTotal_bytes)))* 100";
