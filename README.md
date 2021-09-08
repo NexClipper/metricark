@@ -6,35 +6,31 @@
 ## Installation
 
 ## Directory tree
-api  
-* client
-  * PrometheusClient 
-  * RedisClient
-* config
-  * RedisConfiguration
-  * SwaggerConfig
-  * WebConfig
-* domain
-  * Data
-  * ResponseData
-  * Result
-  
-  
-* cluster
-  * controllers
-  * services
-* k8s
-  * controllers
-  * services
-* node
-  * controllers
-  * services
-* query
-  * controllers
-  * services
-* system
-  * controllers
-  * services
-* ui
-  * controllers
-  * services
+
+api/  
+├─ src/  
+│  ├─ main/  
+│  │  ├─ java/  
+│  │  │  ├─ com.nexcloud/  
+│  │  │  │  ├─ api/  
+│  │  │  │  │  ├─ client/   
+│  │  │  │  │  ├─ config/  
+│  │  │  │  │  ├─ domain/  
+│  │  │  │  │  ├─ cluster/  
+│  │  │  │  │  │  ├─ controller/  
+│  │  │  │  │  │  ├─ service/  
+│  │  │  │  │  ├─ k8s/  
+│  │  │  │  │  │  ├─ controller/  
+│  │  │  │  │  │  ├─ service/  
+│  │  │  │  │  ├─ node/  
+│  │  │  │  │  │  ├─ controller/  
+│  │  │  │  │  │  ├─ service/  
+│  │  │  │  │  ├─ query/  
+│  │  │  │  │  │  ├─ controller/  
+│  │  │  │  │  │  ├─ service/  
+│  │  │  │  │  ├─ system/  
+│  │  │  │  │  │  ├─ controller/  
+│  │  │  │  │  │  ├─ service/  
+│  │  │  │  │  ├─ ui/  
+│  │  │  │  │  │  ├─ controller/  
+│  │  │  │  │  │  ├─ service/  
