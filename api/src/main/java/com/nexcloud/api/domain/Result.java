@@ -2,6 +2,7 @@ package com.nexcloud.api.domain;
 
 import java.util.List;
 
+// 사용된 곳 없음
 public class Result {
 	private Object metric;
 	

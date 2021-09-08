@@ -32,10 +32,13 @@ import com.nexcloud.util.Util;
 @Service
 public class RedisClient implements Serializable {
 	static final Logger logger = LoggerFactory.getLogger(RedisClient.class);
-	
-	@Resource(name = "redisTemplate") 
+
+	// RedisConfiguration의 redisTemplate 메서드. StringRedisTemplate 타입의 객체를 주입
+	// Redis 자료구조 중 hash를 사용하는 경우 hashOps로 처리
+	@Resource(name = "redisTemplate")
 	private HashOperations<String, String, String> hashOps;
-	
+
+	// Redis 자료구조 중 간단한 string을 사용하는 경우 valueOps로 처리
 	@Resource(name = "redisTemplate") 
 	private ValueOperations<String,String> valueOps;
     

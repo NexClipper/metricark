@@ -1,5 +1,6 @@
 package com.nexcloud.api.domain;
 
+// 응답 데이터를 담는 구조체
 public class ResponseData {
 	private Integer response_code;
 	

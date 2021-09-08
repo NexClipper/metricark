@@ -14,10 +14,11 @@ import java.util.List;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+    // Cors: cross origin resource sharing. 다른 출처의 자원을 공유할 수 있도록 설정하는 권한 체제
     @Override
     public void addCorsMappings(CorsRegistry registry){
-        registry.addMapping("/**")
-                .allowedOrigins("*","http://console.nexclipper.io:3000");
+        registry.addMapping("/**") // 모든 요청에 대해서
+                .allowedOrigins("*","http://console.nexclipper.io:3000"); // 허용할 origin 설정
     }
 
     @Override

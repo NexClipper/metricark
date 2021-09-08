@@ -19,6 +19,7 @@ import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
+// 사용된 곳 없음
 @Configuration
 public class SchedulingConfigurerConfiguration implements SchedulingConfigurer {
 

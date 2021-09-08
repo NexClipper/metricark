@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+// Service 객체들의 호출을 받아 Prometheus에 GET요청을 보내고 결과를 ResponseEntity로 저장해서 반환하는 객체. (RestTemplate의 getForEntity 메서드)
 @Service
 public class PrometheusClient {
     @Value("${prometheus.endpoint}")

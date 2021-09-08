@@ -3,6 +3,7 @@ package com.nexcloud.api.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+// 사용된 곳 없음
 public class Data {
 	private String resultType;
 	
