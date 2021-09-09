@@ -29,16 +29,17 @@ import org.springframework.stereotype.Service;
 
 import com.nexcloud.util.Util;
 
+// Redis에 접근해서 데이터를 조회하는 객체
 @Service
 public class RedisClient implements Serializable {
 	static final Logger logger = LoggerFactory.getLogger(RedisClient.class);
 
 	// RedisConfiguration의 redisTemplate 메서드. StringRedisTemplate 타입의 객체를 주입
-	// Redis 자료구조 중 hash를 사용하는 경우 hashOps로 처리
+	// Redis 자료구조 중 hashes를 사용하는 경우 hashOps로 처리
 	@Resource(name = "redisTemplate")
 	private HashOperations<String, String, String> hashOps;
 
-	// Redis 자료구조 중 간단한 string을 사용하는 경우 valueOps로 처리
+	// Redis 자료구조 중 string을 사용하는 경우 valueOps로 처리
 	@Resource(name = "redisTemplate") 
 	private ValueOperations<String,String> valueOps;
     
@@ -64,6 +65,7 @@ public class RedisClient implements Serializable {
 	    			+ "\n KEY [" + key + "]" + "\n HASH KEY ["+ hashKey +"]");
 			
 	    	String data = null;
+	    	// key, hashkey에 해당하는 value를 가져옴
 	    	data = hashOps.get(key, hashKey);
 
 	    	//logger.debug("[Redis response]" + "\n Response [" + data + "]");
@@ -83,6 +85,7 @@ public class RedisClient implements Serializable {
 	    			+ "\n KEY [" + key + "]");
 			
 	    	String data = null;
+	    	// key에 해당하는 value를 가져옴
 	    	data = valueOps.get(key);
 	    	
 	    	//logger.debug("[Redis response]" + "\n Response [" + data + "]");

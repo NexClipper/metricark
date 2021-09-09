@@ -39,6 +39,7 @@ public class QueryListService {
 
         try {
 
+            // field parameter에 해당하는 정보를 조회해서 responseObject에 담는다
             if (field.equals("pods")){
                 responseObject = podList(key, field);
             } else if (field.equals("daemonsets")){
@@ -112,6 +113,7 @@ public class QueryListService {
             metricObj = new JSONObject();
 
 
+            // JSONObject는 HashMap을 상속. HashMap의 put메서드로 값을 저장
             attrObj.put("name", metadata.get("name"));
             attrObj.put("namespace", metadata.get("namespace"));
             attrObj.put("nodeName", spec.get("nodeName"));
@@ -149,11 +151,14 @@ public class QueryListService {
         JSONObject conObj = new JSONObject();
         JSONObject res = new JSONObject();
 
+        // Redis에서 key, field에 해당하는 정보를 가져옴
         JSONObject jsonObject = (JSONObject) parser.parse(redisClient.get(key, field));
+        // HashMap의 get 메서드로 "items"에 해당하는 value 추출
         JSONArray itemArray = (JSONArray) jsonObject.get("items");
 
         for (int i=0; i<itemArray.size(); i++){
             JSONObject items = (JSONObject) itemArray.get(i);
+
             JSONObject metadata = (JSONObject) items.get("metadata");
             JSONObject spec = (JSONObject) items.get("spec");
             JSONObject template = (JSONObject) spec.get("template");
@@ -170,11 +175,13 @@ public class QueryListService {
             attrObj.put("labels", metadata.get("labels"));
             attrObj.put("creationtime", metadata.get("creationTimestamp"));
 
+            // Container 각각의 이미지를 conObj에 입력
             for(int j=0; j<conArray.size(); j++){
                 JSONObject con = (JSONObject) conArray.get(j);
 
                 conObj.put(con.get("name"), con.get("image"));
             }
+
             attrObj.put("containers", conObj);
             attrObj.put("status", items.get("status"));
             attrObj.put("pods", pods((String) metadata.get("name")));

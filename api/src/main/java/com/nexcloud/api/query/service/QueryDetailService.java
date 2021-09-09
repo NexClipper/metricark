@@ -37,6 +37,8 @@ public class QueryDetailService {
 
         try{
             JSONParser parser = new JSONParser();
+
+            // Redis에서 Pod detail 정보를 가져와서 JSON으로 저장
             JSONObject jsonObject = (JSONObject) parser.parse(redisClient.get("kubernetes","pods"));
             JSONArray itemArray = (JSONArray) jsonObject.get("items");
 
