@@ -86,11 +86,12 @@ public class QueryListController extends SpringBootServletInitializer implements
             , @PathVariable(value = "key") String key
             , @PathVariable(value = "field") String field
             , @QueryParam("node") String node
+            , @QueryParam("returns") String[] filters
     ) throws Exception {
 
         ResponseEntity<ResponseData> response = null;
         try {
-            response = service.getList(cluster_id, key, field, node);
+            response = service.getList(cluster_id, key, field, node, filters);
         } catch (Exception e) {
 
             ResponseData resData = new ResponseData();

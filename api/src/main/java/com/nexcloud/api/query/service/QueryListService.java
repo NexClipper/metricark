@@ -22,6 +22,38 @@ public class QueryListService {
     @Autowired private RedisClient redisClient;
     @Autowired private PrometheusClient prometheusClient;
 
+    private JSONObject responseFilter(JSONObject orgObject, String[] filterKeys) {
+
+        JSONObject responseObject = new JSONObject();
+    	
+    	for(key : filterKeys) {
+    		// TODO : key empty check
+    		if (key != null && !key.trim().isEmpty()) {
+    			searchKey(orgObject, responseObject, key.split("\\."));
+    		}
+    	}
+    	
+    	return responseObject;
+    }
+ 
+	private void searchKey(JSONObject orgObject, JSONObject resultObject, String[] keys){
+        if(key.length > 1 && resultObject.containsKey(keys[0])) {
+        	String key = keys[0];
+        	String[] nextKeys = Arrays.copyOfRange(key, 1, keys.length);
+            if(resultObject.get(key).getClass() == JSONObject.class){
+            	resultObject = (JSONObject) resultObject.get(key);
+            }
+            else{
+                JSONArray jsonArray = (JSONArray) orgObject.get(key);
+                for(int i=0; i<jsonArray.size(); i++){
+                    searchKey(orgObject, (JSONObject) jsonArray.get(i), nextKeys);
+                }
+			}
+
+            searchKey(orgObject, resultObject, nextKeys);
+        }
+	}
+    
     /**
      * Get Kubernetes infos
      *
@@ -32,7 +64,7 @@ public class QueryListService {
      * @return
      * @throws Exception
      */
-    public ResponseEntity<ResponseData> getList(String cluster_id, String key, String field, String node) throws Exception {
+    public ResponseEntity<ResponseData> getList(String cluster_id, String key, String field, String node, String[] filterKeys) throws Exception {
         ResponseEntity<ResponseData> response = null;
         ResponseData resData = new ResponseData();
         JSONObject responseObject = new JSONObject();
@@ -55,6 +87,9 @@ public class QueryListService {
                 responseObject = svcList(key, field);
             }
 
+            if (filterKeys != null && filterKeys.size() > 0) {
+            	responseObject = responseFilter(responseObject, filterKeys);
+            }
 
             resData.setData(responseObject);
             resData.setMessage(Const.SUCCESS);
