@@ -5,6 +5,9 @@ import com.nexcloud.api.client.RedisClient;
 import com.nexcloud.api.domain.ResponseData;
 import com.nexcloud.util.Const;
 import com.nexcloud.util.Util;
+
+import java.util.Arrays;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -26,32 +29,44 @@ public class QueryListService {
 
         JSONObject responseObject = new JSONObject();
     	
-    	for(key : filterKeys) {
-    		// TODO : key empty check
+    	for(String key : filterKeys) {
     		if (key != null && !key.trim().isEmpty()) {
-    			searchKey(orgObject, responseObject, key.split("\\."));
+    			String[] subkeys = key.split("\\.");
+    			Object value = searchKey(jsonObject, subkeys);
+    			responseObject.put(subkeys[0], makeJsonItem(value, subkeys));
     		}
     	}
     	
     	return responseObject;
     }
- 
-	private void searchKey(JSONObject orgObject, JSONObject resultObject, String[] keys){
-        if(key.length > 1 && resultObject.containsKey(keys[0])) {
-        	String key = keys[0];
-        	String[] nextKeys = Arrays.copyOfRange(key, 1, keys.length);
-            if(resultObject.get(key).getClass() == JSONObject.class){
-            	resultObject = (JSONObject) resultObject.get(key);
-            }
-            else{
-                JSONArray jsonArray = (JSONArray) orgObject.get(key);
-                for(int i=0; i<jsonArray.size(); i++){
-                    searchKey(orgObject, (JSONObject) jsonArray.get(i), nextKeys);
-                }
-			}
 
-            searchKey(orgObject, resultObject, nextKeys);
-        }
+	Object makeJsonItem(Object obj, String[] keys) {
+		Object result = null;
+
+		if (keys.length == 1) {
+			result = obj;
+		} else {
+			JSONObject json = new JSONObject();
+			json.put(keys[1], makeJsonItem(obj, Arrays.copyOfRange(keys, 1, keys.length)));
+			result = json;
+		}
+		
+		return result;
+	}
+
+	Object searchKey(JSONObject jsonObj, String[] keys) {
+		Object value = jsonObj;
+
+		String key = keys[0];
+		if (keys.length == 1) {
+			value = jsonObj.get(key);
+		} else {
+			if (jsonObj.containsKey(key) && jsonObj.get(key).getClass() == JSONObject.class) {
+				value = searchKey((JSONObject) jsonObj.get(key), Arrays.copyOfRange(keys, 1, keys.length));
+			}
+		}
+
+		return value;
 	}
     
     /**
@@ -87,7 +102,7 @@ public class QueryListService {
                 responseObject = svcList(key, field);
             }
 
-            if (filterKeys != null && filterKeys.size() > 0) {
+            if (filterKeys != null && filterKeys.length > 0) {
             	responseObject = responseFilter(responseObject, filterKeys);
             }
 
