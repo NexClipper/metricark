@@ -32,8 +32,8 @@ public class QueryListService {
     	for(String key : filterKeys) {
     		if (key != null && !key.trim().isEmpty()) {
     			String[] subkeys = key.split("\\.");
-    			Object value = makeJsonItem(searchKey(jsonObject, subkeys), subkeys);
-    			resultObject.put(subkeys[0], resultObject.get(subkeys[0]) == null ? value : deepMerge((JSONObject)resultObject.get(subkeys[0]), (JSONObject)value));
+    			Object value = makeJsonItem(searchKey(orgObject, subkeys), subkeys);
+    			responseObject.put(subkeys[0], responseObject.get(subkeys[0]) == null ? value : deepMerge((JSONObject)responseObject.get(subkeys[0]), (JSONObject)value));
     		}
     	}
     	
