@@ -32,13 +32,31 @@ public class QueryListService {
     	for(String key : filterKeys) {
     		if (key != null && !key.trim().isEmpty()) {
     			String[] subkeys = key.split("\\.");
-    			Object value = searchKey(jsonObject, subkeys);
-    			responseObject.put(subkeys[0], makeJsonItem(value, subkeys));
+    			Object value = makeJsonItem(searchKey(jsonObject, subkeys), subkeys);
+    			resultObject.put(subkeys[0], resultObject.get(subkeys[0]) == null ? value : deepMerge((JSONObject)resultObject.get(subkeys[0]), (JSONObject)value));
     		}
     	}
     	
     	return responseObject;
     }
+
+	public JSONObject deepMerge(JSONObject source, JSONObject target) {
+	    for (Object key: source.keySet()) {
+	            Object value = source.get(key);
+	            if (!target.containsKey(key)) {
+	                // new value for "key":
+	                target.put(key, value);
+	            } else {
+	                // existing value for "key" - recursively deep merge:
+	                if (value instanceof JSONObject) {
+	                    deepMerge((JSONObject)value, (JSONObject)target.get(key));
+	                } else {
+	                    target.put(key, value);
+	                }
+	            }
+	    }
+	    return target;
+	}
 
 	Object makeJsonItem(Object obj, String[] keys) {
 		Object result = null;
