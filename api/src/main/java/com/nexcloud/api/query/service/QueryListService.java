@@ -25,28 +25,56 @@ public class QueryListService {
     @Autowired private RedisClient redisClient;
     @Autowired private PrometheusClient prometheusClient;
 
+    /**
+     * 원본 json object 에서 filterKeys 에 입력된 키값을 추출 한다
+     * 
+     * param  JSONObject orgObject  필터링을 위한 원본 json 결과
+     * param  String[] filterKeys   필터링 키 리스트
+     * 
+     * JSONObject
+     */
     private JSONObject responseFilter(JSONObject orgObject, String[] filterKeys) {
 
+    	// 최종 결과를 위한 JSONObject
         JSONObject responseObject = new JSONObject();
-    	
+
     	for(String key : filterKeys) {
+    		// 필터키 유효성 검증
     		if (key != null && !key.trim().isEmpty()) {
+
+    			// 필터키를 레벨별로 분화 시킨다
     			String[] subkeys = key.split("\\.");
+
+    			// 필키를 찾아서 레벨에 맞게 구성된 JSONObject 아이템으로 가져온다. 
     			Object value = makeJsonItem(searchKey(orgObject, subkeys), subkeys);
-    			responseObject.put(subkeys[0], responseObject.get(subkeys[0]) == null ? value : deepMerge((JSONObject)responseObject.get(subkeys[0]), (JSONObject)value));
+
+    			// 결과 오브젝트에 없으면 바로 등록, 있으면 기존 결과에 머징한 값으로 등록한다.
+    			responseObject.put(subkeys[0], responseObject.get(subkeys[0]) == null ? value : deepMerge((JSONObject)value), (JSONObject)responseObject.get(subkeys[0]));
     		}
     	}
     	
     	return responseObject;
     }
 
+    /**
+     * 특정 JSONObject를 타겟으로 머징한다.
+     * 
+     * JSONObject source, target
+     * 
+     */
 	public JSONObject deepMerge(JSONObject source, JSONObject target) {
+
+		// 전체 키 대상 검증/복제
 	    for (Object key: source.keySet()) {
 	            Object value = source.get(key);
+
+	            // 키가 없으면 바로 등록
 	            if (!target.containsKey(key)) {
 	                // new value for "key":
 	                target.put(key, value);
-	            } else {
+	            }
+	            // 이미 존재하는 키면 JSONObject 일 경우 하위 레이어에 대한 추가복제 - recursive
+	            else {
 	                // existing value for "key" - recursively deep merge:
 	                if (value instanceof JSONObject) {
 	                    deepMerge((JSONObject)value, (JSONObject)target.get(key));
@@ -58,6 +86,13 @@ public class QueryListService {
 	    return target;
 	}
 
+	/**
+	 * 특정 object를 입력된 키의 위치에 맞게 할당하는 JSONObject 를 생성한다.
+	 * 
+	 * Object obj  value로 할당될 값
+	 * String[] keys  value가 할당될 상대위치 키값
+	 * 
+	 */
 	Object makeJsonItem(Object obj, String[] keys) {
 		Object result = null;
 
@@ -72,6 +107,13 @@ public class QueryListService {
 		return result;
 	}
 
+	/**
+	 * 특정 키의 json object 의 value 값을 가져온다.
+	 * 
+	 * JSONObject jsonObj 값을 추출할 원본 JSONObject
+	 * String[] keys 값을 추출하기 위해 접근할 상대위치 키값
+	 * 
+	 */
 	Object searchKey(JSONObject jsonObj, String[] keys) {
 		Object value = jsonObj;
 
