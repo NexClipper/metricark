@@ -49,10 +49,15 @@ public class QueryListService {
     			Object value = makeJsonItem(searchKey(orgObject, subkeys), subkeys);
 
     			// 결과 오브젝트에 없으면 바로 등록, 있으면 기존 결과에 머징한 값으로 등록한다.
-    			responseObject.put(subkeys[0], responseObject.get(subkeys[0]) == null ? value : deepMerge((JSONObject)value), (JSONObject)responseObject.get(subkeys[0]));
+    			responseObject.put(
+    					subkeys[0],
+    					responseObject.get(subkeys[0]) == null
+    					? value
+    					: deepMerge((JSONObject)value, (JSONObject)responseObject.get(subkeys[0]))
+    				);
     		}
     	}
-    	
+
     	return responseObject;
     }
 
