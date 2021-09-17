@@ -97,8 +97,10 @@ public class QueryListService {
 		Object result = null;
 
 		if (keys.length == 1) {
+			// 해당 키면 바로 등록
 			result = obj;
 		} else {
+			// 하위키면 JSONObject를 만들어서 하위키를 추가로 만들어서 해당 키에 할당
 			JSONObject json = new JSONObject();
 			json.put(keys[1], makeJsonItem(obj, Arrays.copyOfRange(keys, 1, keys.length)));
 			result = json;
@@ -119,10 +121,16 @@ public class QueryListService {
 
 		String key = keys[0];
 		if (keys.length == 1) {
+			// 해당 키면 바로 추출
 			value = jsonObj.get(key);
 		} else {
+			// 해당 키의 하위키가 존재하면서 하위가 동일하게 JSONObject 일 경우 추가 탐색 
 			if (jsonObj.containsKey(key) && jsonObj.get(key).getClass() == JSONObject.class) {
 				value = searchKey((JSONObject) jsonObj.get(key), Arrays.copyOfRange(keys, 1, keys.length));
+			}
+			// JSONObject가 아닐 경우 : 잘못된 접근이므로 null
+			else {
+				value = null;
 			}
 		}
 
