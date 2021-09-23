@@ -108,6 +108,13 @@
 			<version>2.5</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<version>2.5.4</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- Redis Maven Stop -->		
 	</dependencies>
 	<build>
