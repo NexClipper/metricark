@@ -1,6 +1,6 @@
 package com.nexcloud.api.openstack.controller;
 
-import com.nexcloud.api.openstack.service.OpenstackNodeService;
+import com.nexcloud.api.openstack.service.OpenstackClusterService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -21,15 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableAutoConfiguration
 @ComponentScan
 @RequestMapping(value = "/v1")
-public class OpenstackNodeController {
+public class OpenstackClusterController {
 
-    static final Logger logger = LoggerFactory.getLogger(OpenstackNodeController.class);
+    static final Logger logger = LoggerFactory.getLogger(OpenstackClusterController.class);
 
     @Autowired
-    private OpenstackNodeService service;
+    OpenstackClusterService service;
 
 
-    @ApiOperation(value = "Nodes Info", httpMethod = "GET", notes = "Nodes Info")
+    @ApiOperation(value = "Clusters Info", httpMethod = "GET", notes = "Clusters Info")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "SUCCESS"),
             @ApiResponse(code = 400, message = "Bad Request"),
@@ -38,13 +38,13 @@ public class OpenstackNodeController {
             @ApiResponse(code = 500, message = "Internal Server Error"),
             @ApiResponse(code = 503, message = "Service Unavailable")
     })
-    @RequestMapping(value = "/nodes")
+    @RequestMapping(value = "/clusters")
     @ResponseBody
-    public ResponseEntity<String> getNode() {
+    public ResponseEntity<String> getClusters() {
         ResponseEntity<String> response;
 
         try {
-            response = service.getNodes();
+            response = service.getClusters();
         } catch (Exception e) {
             e.printStackTrace();
             response = new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -52,4 +52,7 @@ public class OpenstackNodeController {
 
         return response;
     }
+
+
+
 }

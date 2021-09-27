@@ -12,7 +12,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class OpenstackNodeService {
+public class OpenstackClusterService {
 
     public static final String SENLIN_PORT = ":8778";
     public static final String AUTH_TOKEN_HEADER_NAME = "X-Auth-Token";
@@ -27,9 +27,9 @@ public class OpenstackNodeService {
     private OpenstackClient openstackClient;
 
 
-    public ResponseEntity<String> getNodes() {
+    public ResponseEntity<String> getClusters() {
 
-        String nodesInfoUrl = ENDPOINT + SENLIN_PORT + "/v1/nodes";
+        String clustersInfoUrl = ENDPOINT + SENLIN_PORT + "/v1/clusters";
 
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
@@ -42,21 +42,21 @@ public class OpenstackNodeService {
 
                 HttpEntity<String> request = new HttpEntity<>(headers);
 
-                response = restTemplate.exchange(nodesInfoUrl, HttpMethod.GET, request, String.class);
+                response = restTemplate.exchange(clustersInfoUrl, HttpMethod.GET, request, String.class);
 
                 if (response.getStatusCode().equals(HttpStatus.UNAUTHORIZED)) {
                     openstackClient.getAuthenticationToken();
                 }
             }
-            LOGGER.debug("Got Nodes info");
+            LOGGER.debug("Got Clusters info");
             return response;
         } catch (RestClientException re) {
             re.printStackTrace();
-            LOGGER.warn("Failed to get nodes info (RestClientException)", re);
+            LOGGER.warn("Failed to get Clusters info (RestClientException)", re);
             return null;
         } catch (Exception e) {
             e.printStackTrace();
-            LOGGER.warn("Failed to get nodes info (Exception)", e);
+            LOGGER.warn("Failed to get Clusters info (Exception)", e);
             return null;
         }
     }
