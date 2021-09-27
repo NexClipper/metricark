@@ -19,7 +19,7 @@ public class OpenstackClusterServiceTest {
 
     @DisplayName("클러스터 정보를 조회하는 API 테스트")
     @Test
-    public void name() {
+    public void clusterTest() {
         //given //when
         ResponseEntity<String> response = openstackClusterService.getClusters();
 
