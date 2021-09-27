@@ -76,38 +76,6 @@ public class OpenstackClient {
         }
     }
 
-    public ResponseEntity<String> getNodes() {
-
-        String clusterNodesUrl = ENDPOINT + "/cluster/v1/nodes";
-
-        restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
-
-        ResponseEntity<String> response = null;
-        try {
-        	for(int cnt = 0; cnt < RETRY_CNT ; ++cnt) {
-	            HttpHeaders headers = new HttpHeaders();
-	            headers.setContentType(MediaType.APPLICATION_JSON);
-	            headers.add("X-Auth-Token", getToken());
-	
-	            HttpEntity<String> request = new HttpEntity<>(headers);
-	
-	            response = restTemplate.exchange(clusterNodesUrl, HttpMethod.GET, request, String.class);
-	
-	            if (response.getStatusCode().equals(HttpStatus.UNAUTHORIZED)) {
-	            	getAuthenticationToken();
-	            }
-        	}
-            return response;
-        } catch (RestClientException re) {
-            re.printStackTrace();
-            return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            return null;
-        }
-    }
-
     // Authentication Token을 획득하기 위한 HTTP 요청에 담을 Request Body 생성 메서드
     private ObjectNode getAuthenticationTokenRequestBody() {
         ObjectNode domainID = NODE_FACTORY.objectNode();
