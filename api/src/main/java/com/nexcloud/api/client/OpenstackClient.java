@@ -116,8 +116,8 @@ public class OpenstackClient {
 
         ObjectNode userObj = NODE_FACTORY.objectNode();
         userObj.set("domain", domainID);
-        userObj.put("name", "admin");
-        userObj.put("password", "secret");
+        userObj.put("name", USERNAME);
+        userObj.put("password", PASSWORD);
 
         ObjectNode user = NODE_FACTORY.objectNode();
         user.set("user", userObj);
