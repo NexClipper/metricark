@@ -52,7 +52,4 @@ public class OpenstackClusterController {
 
         return response;
     }
-
-
-
 }

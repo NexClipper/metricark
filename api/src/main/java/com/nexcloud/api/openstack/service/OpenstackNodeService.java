@@ -46,6 +46,8 @@ public class OpenstackNodeService {
 
                 if (response.getStatusCode().equals(HttpStatus.UNAUTHORIZED)) {
                     openstackClient.getAuthenticationToken();
+                } else if (response.getStatusCode().is2xxSuccessful()) {
+                    break;
                 }
             }
             LOGGER.debug("Got Nodes info");

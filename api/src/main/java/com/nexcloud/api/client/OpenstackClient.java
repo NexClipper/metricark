@@ -75,7 +75,7 @@ public class OpenstackClient {
         }
     }
 
-    
+
     // Authentication Token을 획득하기 위한 HTTP 요청에 담을 Request Body 생성 메서드
     private ObjectNode getAuthenticationTokenRequestBody() {
         ObjectNode domainID = NODE_FACTORY.objectNode();
