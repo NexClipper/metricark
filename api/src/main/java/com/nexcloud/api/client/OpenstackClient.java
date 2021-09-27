@@ -29,44 +29,43 @@ public class OpenstackClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackClient.class);
     private static final JsonNodeFactory NODE_FACTORY = JsonNodeFactory.instance;
     private final RestTemplate restTemplate = new RestTemplate();
- 
+
     private final Integer RETRY_CNT = 5;
 
     private static String token;
 
-	@PostConstruct
-	private void init() {
-		this.token = getAuthenticationToken();
-	}
+    @PostConstruct
+    private void init() {
+        this.token = getAuthenticationToken();
+    }
 
-	public String getToken() {
-		return StringUtils.isEmpty(this.token) ? getAuthenticationToken() : this.token;
-	}
+    public String getToken() {
+        return StringUtils.isEmpty(this.token) ? getAuthenticationToken() : this.token;
+    }
 
     // Authentication Token 획득
     public String getAuthenticationToken() {
         try {
-        	for(int cnt = 0; cnt < RETRY_CNT ; ++cnt) {
-	//            String authTokenUrl = "http://192.168.5.31/identity/v3/auth/tokens";
-	            String authTokenUrl = ENDPOINT + "/identity/v3/auth/tokens";
-	            // Request Header에 Data type 입력(Application/json)
-	            HttpHeaders headers = new HttpHeaders();
-	            headers.setContentType(MediaType.APPLICATION_JSON);
-	
-	            // Request Body에 인증정보를 입력하고 HttpEntity 객체 생성
-	            HttpEntity<String> request = new HttpEntity<>(getAuthenticationTokenRequestBody().toString(), headers);
-	
-	            // POST요청을 보내서 토큰을 받아온다 (Response Header에 위치)
-	            restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
-	            ResponseEntity<String> response = restTemplate.postForEntity(authTokenUrl, request, String.class);
-	
-	            if (response.getStatusCode().is2xxSuccessful()) {
-	            	this.token = response.getHeaders().get("X-Subject-Token").get(0);
-	            	break;
-	            }
-        	}
+            for (int cnt = 0; cnt < RETRY_CNT; ++cnt) {
+                String authTokenUrl = ENDPOINT + "/identity/v3/auth/tokens";
+                // Request Header에 Data type 입력(Application/json)
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_JSON);
 
-        	return token;
+                // Request Body에 인증정보를 입력하고 HttpEntity 객체 생성
+                HttpEntity<String> request = new HttpEntity<>(getAuthenticationTokenRequestBody().toString(), headers);
+
+                // POST요청을 보내서 토큰을 받아온다 (Response Header에 위치)
+                restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+                ResponseEntity<String> response = restTemplate.postForEntity(authTokenUrl, request, String.class);
+
+                if (response.getStatusCode().is2xxSuccessful()) {
+                    this.token = response.getHeaders().get("X-Subject-Token").get(0);
+                    break;
+                }
+            }
+
+            return token;
         } catch (RestClientException re) {
             re.printStackTrace();
             return null;

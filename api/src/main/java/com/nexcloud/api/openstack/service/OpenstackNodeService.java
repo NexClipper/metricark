@@ -35,7 +35,7 @@ public class OpenstackNodeService {
 
         ResponseEntity<String> response = null;
         try {
-            for(int cnt = 0; cnt < RETRY_CNT ; ++cnt) {
+            for (int cnt = 0; cnt < RETRY_CNT; ++cnt) {
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
                 headers.add(AUTH_TOKEN_HEADER_NAME, openstackClient.getToken());

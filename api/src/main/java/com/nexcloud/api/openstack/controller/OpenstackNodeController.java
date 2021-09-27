@@ -32,9 +32,9 @@ public class OpenstackNodeController {
 
     @ApiOperation(value = "Nodes Info", httpMethod = "GET", notes = "Nodes Info")
     @ApiResponses(value = {
-            @ApiResponse( code = 200, message = "SUCCESS"),
-            @ApiResponse( code = 401, message = "Unauthorized"),
-            @ApiResponse( code = 500, message = "Internal Server Error")
+            @ApiResponse(code = 200, message = "SUCCESS"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @RequestMapping(value = "/nodes")
     @ResponseBody
