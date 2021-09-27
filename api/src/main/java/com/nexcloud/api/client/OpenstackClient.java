@@ -19,20 +19,18 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class OpenstackClient {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackClient.class);
+    private static final JsonNodeFactory NODE_FACTORY = JsonNodeFactory.instance;
+    private static final Integer RETRY_CNT = 5;
+    private final RestTemplate restTemplate = new RestTemplate();
+    private static String token;
+
     @Value("${openstack.endpoint}")
     private String ENDPOINT;
     @Value("${openstack.username}")
     private String USERNAME;
     @Value("${openstack.password}")
     private String PASSWORD;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackClient.class);
-    private static final JsonNodeFactory NODE_FACTORY = JsonNodeFactory.instance;
-    private final RestTemplate restTemplate = new RestTemplate();
-
-    private final Integer RETRY_CNT = 5;
-
-    private static String token;
 
     @PostConstruct
     private void init() {
@@ -61,6 +59,7 @@ public class OpenstackClient {
 
                 if (response.getStatusCode().is2xxSuccessful()) {
                     this.token = response.getHeaders().get("X-Subject-Token").get(0);
+                    LOGGER.debug("Got Authentication token");
                     break;
                 }
             }
@@ -68,9 +67,11 @@ public class OpenstackClient {
             return token;
         } catch (RestClientException re) {
             re.printStackTrace();
+            LOGGER.warn("Failed to get Authentication Token (RestClientException)", re);
             return null;
         } catch (Exception e) {
             e.printStackTrace();
+            LOGGER.warn("Failed to get Authentication Token (Exception)", e);
             return null;
         }
     }
