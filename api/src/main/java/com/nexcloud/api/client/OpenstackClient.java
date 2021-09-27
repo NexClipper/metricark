@@ -96,6 +96,9 @@ public class OpenstackClient {
 	            if (response.getStatusCode().equals(HttpStatus.UNAUTHORIZED)) {
 	            	getAuthenticationToken();
 	            }
+	            else if (response.getStatusCode().is2xxSuccessful()) {
+	            	break;
+	            }
         	}
             return response;
         } catch (RestClientException re) {
