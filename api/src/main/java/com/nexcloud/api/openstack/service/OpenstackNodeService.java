@@ -14,19 +14,22 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class OpenstackNodeService {
 
+    public static final String SENLIN_PORT = ":8778";
+    public static final String AUTH_TOKEN_HEADER_NAME = "X-Auth-Token";
+    private static final Integer RETRY_CNT = 5;
+    private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackNodeService.class);
+    private final RestTemplate restTemplate = new RestTemplate();
+
     @Value("${openstack.endpoint}")
     private String ENDPOINT;
 
     @Autowired
     private OpenstackClient openstackClient;
-    private static final Integer RETRY_CNT = 5;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackClient.class);
-    private final RestTemplate restTemplate = new RestTemplate();
 
     public ResponseEntity<String> getNodes() {
 
-        String clusterNodesUrl = ENDPOINT + ":8778" + "/v1/nodes";
+        String clusterNodesUrl = ENDPOINT + SENLIN_PORT + "/v1/nodes";
 
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
@@ -35,7 +38,7 @@ public class OpenstackNodeService {
             for(int cnt = 0; cnt < RETRY_CNT ; ++cnt) {
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
-                headers.add("X-Auth-Token", openstackClient.getToken());
+                headers.add(AUTH_TOKEN_HEADER_NAME, openstackClient.getToken());
 
                 HttpEntity<String> request = new HttpEntity<>(headers);
 
@@ -45,13 +48,15 @@ public class OpenstackNodeService {
                     openstackClient.getAuthenticationToken();
                 }
             }
+            LOGGER.debug("Got Nodes info");
             return response;
         } catch (RestClientException re) {
             re.printStackTrace();
+            LOGGER.warn("Failed to get nodes info (RestClientException)", re);
             return null;
         } catch (Exception e) {
             e.printStackTrace();
-
+            LOGGER.warn("Failed to get nodes info (Exception)", e);
             return null;
         }
     }
