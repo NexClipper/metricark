@@ -1,27 +1,27 @@
-package com.nexcloud.api.openstack.service;
+package com.nexcloud.api.openstack.controller;
 
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class OpenstackClusterServiceTest {
+public class OpenstackNodeControllerTest {
 
     @Autowired
-    OpenstackClusterService openstackClusterService;
+    OpenstackNodeController openstackNodeController;
 
-    @DisplayName("클러스터 정보를 조회하는 API 테스트")
+    @DisplayName("노드정보를 조회하는 API 테스트")
     @Test
-    public void clusterTest() {
+    public void nodesTest() {
         //given //when
-        ResponseEntity<String> response = openstackClusterService.getClusters();
+        ResponseEntity<String> response = openstackNodeController.getNodes();
 
         //then
         System.out.println(response.getBody());

@@ -5,18 +5,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
-import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
 
 @Service
 public class OpenstackService {
-    private static final String AUTH_TOKEN_HEADER_NAME = "X-Auth-Token";
-    private static final Integer RETRY_CNT = 5;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackService.class);
-    private final RestTemplate restTemplate = new RestTemplate();
 
     private final OpenstackClient openstackClient;
 
@@ -31,36 +26,12 @@ public class OpenstackService {
     public ResponseEntity<String> accessOpenstack(String port, String uri) {
 
         String targetUrl = ENDPOINT + ":" + port + uri;
+        return openstackClient.executeHttpRequest(targetUrl);
+    }
 
-        restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+    public ResponseEntity<String> accessOpenstack(String uri) {
 
-        ResponseEntity<String> response = null;
-        try {
-            for (int cnt = 0; cnt < RETRY_CNT; ++cnt) {
-                HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(MediaType.APPLICATION_JSON);
-                headers.add(AUTH_TOKEN_HEADER_NAME, openstackClient.getToken());
-
-                HttpEntity<String> request = new HttpEntity<>(headers);
-
-                response = restTemplate.exchange(targetUrl, HttpMethod.GET, request, String.class);
-
-                if (response.getStatusCode().equals(HttpStatus.UNAUTHORIZED)) {
-                    openstackClient.getAuthenticationToken();
-                } else if (response.getStatusCode().is2xxSuccessful()) {
-                    break;
-                }
-            }
-            LOGGER.debug("Success");
-            return response;
-        } catch (RestClientException re) {
-            re.printStackTrace();
-            LOGGER.warn("Failed (RestClientException)", re);
-            return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.warn("Failed (Exception)", e);
-            return null;
-        }
+        String targetUrl = ENDPOINT + uri;
+        return openstackClient.executeHttpRequest(targetUrl);
     }
 }

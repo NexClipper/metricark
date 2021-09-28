@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -16,28 +15,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @Configuration
 @RestController
 @EnableAutoConfiguration
 @ComponentScan
-@RequestMapping(value = "/v1")
-public class OpenstackClusterController {
+@RequestMapping(value = "/compute/v2.1")
+public class OpenstackNovaController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackClusterController.class);
-
-    @Value("${openstack.senlinport}")
-    private String senlinPort;
+    private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackNovaController.class);
 
     private final OpenstackService service;
 
     @Autowired
-    public OpenstackClusterController(OpenstackService service) {
+    public OpenstackNovaController(OpenstackService service) {
         this.service = service;
     }
 
-
-    @ApiOperation(value = "Clusters Info", httpMethod = "GET", notes = "Clusters Info")
+    @ApiOperation(value = "Servers Info", httpMethod = "GET", notes = "Servers Info")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "SUCCESS"),
             @ApiResponse(code = 400, message = "Bad Request"),
@@ -46,12 +40,12 @@ public class OpenstackClusterController {
             @ApiResponse(code = 500, message = "Internal Server Error"),
             @ApiResponse(code = 503, message = "Service Unavailable")
     })
-    @RequestMapping(value = "/clusters")
-    public ResponseEntity<String> getClusters() {
+    @RequestMapping(value = "/servers")
+    public ResponseEntity<String> getServers() {
         ResponseEntity<String> response;
 
         try {
-            response = service.accessOpenstack(senlinPort, "/v1/clusters");
+            response = service.accessOpenstack("/compute/v2.1/servers");
         } catch (Exception e) {
             e.printStackTrace();
             response = new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -59,4 +53,5 @@ public class OpenstackClusterController {
 
         return response;
     }
+
 }

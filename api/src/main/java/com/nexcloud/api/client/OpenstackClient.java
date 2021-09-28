@@ -22,6 +22,7 @@ public class OpenstackClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackClient.class);
     private static final JsonNodeFactory NODE_FACTORY = JsonNodeFactory.instance;
     private static final Integer RETRY_CNT = 5;
+    private static final String AUTH_TOKEN_HEADER_NAME = "X-Auth-Token";
     private final RestTemplate restTemplate = new RestTemplate();
     private String token;
 
@@ -63,7 +64,6 @@ public class OpenstackClient {
                     break;
                 }
             }
-
             return token;
         } catch (RestClientException re) {
             re.printStackTrace();
@@ -72,6 +72,39 @@ public class OpenstackClient {
         } catch (Exception e) {
             e.printStackTrace();
             LOGGER.warn("Failed to get Authentication Token (Exception)", e);
+            return null;
+        }
+    }
+
+    public ResponseEntity<String> executeHttpRequest(String targetUrl) {
+        restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+
+        ResponseEntity<String> response = null;
+        try {
+            for (int cnt = 0; cnt < RETRY_CNT; ++cnt) {
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_JSON);
+                headers.add(AUTH_TOKEN_HEADER_NAME, getToken());
+
+                HttpEntity<String> request = new HttpEntity<>(headers);
+
+                response = restTemplate.exchange(targetUrl, HttpMethod.GET, request, String.class);
+
+                if (response.getStatusCode().equals(HttpStatus.UNAUTHORIZED)) {
+                    getAuthenticationToken();
+                } else if (response.getStatusCode().is2xxSuccessful()) {
+                    break;
+                }
+            }
+            LOGGER.debug("Success");
+            return response;
+        } catch (RestClientException re) {
+            re.printStackTrace();
+            LOGGER.warn("Failed (RestClientException)", re);
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.warn("Failed (Exception)", e);
             return null;
         }
     }

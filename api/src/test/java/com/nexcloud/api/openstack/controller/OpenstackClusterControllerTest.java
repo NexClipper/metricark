@@ -1,4 +1,4 @@
-package com.nexcloud.api.openstack.service;
+package com.nexcloud.api.openstack.controller;
 
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -12,16 +12,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class OpenstackNodeServiceTest {
+public class OpenstackClusterControllerTest {
 
     @Autowired
-    OpenstackNodeService openstackNodeService;
+    OpenstackClusterController openstackClusterController;
 
-    @DisplayName("노드정보를 조회하는 API 테스트")
+    @DisplayName("클러스터 정보를 조회하는 API 테스트")
     @Test
-    public void nodesTest() {
+    public void clusterTest() {
         //given //when
-        ResponseEntity<String> response = openstackNodeService.getNodes();
+        ResponseEntity<String> response = openstackClusterController.getClusters();
 
         //then
         System.out.println(response.getBody());
