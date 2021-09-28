@@ -1,6 +1,7 @@
 package com.nexcloud.api.openstack.controller;
 
-import com.nexcloud.api.openstack.service.OpenstackClusterService;
+import com.nexcloud.api.openstack.service.OpenstackService;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.ws.rs.QueryParam;
+
 @Configuration
 @RestController
 @EnableAutoConfiguration
@@ -25,15 +28,21 @@ public class OpenstackClusterController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackClusterController.class);
 
-    private final OpenstackClusterService service;
+    private final OpenstackService service;
 
     @Autowired
-    public OpenstackClusterController(OpenstackClusterService service) {
+    public OpenstackClusterController(OpenstackService service) {
         this.service = service;
     }
 
 
     @ApiOperation(value = "Clusters Info", httpMethod = "GET", notes = "Clusters Info")
+    @ApiImplicitParam(
+            name = "port",
+            value = "port (ex) 8778",
+            dataType = "string",
+            paramType = "query"
+    )
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "SUCCESS"),
             @ApiResponse(code = 400, message = "Bad Request"),
@@ -44,11 +53,11 @@ public class OpenstackClusterController {
     })
     @RequestMapping(value = "/clusters")
     @ResponseBody
-    public ResponseEntity<String> getClusters() {
+    public ResponseEntity<String> getClusters(@QueryParam("port") String port) {
         ResponseEntity<String> response;
 
         try {
-            response = service.getClusters();
+            response = service.accessOpenstack(port, "/v1/clusters");
         } catch (Exception e) {
             e.printStackTrace();
             response = new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
