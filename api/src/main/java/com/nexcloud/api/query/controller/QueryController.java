@@ -114,4 +114,47 @@ public class QueryController extends SpringBootServletInitializer implements Ser
 		
 		return response;
 	}
+
+	/**
+	* Direct Query 
+	* @return
+	* @throws Exception
+	*/
+	@ApiOperation(value="Direct Query", httpMethod="GET", notes="동적 쿼리 작성")
+	@ApiImplicitParams({
+		@ApiImplicitParam(
+				name = "query",
+				value = "query (ex) kube_pod_owner{namespace='nexclipperagent'} ",
+				required = true,
+				dataType = "string",
+				paramType = "query",
+				defaultValue=""
+		)
+	})
+	@ApiResponses(value={
+			@ApiResponse( code=200, message="SUCCESS"),
+			@ApiResponse( code=500, message="Internal Server Error")
+	})
+	
+	@RequestMapping(value="/p8s/query", method=RequestMethod.GET)
+	@ResponseBody
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public ResponseEntity<ResponseData> getDirectQuery(@RequestParam(value = "promql", required = true) String promql,
+			@RequestParam(value = "endpoint", required = false) String endpoint
+			) throws Exception {
+		
+		ResponseEntity<ResponseData> response 			= null;
+		try{
+			response 									= service.getDirectQuery( promql, endpoint );
+		}catch(Exception e){
+			
+			ResponseData resData	= new ResponseData();
+			resData.setResponse_code(Const.INTERNAL_SERVER_ERROR);
+			resData.setMessage(Const.FAIL);
+			response = new ResponseEntity<ResponseData>(resData, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return response;
+	}
 }

@@ -179,6 +179,43 @@ public class QueryService {
 		
 		return response;
 	}
+
+	/**
+	 * 
+	 * @param promql
+	 * @param endPoint
+	 * @return
+	 * @throws Exception
+	 */
+	public ResponseEntity<ResponseData> getDirectQuery( String promql, String endPoint )  throws Exception
+	{
+		ResponseEntity<ResponseData> response 		= null;
+		ResponseData resData						= new ResponseData();
+		ResponseEntity<String> entityData			= null;
+		try{
+			entityData							= prometheusClient.getDynamicQuery("{param}", promql );
+			
+
+			JSONParser parser						= new JSONParser();
+			//JSON데이터를 넣어 JSON Object 로 만들어 준다.
+            JSONObject jsonObject 					= (JSONObject) parser.parse(entityData.getBody());
+            resData.setData((JSONObject)jsonObject.get("data"));
+            resData.setStatus((String)jsonObject.get("status"));
+            
+			resData.setResponse_code(entityData.getStatusCodeValue());
+			resData.setMessage(Const.SUCCESS);
+
+			response = new ResponseEntity<ResponseData>(resData, HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			resData.setResponse_code(Const.INTERNAL_SERVER_ERROR);
+			resData.setMessage(Const.FAIL);
+			resData.setMessage(Util.makeStackTrace(e));
+			response = new ResponseEntity<ResponseData>(resData, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return response;
+	}
 //
 //	/**
 //	 * Redis Test

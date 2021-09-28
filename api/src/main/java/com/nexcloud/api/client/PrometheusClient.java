@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -170,6 +171,68 @@ public class PrometheusClient {
         ResponseEntity<String> resData = null;
         try {
             resData = restTemplate.getForEntity(ENDPOINT + "/api/v1/query_range?query=" + URLDecoder.decode(query, "UTF-8"), String.class, param);
+        } catch (RestClientException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return null;
+        }
+
+        return resData;
+    }
+
+
+    /**
+     * Prometheus get direct Query
+     *
+     * @param query
+     * @return
+     */
+    public ResponseEntity<String> getDirectQuery(String promql, String endPoint) {
+ 
+    	if (StringUtils.isEmpty(endPoint)) {
+    		endPoint = ENDPOINT;
+    	}
+
+        restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+
+        ResponseEntity<String> resData = null;
+        try {
+            resData = restTemplate.getForEntity(endPoint + "/api/v1/query?query=" + URLDecoder.decode(promql, "UTF-8"), String.class);
+        } catch (RestClientException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return null;
+        }
+
+        return resData;
+    }
+
+
+    /**
+     * Prometheus get direct QueryRange
+     *
+     * @param query
+     * @return
+     */
+    public ResponseEntity<String> getDirectQueryRange(String promql, String endPoint) {
+ 
+    	if (StringUtils.isEmpty(endPoint)) {
+    		endPoint = ENDPOINT;
+    	}
+
+        restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+
+        ResponseEntity<String> resData = null;
+        try {
+            resData = restTemplate.getForEntity(endPoint + "/api/v1/query_range?query=" + URLDecoder.decode(promql, "UTF-8"), String.class);
         } catch (RestClientException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
