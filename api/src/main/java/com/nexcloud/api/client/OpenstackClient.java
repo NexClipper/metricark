@@ -23,7 +23,7 @@ public class OpenstackClient {
     private static final JsonNodeFactory NODE_FACTORY = JsonNodeFactory.instance;
     private static final Integer RETRY_CNT = 5;
     private final RestTemplate restTemplate = new RestTemplate();
-    private static String token;
+    private String token;
 
     @Value("${openstack.endpoint}")
     private String ENDPOINT;
