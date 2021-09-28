@@ -17,7 +17,7 @@ public class OpenstackClusterService {
     private static final String SENLIN_PORT = ":8778";
     private static final String AUTH_TOKEN_HEADER_NAME = "X-Auth-Token";
     private static final Integer RETRY_CNT = 5;
-    private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackNodeService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackClusterService.class);
     private final RestTemplate restTemplate = new RestTemplate();
 
     @Value("${openstack.endpoint}")
