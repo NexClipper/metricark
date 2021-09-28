@@ -23,10 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/v1")
 public class OpenstackClusterController {
 
-    static final Logger logger = LoggerFactory.getLogger(OpenstackClusterController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackClusterController.class);
 
     @Autowired
-    OpenstackClusterService service;
+    private OpenstackClusterService service;
 
 
     @ApiOperation(value = "Clusters Info", httpMethod = "GET", notes = "Clusters Info")

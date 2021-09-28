@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/v1")
 public class OpenstackNodeController {
 
-    static final Logger logger = LoggerFactory.getLogger(OpenstackNodeController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackNodeController.class);
 
     @Autowired
     private OpenstackNodeService service;
