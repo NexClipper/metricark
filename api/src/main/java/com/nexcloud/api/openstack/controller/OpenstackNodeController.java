@@ -13,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,4 +59,30 @@ public class OpenstackNodeController {
 
         return response;
     }
+
+    @ApiOperation(value = "Node Detail Info", httpMethod = "GET", notes = "Node Detail Info")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "SUCCESS"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error"),
+            @ApiResponse(code = 503, message = "Service Unavailable")
+    })
+    @RequestMapping(value = "/nodes/{nodeId}")
+    public ResponseEntity<String> getNodeDetail(@PathVariable String nodeId) {
+        ResponseEntity<String> response;
+
+        try {
+            response = service.accessOpenstack(senlinPort, String.format("/v1/nodes/%s", nodeId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            response = new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return response;
+    }
+
+
 }

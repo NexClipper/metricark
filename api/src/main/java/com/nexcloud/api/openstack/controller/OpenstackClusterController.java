@@ -83,11 +83,11 @@ public class OpenstackClusterController {
             @ApiResponse(code = 503, message = "Service Unavailable")
     })
     @RequestMapping(value = "/clusters/{clusterId}")
-    public ResponseEntity<String> getClusterDetail(@PathVariable Long clusterId) {
+    public ResponseEntity<String> getClusterDetail(@PathVariable String clusterId) {
 		ResponseEntity<String> response;
 
         try {
-            response = service.accessOpenstack(senlinPort, String.format("/v1/clusters/%d", clusterId));
+            response = service.accessOpenstack(senlinPort, String.format("/v1/clusters/%s", clusterId));
         } catch (Exception e) {
             e.printStackTrace();
             response = new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -95,4 +95,100 @@ public class OpenstackClusterController {
 
         return response;
     }
+
+    @ApiOperation(value = "Build Info", httpMethod = "GET", notes = "Build Info")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "SUCCESS"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 500, message = "Internal Server Error"),
+            @ApiResponse(code = 503, message = "Service Unavailable")
+    })
+    @RequestMapping(value = "/build-info")
+    public ResponseEntity<String> getBuildInfo() {
+        ResponseEntity<String> response;
+
+        try {
+            response = service.accessOpenstack(senlinPort, "/v1/build-info");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response = new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return response;
+    }
+
+    @ApiOperation(value = "Profiles Info", httpMethod = "GET", notes = "Profiles Info")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "SUCCESS"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 500, message = "Internal Server Error"),
+            @ApiResponse(code = 503, message = "Service Unavailable")
+    })
+    @RequestMapping(value = "/profiles")
+    public ResponseEntity<String> getProfilesInfo() {
+        ResponseEntity<String> response;
+
+        try {
+            response = service.accessOpenstack(senlinPort, "/v1/profiles");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response = new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return response;
+    }
+
+    @ApiOperation(value = "Profile Detail Info", httpMethod = "GET", notes = "Profile Detail Info")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "SUCCESS"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error"),
+            @ApiResponse(code = 503, message = "Service Unavailable")
+    })
+    @RequestMapping(value = "/profiles/{profileId}")
+    public ResponseEntity<String> getProfileDetail(@PathVariable String profileId) {
+        ResponseEntity<String> response;
+
+        try {
+            response = service.accessOpenstack(senlinPort, String.format("/v1/profiles/%s", profileId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            response = new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return response;
+    }
+
+    @ApiOperation(value = "Collect Attributes Across a Cluster", httpMethod = "GET", notes = "Collect Attributes Across a Cluster")
+    @ApiResponses(value = {
+            @ApiResponse(code = 202, message = "Accepted"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Internal Server Error"),
+            @ApiResponse(code = 503, message = "Service Unavailable")
+    })
+    @RequestMapping(value = "/clusters/{clusterId}/attrs/{path}")
+    public ResponseEntity<String> getProfileDetail(@PathVariable String clusterId, @PathVariable String path) {
+        ResponseEntity<String> response;
+
+        try {
+            response = service.accessOpenstack(senlinPort, String.format("/v1/clusters/%s/attrs/%s", clusterId, path));
+        } catch (Exception e) {
+            e.printStackTrace();
+            response = new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return response;
+    }
+
+
 }
