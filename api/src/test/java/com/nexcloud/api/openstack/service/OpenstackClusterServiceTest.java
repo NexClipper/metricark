@@ -26,6 +26,5 @@ public class OpenstackClusterServiceTest {
         //then
         System.out.println(response.getBody());
         assertThat(response.getBody()).isNotNull();
-
     }
 }

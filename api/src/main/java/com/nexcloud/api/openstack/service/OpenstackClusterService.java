@@ -20,12 +20,15 @@ public class OpenstackClusterService {
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackClusterService.class);
     private final RestTemplate restTemplate = new RestTemplate();
 
-    @Value("${openstack.endpoint}")
-    private String ENDPOINT;
+    private final OpenstackClient openstackClient;
 
     @Autowired
-    private OpenstackClient openstackClient;
+    public OpenstackClusterService(OpenstackClient openstackClient) {
+        this.openstackClient = openstackClient;
+    }
 
+    @Value("${openstack.endpoint}")
+    private String ENDPOINT;
 
     public ResponseEntity<String> getClusters() {
 

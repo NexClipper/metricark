@@ -19,7 +19,7 @@ public class JsonObjectCreationLearningTest {
         ObjectNode userObj = nodeFactory.objectNode();
         userObj.set("domain", domainID);
         userObj.put("name", "admin");
-        userObj.put("password", "secret");
+        userObj.put("password", "0000");
 
         ObjectNode user = nodeFactory.objectNode();
         user.set("user", userObj);
@@ -64,8 +64,5 @@ public class JsonObjectCreationLearningTest {
         // auth
 
         System.out.println(auth);
-
     }
-
-
 }
