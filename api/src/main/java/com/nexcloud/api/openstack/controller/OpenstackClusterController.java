@@ -25,8 +25,12 @@ public class OpenstackClusterController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackClusterController.class);
 
+    private final OpenstackClusterService service;
+
     @Autowired
-    private OpenstackClusterService service;
+    public OpenstackClusterController(OpenstackClusterService service) {
+        this.service = service;
+    }
 
 
     @ApiOperation(value = "Clusters Info", httpMethod = "GET", notes = "Clusters Info")

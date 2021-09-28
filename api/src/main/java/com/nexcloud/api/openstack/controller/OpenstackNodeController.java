@@ -25,8 +25,12 @@ public class OpenstackNodeController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackNodeController.class);
 
+    private final OpenstackNodeService service;
+
     @Autowired
-    private OpenstackNodeService service;
+    public OpenstackNodeController(OpenstackNodeService service) {
+        this.service = service;
+    }
 
 
     @ApiOperation(value = "Nodes Info", httpMethod = "GET", notes = "Nodes Info")
