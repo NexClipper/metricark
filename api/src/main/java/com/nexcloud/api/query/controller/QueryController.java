@@ -123,9 +123,17 @@ public class QueryController extends SpringBootServletInitializer implements Ser
 	@ApiOperation(value="Direct Query", httpMethod="GET", notes="동적 쿼리 작성")
 	@ApiImplicitParams({
 		@ApiImplicitParam(
-				name = "query",
+				name = "promql",
 				value = "query (ex) kube_pod_owner{namespace='nexclipperagent'} ",
 				required = true,
+				dataType = "string",
+				paramType = "query",
+				defaultValue=""
+		),
+		@ApiImplicitParam(
+				name = "endpoint",
+				value = "promscale endpoint (ex) http://nc-promscale-connector.nexclipper:9201",
+				required = false,
 				dataType = "string",
 				paramType = "query",
 				defaultValue=""
