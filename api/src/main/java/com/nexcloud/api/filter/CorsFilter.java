@@ -1,4 +1,4 @@
-package com.nexcloud.filter;
+package com.nexcloud.api.filter;
 
 import java.io.IOException;
 
