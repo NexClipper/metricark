@@ -193,8 +193,7 @@ public class QueryService {
 		ResponseData resData						= new ResponseData();
 		ResponseEntity<String> entityData			= null;
 		try{
-			entityData							= prometheusClient.getDynamicQuery("{param}", promql );
-			
+			entityData							= prometheusClient.getDirectQuery(promql, endPoint);
 
 			JSONParser parser						= new JSONParser();
 			//JSON데이터를 넣어 JSON Object 로 만들어 준다.
