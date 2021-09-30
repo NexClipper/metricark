@@ -191,7 +191,7 @@ public class PrometheusClient {
      * @param query
      * @return
      */
-    public ResponseEntity<String> getDirectQuery(String promql, String endPoint) {
+    public ResponseEntity<String> getDirectQuery(String endPoint, String... promql) {
  
     	if (StringUtils.isEmpty(endPoint)) {
     		endPoint = ENDPOINT;
@@ -201,7 +201,7 @@ public class PrometheusClient {
 
         ResponseEntity<String> resData = null;
         try {
-            resData = restTemplate.getForEntity(endPoint + "/api/v1/query?query=" + URLDecoder.decode(promql, "UTF-8"), String.class);
+            resData = restTemplate.getForEntity(endPoint + "/api/v1/query?query=" + URLDecoder.decode("{param}", "UTF-8"), String.class, promql);
         } catch (RestClientException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -222,7 +222,7 @@ public class PrometheusClient {
      * @param query
      * @return
      */
-    public ResponseEntity<String> getDirectQueryRange(String promql, String endPoint) {
+    public ResponseEntity<String> getDirectQueryRange(String endPoint, String... promql) {
  
     	if (StringUtils.isEmpty(endPoint)) {
     		endPoint = ENDPOINT;
@@ -232,7 +232,7 @@ public class PrometheusClient {
 
         ResponseEntity<String> resData = null;
         try {
-            resData = restTemplate.getForEntity(endPoint + "/api/v1/query_range?query=" + URLDecoder.decode(promql, "UTF-8"), String.class);
+            resData = restTemplate.getForEntity(endPoint + "/api/v1/query_range?query=" + URLDecoder.decode("{param}", "UTF-8"), String.class, promql);
         } catch (RestClientException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
