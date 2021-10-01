@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.ws.rs.QueryParam;
 
@@ -71,9 +72,11 @@ public class OpenstackNodeController {
 
         try {
             response = service.accessOpenstack(senlinPort, "/v1/nodes", projectName, domainId);
+        } catch (HttpClientErrorException he) {
+            response = new ResponseEntity<>("Client error", he.getStatusCode());
         } catch (Exception e) {
             e.printStackTrace();
-            response = new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
+            response = new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return response;
@@ -115,9 +118,11 @@ public class OpenstackNodeController {
 
         try {
             response = service.accessOpenstack(senlinPort, String.format("/v1/nodes/%s", nodeId), projectName, domainId);
+        } catch (HttpClientErrorException he) {
+            response = new ResponseEntity<>("Client error", he.getStatusCode());
         } catch (Exception e) {
             e.printStackTrace();
-            response = new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
+            response = new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return response;

@@ -40,15 +40,14 @@ public class BifunctionLearningTest {
         //given
         Map<ArrayList<String>, String> tokenCache = new HashMap<>();
         //when
-        ArrayList<String> parameterset1 = new ArrayList<>(2);
-        parameterset1.add("admin");
-        parameterset1.add("default");
-        parameterset1.add("adasdas0000");
+        ArrayList<String> authenticationInfo = new ArrayList<>();
+        authenticationInfo.add("admin");
+        authenticationInfo.add("default");
 
-        tokenCache.put(parameterset1, openstackClient.getToken(parameterset1.get(0), parameterset1.get(1)));
+        tokenCache.put(authenticationInfo, openstackClient.checkTokenCacheAndGetToken(authenticationInfo.get(0), authenticationInfo.get(1)));
 
         //then
-        System.out.println(tokenCache.get(parameterset1));
+        System.out.println(tokenCache.get(authenticationInfo));
         assertThat(tokenCache.get(new ArrayList<String>())).isNull();
     }
 
@@ -62,9 +61,32 @@ public class BifunctionLearningTest {
         parameterset1[0] = "admin";
         parameterset1[1] = "default";
 
-        tokenCache.put(parameterset1, openstackClient.getToken(parameterset1[0], parameterset1[1]));
+        tokenCache.put(parameterset1, openstackClient.checkTokenCacheAndGetToken(parameterset1[0], parameterset1[1]));
 
         //then
         System.out.println(tokenCache.get(parameterset1));
+    }
+
+    @DisplayName("토큰 저장 테스트")
+    @Test
+    public void test1() {
+        //given
+        Map<ArrayList<String>, String> tokenCache = new HashMap<>();
+
+        //when
+        tokenCache.put(getTokenCacheKey("pn1", "di1"), "key1");
+        tokenCache.put(getTokenCacheKey("pn2", "di2"), "key2");
+
+        //then
+        assertThat(tokenCache.get(getTokenCacheKey("pn1", "di1"))).hasToString("key1");
+        assertThat(tokenCache.get(getTokenCacheKey("pn2", "di2"))).hasToString("key2");
+    }
+
+    private ArrayList<String> getTokenCacheKey(String projectName, String domainId) {
+        ArrayList<String> tokenCacheKey = new ArrayList<>();
+        tokenCacheKey.add(projectName);
+        tokenCacheKey.add(domainId);
+
+        return tokenCacheKey;
     }
 }

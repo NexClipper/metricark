@@ -1,12 +1,7 @@
 package com.nexcloud.api.openstack.controller;
 
 import com.nexcloud.api.openstack.service.OpenstackService;
-
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.ws.rs.QueryParam;
 
@@ -77,9 +73,11 @@ public class OpenstackClusterController {
 
         try {
             response = service.accessOpenstack(senlinPort, "/v1/clusters", projectName, domainId);
+        } catch (HttpClientErrorException he) {
+            response = new ResponseEntity<>("Failed", he.getStatusCode());
         } catch (Exception e) {
             e.printStackTrace();
-            response = new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
+            response = new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return response;
@@ -127,9 +125,11 @@ public class OpenstackClusterController {
 
         try {
             response = service.accessOpenstack(senlinPort, String.format("/v1/clusters/%s", clusterId), projectName, domainId);
+        } catch (HttpClientErrorException he) {
+            response = new ResponseEntity<>("Failed", he.getStatusCode());
         } catch (Exception e) {
             e.printStackTrace();
-            response = new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
+            response = new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return response;
@@ -211,9 +211,11 @@ public class OpenstackClusterController {
 
         try {
             response = service.accessOpenstack(senlinPort, "/v1/profiles", projectName, domainId);
+        } catch (HttpClientErrorException he) {
+            response = new ResponseEntity<>("Client error", he.getStatusCode());
         } catch (Exception e) {
             e.printStackTrace();
-            response = new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
+            response = new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return response;
@@ -255,9 +257,11 @@ public class OpenstackClusterController {
 
         try {
             response = service.accessOpenstack(senlinPort, String.format("/v1/profiles/%s", profileId), projectName, domainId);
+        } catch (HttpClientErrorException he) {
+            response = new ResponseEntity<>("Client error", he.getStatusCode());
         } catch (Exception e) {
             e.printStackTrace();
-            response = new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
+            response = new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return response;
@@ -300,9 +304,11 @@ public class OpenstackClusterController {
 
         try {
             response = service.accessOpenstack(senlinPort, String.format("/v1/clusters/%s/attrs/%s", clusterId, path), projectName, domainId);
+        } catch (HttpClientErrorException he) {
+            response = new ResponseEntity<>("Client error", he.getStatusCode());
         } catch (Exception e) {
             e.printStackTrace();
-            response = new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
+            response = new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return response;

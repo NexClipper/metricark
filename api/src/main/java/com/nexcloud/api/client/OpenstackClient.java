@@ -3,9 +3,6 @@ package com.nexcloud.api.client;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-
-import javax.annotation.PostConstruct;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,8 +10,13 @@ import org.springframework.http.*;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class OpenstackClient {
@@ -24,7 +26,7 @@ public class OpenstackClient {
     private static final Integer RETRY_CNT = 5;
     private static final String AUTH_TOKEN_HEADER_NAME = "X-Auth-Token";
     private final RestTemplate restTemplate = new RestTemplate();
-    private String token;
+    private final Map<ArrayList<String>, String> tokenCache = new HashMap<>();
 
     @Value("${openstack.endpoint}")
     private String ENDPOINT;
@@ -33,39 +35,39 @@ public class OpenstackClient {
     @Value("${openstack.password}")
     private String PASSWORD;
 
-//    @PostConstruct
-//    private void init() {
-//        this.token = getAuthenticationToken();
-//    }
-
-    public String getToken(String projectName, String domainId) {
-        return StringUtils.isEmpty(this.token) ? getAuthenticationToken(projectName, domainId) : this.token;
+    public String checkTokenCacheAndGetToken(String projectName, String domainId) {
+        ArrayList<String> tokenCacheKey = getTokenCacheKey(projectName, domainId);
+        return StringUtils.isEmpty(this.tokenCache.get(tokenCacheKey)) ? getAuthenticationToken(projectName, domainId) : this.tokenCache.get(tokenCacheKey);
     }
 
     // Authentication Token 획득
-    public String
-    getAuthenticationToken(String projectName, String domainId) {
+    public String getAuthenticationToken(String projectName, String domainId) {
+
         try {
+            ArrayList<String> authenticationInfo = getTokenCacheKey(projectName, domainId);
+
             for (int cnt = 0; cnt < RETRY_CNT; ++cnt) {
                 String authTokenUrl = ENDPOINT + "/identity/v3/auth/tokens";
+
                 // Request Header에 Data type 입력(Application/json)
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
 
                 // Request Body에 인증정보를 입력하고 HttpEntity 객체 생성
-                HttpEntity<String> request = new HttpEntity<>(getAuthenticationTokenRequestBody(projectName, domainId).toString(), headers);
+                HttpEntity<String> request = new HttpEntity<>(getProjectScopedAuthenticationTokenRequestBody(projectName, domainId).toString(), headers);
 
                 // POST요청을 보내서 토큰을 받아온다 (Response Header에 위치)
                 restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
                 ResponseEntity<String> response = restTemplate.postForEntity(authTokenUrl, request, String.class);
 
+
                 if (response.getStatusCode().is2xxSuccessful()) {
-                    this.token = response.getHeaders().get("X-Subject-Token").get(0);
+                    this.tokenCache.put(authenticationInfo, response.getHeaders().get("X-Subject-Token").get(0));
                     LOGGER.debug("Got Authentication token");
                     break;
                 }
             }
-            return token;
+            return tokenCache.get(authenticationInfo);
         } catch (RestClientException re) {
             re.printStackTrace();
             LOGGER.warn("Failed to get Authentication Token (RestClientException)", re);
@@ -92,26 +94,30 @@ public class OpenstackClient {
                 response = restTemplate.exchange(targetUrl, HttpMethod.GET, request, String.class);
 
                 if (response.getStatusCode().equals(HttpStatus.UNAUTHORIZED)) {
-                    getAuthenticationToken(projectName, domainId);
+                    checkTokenCacheAndGetToken(projectName, domainId);
                 } else if (response.getStatusCode().is2xxSuccessful()) {
                     break;
                 }
             }
             LOGGER.debug("Success");
             return response;
+        } catch (HttpClientErrorException he) {
+            he.printStackTrace();
+            LOGGER.warn("Request Failed (HttpClientErrorException)", he);
+            throw he;
         } catch (RestClientException re) {
             re.printStackTrace();
-            LOGGER.warn("Failed (RestClientException)", re);
-            return null;
+            LOGGER.warn("Request Failed (RestClientException)", re);
+            throw re;
         } catch (Exception e) {
             e.printStackTrace();
-            LOGGER.warn("Failed (Exception)", e);
-            return null;
+            LOGGER.warn("Request Failed (Exception)", e);
+            throw e;
         }
     }
 
     // Authentication Token을 획득하기 위한 HTTP 요청에 담을 Request Body 생성 메서드
-    private ObjectNode getAuthenticationTokenRequestBody(String projectName, String domainId) {
+    private ObjectNode getProjectScopedAuthenticationTokenRequestBody(String projectName, String domainId) {
         ObjectNode domainID = NODE_FACTORY.objectNode();
         domainID.put("id", "default");
         // domain
@@ -214,6 +220,14 @@ public class OpenstackClient {
         // auth
 
         return auth;
+    }
+
+    private ArrayList<String> getTokenCacheKey(String projectName, String domainId) {
+        ArrayList<String> tokenCacheKey = new ArrayList<>();
+        tokenCacheKey.add(projectName);
+        tokenCacheKey.add(domainId);
+
+        return tokenCacheKey;
     }
 
 }
