@@ -21,7 +21,7 @@ public class OpenstackClusterControllerTest {
     @Test
     public void clusterTest() {
         //given //when
-        ResponseEntity<String> response = openstackClusterController.getClusters();
+        ResponseEntity<String> response = openstackClusterController.getClusters("admin", "default");
 
         //then
         System.out.println(response.getBody());

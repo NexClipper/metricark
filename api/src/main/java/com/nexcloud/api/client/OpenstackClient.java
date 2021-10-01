@@ -33,17 +33,18 @@ public class OpenstackClient {
     @Value("${openstack.password}")
     private String PASSWORD;
 
-    @PostConstruct
-    private void init() {
-        this.token = getAuthenticationToken();
-    }
+//    @PostConstruct
+//    private void init() {
+//        this.token = getAuthenticationToken();
+//    }
 
-    public String getToken() {
-        return StringUtils.isEmpty(this.token) ? getAuthenticationToken() : this.token;
+    public String getToken(String projectName, String domainId) {
+        return StringUtils.isEmpty(this.token) ? getAuthenticationToken(projectName, domainId) : this.token;
     }
 
     // Authentication Token 획득
-    public String getAuthenticationToken() {
+    public String
+    getAuthenticationToken(String projectName, String domainId) {
         try {
             for (int cnt = 0; cnt < RETRY_CNT; ++cnt) {
                 String authTokenUrl = ENDPOINT + "/identity/v3/auth/tokens";
@@ -52,7 +53,7 @@ public class OpenstackClient {
                 headers.setContentType(MediaType.APPLICATION_JSON);
 
                 // Request Body에 인증정보를 입력하고 HttpEntity 객체 생성
-                HttpEntity<String> request = new HttpEntity<>(getAuthenticationTokenRequestBody().toString(), headers);
+                HttpEntity<String> request = new HttpEntity<>(getAuthenticationTokenRequestBody(projectName, domainId).toString(), headers);
 
                 // POST요청을 보내서 토큰을 받아온다 (Response Header에 위치)
                 restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
@@ -76,7 +77,7 @@ public class OpenstackClient {
         }
     }
 
-    public ResponseEntity<String> executeHttpRequest(String targetUrl) {
+    public ResponseEntity<String> executeHttpRequest(String targetUrl, String projectName, String domainId) {
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
         ResponseEntity<String> response = null;
@@ -84,14 +85,14 @@ public class OpenstackClient {
             for (int cnt = 0; cnt < RETRY_CNT; ++cnt) {
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
-                headers.add(AUTH_TOKEN_HEADER_NAME, getToken());
+                headers.add(AUTH_TOKEN_HEADER_NAME, getAuthenticationToken(projectName, domainId));
 
                 HttpEntity<String> request = new HttpEntity<>(headers);
 
                 response = restTemplate.exchange(targetUrl, HttpMethod.GET, request, String.class);
 
                 if (response.getStatusCode().equals(HttpStatus.UNAUTHORIZED)) {
-                    getAuthenticationToken();
+                    getAuthenticationToken(projectName, domainId);
                 } else if (response.getStatusCode().is2xxSuccessful()) {
                     break;
                 }
@@ -109,9 +110,8 @@ public class OpenstackClient {
         }
     }
 
-
     // Authentication Token을 획득하기 위한 HTTP 요청에 담을 Request Body 생성 메서드
-    private ObjectNode getAuthenticationTokenRequestBody() {
+    private ObjectNode getAuthenticationTokenRequestBody(String projectName, String domainId) {
         ObjectNode domainID = NODE_FACTORY.objectNode();
         domainID.put("id", "default");
         // domain
@@ -141,12 +141,12 @@ public class OpenstackClient {
         // --------------------------------------------------
 
         ObjectNode projectDomainId = NODE_FACTORY.objectNode();
-        projectDomainId.put("id", "default");
+        projectDomainId.put("id", domainId);
         // project domain
 
         ObjectNode projectObj = NODE_FACTORY.objectNode();
         projectObj.set("domain", projectDomainId);
-        projectObj.put("name", "admin");
+        projectObj.put("name", projectName);
         // project
 
         ObjectNode scope = NODE_FACTORY.objectNode();

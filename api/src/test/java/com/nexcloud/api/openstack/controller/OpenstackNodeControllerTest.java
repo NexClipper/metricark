@@ -21,7 +21,7 @@ public class OpenstackNodeControllerTest {
     @Test
     public void nodesTest() {
         //given //when
-        ResponseEntity<String> response = openstackNodeController.getNodes();
+        ResponseEntity<String> response = openstackNodeController.getNodes("admin", "default");
 
         //then
         System.out.println(response.getBody());

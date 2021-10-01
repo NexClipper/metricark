@@ -45,14 +45,28 @@ public class OpenstackCustomController {
 
     @ApiOperation(value = "custom senlin openstack call", httpMethod = "GET", notes = "Custom senlin Openstack Api call")
     @ApiImplicitParams({
-		@ApiImplicitParam(
-	            name = "api", 
-	            value = "apiUrl (ex) /v1/nodes", 
-	            required = true, 
-	            dataType = "string", 
-	            paramType = "query"
-	    )
-	})
+            @ApiImplicitParam(
+                    name = "api",
+                    value = "apiUrl (ex) /v1/nodes",
+                    required = true,
+                    dataType = "string",
+                    paramType = "query"
+            ),
+            @ApiImplicitParam(
+                    name = "projectName",
+                    value = "Project Name (ex) admin",
+                    required = true,
+                    dataType = "string",
+                    paramType = "query"
+            ),
+            @ApiImplicitParam(
+                    name = "domainId",
+                    value = "Domain ID (ex) default",
+                    required = true,
+                    dataType = "string",
+                    paramType = "query"
+            )
+    })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "SUCCESS"),
             @ApiResponse(code = 400, message = "Bad Request"),
@@ -62,11 +76,15 @@ public class OpenstackCustomController {
             @ApiResponse(code = 503, message = "Service Unavailable")
     })
     @RequestMapping(value = "/custom/senlin")
-    public ResponseEntity<String> getCustomApi(@QueryParam("api") String api) {
+    public ResponseEntity<String> getCustomApi(
+            @QueryParam("api") String api,
+            @QueryParam("projectName") String projectName,
+            @QueryParam("domainId") String domainId
+    ) {
         ResponseEntity<String> response;
 
         try {
-            response = service.accessOpenstack(senlinPort, api);
+            response = service.accessOpenstack(senlinPort, api, projectName, domainId);
         } catch (Exception e) {
             e.printStackTrace();
             response = new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
