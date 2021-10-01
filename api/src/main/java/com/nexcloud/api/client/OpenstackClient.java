@@ -166,4 +166,54 @@ public class OpenstackClient {
         return auth;
     }
 
+    private ObjectNode getDomainScopedAuthenticationTokenRequestBody(String domainId) {
+        ObjectNode domainID = NODE_FACTORY.objectNode();
+        domainID.put("id", "default");
+        // domain
+
+        ObjectNode userObj = NODE_FACTORY.objectNode();
+        userObj.set("domain", domainID);
+        userObj.put("name", USERNAME);
+        userObj.put("password", PASSWORD);
+
+        ObjectNode user = NODE_FACTORY.objectNode();
+        user.set("user", userObj);
+        // user
+
+        ArrayNode methodsObj = NODE_FACTORY.arrayNode();
+        methodsObj.add("password");
+        // password
+
+        ObjectNode methods = NODE_FACTORY.objectNode();
+        methods.set("methods", methodsObj);
+        // identity methods
+
+        ObjectNode identity = NODE_FACTORY.objectNode();
+        identity.set("methods", methodsObj);
+        identity.set("password", user);
+        // identity
+
+        // --------------------------------------------------
+
+        ObjectNode projectDomainId = NODE_FACTORY.objectNode();
+        projectDomainId.put("id", domainId);
+        // project domain
+
+        ObjectNode scope = NODE_FACTORY.objectNode();
+        scope.set("domain", projectDomainId);
+        // scope
+
+        // --------------------------------------------------
+
+        ObjectNode authObj = NODE_FACTORY.objectNode();
+        authObj.set("identity", identity);
+        authObj.set("scope", scope);
+
+        ObjectNode auth = NODE_FACTORY.objectNode();
+        auth.set("auth", authObj);
+        // auth
+
+        return auth;
+    }
+
 }
