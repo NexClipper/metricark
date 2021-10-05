@@ -1,5 +1,6 @@
-package com.nexcloud.api.client;
+package com.nexcloud.api.learning;
 
+import com.nexcloud.api.client.OpenstackClient;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
@@ -69,7 +70,7 @@ public class BifunctionLearningTest {
 
     @DisplayName("토큰 저장 테스트")
     @Test
-    public void test1() {
+    public void storeTokenTest() {
         //given
         Map<ArrayList<String>, String> tokenCache = new HashMap<>();
 

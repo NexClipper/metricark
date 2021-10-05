@@ -1,4 +1,4 @@
-package com.nexcloud.api.client;
+package com.nexcloud.api.learning;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
