@@ -3,6 +3,7 @@ package com.nexcloud.api.client;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.nexcloud.api.domain.OpenstackTokenCacheKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +15,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +26,7 @@ public class OpenstackClient {
     private static final Integer RETRY_CNT = 5;
     private static final String AUTH_TOKEN_HEADER_NAME = "X-Auth-Token";
     private final RestTemplate restTemplate = new RestTemplate();
-    private final Map<ArrayList<String>, String> tokenCache = new HashMap<>();
+    private final Map<OpenstackTokenCacheKey, String> tokenCache = new HashMap<>();
 
     @Value("${openstack.endpoint}")
     private String ENDPOINT;
@@ -36,7 +36,7 @@ public class OpenstackClient {
     private String PASSWORD;
 
     public String checkTokenCacheAndGetToken(String projectName, String domainId) {
-        ArrayList<String> tokenCacheKey = getTokenCacheKey(projectName, domainId);
+        OpenstackTokenCacheKey tokenCacheKey = getTokenCacheKey(projectName, domainId);
         return StringUtils.isEmpty(this.tokenCache.get(tokenCacheKey)) ? getAuthenticationToken(projectName, domainId) : this.tokenCache.get(tokenCacheKey);
     }
 
@@ -44,7 +44,7 @@ public class OpenstackClient {
     public String getAuthenticationToken(String projectName, String domainId) {
 
         try {
-            ArrayList<String> authenticationInfo = getTokenCacheKey(projectName, domainId);
+            OpenstackTokenCacheKey authenticationInfo = getTokenCacheKey(projectName, domainId);
 
             for (int cnt = 0; cnt < RETRY_CNT; ++cnt) {
                 String authTokenUrl = ENDPOINT + "/identity/v3/auth/tokens";
@@ -222,12 +222,8 @@ public class OpenstackClient {
         return auth;
     }
 
-    private ArrayList<String> getTokenCacheKey(String projectName, String domainId) {
-        ArrayList<String> tokenCacheKey = new ArrayList<>();
-        tokenCacheKey.add(projectName);
-        tokenCacheKey.add(domainId);
-
-        return tokenCacheKey;
+    private OpenstackTokenCacheKey getTokenCacheKey(String projectName, String domainId) {
+        return new OpenstackTokenCacheKey(projectName, domainId);
     }
 
 }
