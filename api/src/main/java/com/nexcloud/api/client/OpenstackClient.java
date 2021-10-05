@@ -24,7 +24,9 @@ public class OpenstackClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackClient.class);
     private static final JsonNodeFactory NODE_FACTORY = JsonNodeFactory.instance;
     private static final Integer RETRY_CNT = 5;
-    private static final String AUTH_TOKEN_HEADER_NAME = "X-Auth-Token";
+    private static final String AUTH_TOKEN_ENDPOINT = "/identity/v3/auth/tokens";
+    private static final String AUTH_TOKEN_REQUEST_HEADER_NAME = "X-Auth-Token";
+    private static final String AUTH_TOKEN_RESPONSE_HEADER_NAME = "X-Subject-Token";
     private static final StringJoiner STRING_JOINER = new StringJoiner("_");
     private final RestTemplate restTemplate = new RestTemplate();
     private final Map<String, String> tokenCache = new HashMap<>();
@@ -48,7 +50,7 @@ public class OpenstackClient {
             String authenticationInfo = getTokenCacheKey(projectName, domainId);
 
             for (int cnt = 0; cnt < RETRY_CNT; ++cnt) {
-                String authTokenUrl = ENDPOINT + "/identity/v3/auth/tokens";
+                String authTokenUrl = ENDPOINT + AUTH_TOKEN_ENDPOINT;
 
                 // Request Header에 Data type 입력(Application/json)
                 HttpHeaders headers = new HttpHeaders();
@@ -63,7 +65,7 @@ public class OpenstackClient {
 
 
                 if (response.getStatusCode().is2xxSuccessful()) {
-                    this.tokenCache.put(authenticationInfo, response.getHeaders().get("X-Subject-Token").get(0));
+                    this.tokenCache.put(authenticationInfo, response.getHeaders().get(AUTH_TOKEN_RESPONSE_HEADER_NAME).get(0));
                     LOGGER.debug("Got Authentication token");
                     break;
                 }
@@ -88,7 +90,7 @@ public class OpenstackClient {
             for (int cnt = 0; cnt < RETRY_CNT; ++cnt) {
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
-                headers.add(AUTH_TOKEN_HEADER_NAME, getAuthenticationToken(projectName, domainId));
+                headers.add(AUTH_TOKEN_REQUEST_HEADER_NAME, getAuthenticationToken(projectName, domainId));
 
                 HttpEntity<String> request = new HttpEntity<>(headers);
 
