@@ -43,7 +43,7 @@ public class OpenstackClient {
     }
 
     // Authentication Token 획득
-    public String getAuthenticationToken(String projectName, String domainId) {
+    public synchronized String getAuthenticationToken(String projectName, String domainId) {
 
         try {
             String tokenCacheKey = getTokenCacheKey(projectName, domainId);
@@ -62,7 +62,7 @@ public class OpenstackClient {
                 restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
                 ResponseEntity<String> response = restTemplate.postForEntity(authTokenUrl, request, String.class);
 
-
+                
                 if (response.getStatusCode().is2xxSuccessful()) {
                     this.tokenCache.put(tokenCacheKey, response.getHeaders().get(AUTH_TOKEN_RESPONSE_HEADER_NAME).get(0));
                     LOGGER.debug("Got Authentication Token");
