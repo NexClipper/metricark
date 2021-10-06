@@ -27,7 +27,6 @@ public class OpenstackClient {
     private static final String AUTH_TOKEN_ENDPOINT = "/identity/v3/auth/tokens";
     private static final String AUTH_TOKEN_REQUEST_HEADER_NAME = "X-Auth-Token";
     private static final String AUTH_TOKEN_RESPONSE_HEADER_NAME = "X-Subject-Token";
-    private static final StringJoiner STRING_JOINER = new StringJoiner("_");
     private final RestTemplate restTemplate = new RestTemplate();
     private final Map<String, String> tokenCache = new HashMap<>();
 
@@ -59,7 +58,7 @@ public class OpenstackClient {
                 // Request Body에 인증정보를 입력하고 HttpEntity 객체 생성
                 HttpEntity<String> request = new HttpEntity<>(getProjectScopedAuthenticationTokenRequestBody(projectName, domainId).toString(), headers);
 
-                // POST요청을 보내서 토큰을 받아온다 (Response Header에 위치)
+                // POST요청을 보내서 토큰을 받아온다 (받아온 토큰은 Response Header에 저장됨)
                 restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
                 ResponseEntity<String> response = restTemplate.postForEntity(authTokenUrl, request, String.class);
 
@@ -90,14 +89,15 @@ public class OpenstackClient {
             for (int cnt = 0; cnt < RETRY_CNT; ++cnt) {
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
-                headers.add(AUTH_TOKEN_REQUEST_HEADER_NAME, getAuthenticationToken(projectName, domainId));
+                headers.add(AUTH_TOKEN_REQUEST_HEADER_NAME, checkTokenCacheAndGetToken(projectName, domainId));
 
                 HttpEntity<String> request = new HttpEntity<>(headers);
 
                 response = restTemplate.exchange(targetUrl, HttpMethod.GET, request, String.class);
 
                 if (response.getStatusCode().equals(HttpStatus.UNAUTHORIZED)) {
-                    checkTokenCacheAndGetToken(projectName, domainId);
+                    // 캐싱되어있는 토큰이 만료되었다면 토큰을 새로 받아서 tokenCache에 저장한다
+                    getAuthenticationToken(projectName, domainId);
                 } else if (response.getStatusCode().is2xxSuccessful()) {
                     break;
                 }
@@ -226,12 +226,13 @@ public class OpenstackClient {
     }
 
     private String getTokenCacheKey(String projectName, String domainId) {
-        if(StringUtils.isEmpty(domainId)) {
+        if (StringUtils.isEmpty(domainId)) {
             throw new IllegalArgumentException("Domain ID is Necessary");
         }
-        if(StringUtils.isEmpty(projectName)) {
+        if (StringUtils.isEmpty(projectName)) {
             throw new IllegalArgumentException("Project Name is Necessary");
         }
-        return STRING_JOINER.add(projectName).add(domainId).toString();
+        StringJoiner stringJoiner = new StringJoiner("_");
+        return stringJoiner.add(projectName).add(domainId).toString();
     }
 }
