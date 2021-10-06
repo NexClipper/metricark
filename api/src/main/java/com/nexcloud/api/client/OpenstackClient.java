@@ -46,7 +46,7 @@ public class OpenstackClient {
     public String getAuthenticationToken(String projectName, String domainId) {
 
         try {
-            String authenticationInfo = getTokenCacheKey(projectName, domainId);
+            String tokenCacheKey = getTokenCacheKey(projectName, domainId);
 
             for (int cnt = 0; cnt < RETRY_CNT; ++cnt) {
                 String authTokenUrl = ENDPOINT + AUTH_TOKEN_ENDPOINT;
@@ -64,12 +64,12 @@ public class OpenstackClient {
 
 
                 if (response.getStatusCode().is2xxSuccessful()) {
-                    this.tokenCache.put(authenticationInfo, response.getHeaders().get(AUTH_TOKEN_RESPONSE_HEADER_NAME).get(0));
+                    this.tokenCache.put(tokenCacheKey, response.getHeaders().get(AUTH_TOKEN_RESPONSE_HEADER_NAME).get(0));
                     LOGGER.debug("Got Authentication token");
                     break;
                 }
             }
-            return tokenCache.get(authenticationInfo);
+            return tokenCache.get(tokenCacheKey);
         } catch (RestClientException re) {
             re.printStackTrace();
             LOGGER.warn("Failed to get Authentication Token (RestClientException)", re);
