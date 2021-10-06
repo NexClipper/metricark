@@ -37,7 +37,7 @@ public class OpenstackClient {
     @Value("${openstack.password}")
     private String PASSWORD;
 
-    public String checkTokenCacheAndGetToken(String projectName, String domainId) {
+    public synchronized String checkTokenCacheAndGetToken(String projectName, String domainId) {
         String tokenCacheKey = getTokenCacheKey(projectName, domainId);
         return StringUtils.isEmpty(this.tokenCache.get(tokenCacheKey)) ? getAuthenticationToken(projectName, domainId) : this.tokenCache.get(tokenCacheKey);
     }
