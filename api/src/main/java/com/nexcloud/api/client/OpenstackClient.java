@@ -14,9 +14,9 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.StringJoiner;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class OpenstackClient {
@@ -28,7 +28,7 @@ public class OpenstackClient {
     private static final String AUTH_TOKEN_REQUEST_HEADER_NAME = "X-Auth-Token";
     private static final String AUTH_TOKEN_RESPONSE_HEADER_NAME = "X-Subject-Token";
     private final RestTemplate restTemplate = new RestTemplate();
-    private final Map<String, String> tokenCache = new HashMap<>();
+    private final Map<String, String> tokenCache = new ConcurrentHashMap<>();
 
     @Value("${openstack.endpoint}")
     private String ENDPOINT;
@@ -65,7 +65,7 @@ public class OpenstackClient {
 
                 if (response.getStatusCode().is2xxSuccessful()) {
                     this.tokenCache.put(tokenCacheKey, response.getHeaders().get(AUTH_TOKEN_RESPONSE_HEADER_NAME).get(0));
-                    LOGGER.debug("Got Authentication token");
+                    LOGGER.debug("Got Authentication Token");
                     break;
                 }
             }
@@ -226,12 +226,13 @@ public class OpenstackClient {
     }
 
     private String getTokenCacheKey(String projectName, String domainId) {
-        if (StringUtils.isEmpty(domainId)) {
-            throw new IllegalArgumentException("Domain ID is Necessary");
-        }
         if (StringUtils.isEmpty(projectName)) {
             throw new IllegalArgumentException("Project Name is Necessary");
         }
+        if (StringUtils.isEmpty(domainId)) {
+            throw new IllegalArgumentException("Domain ID is Necessary");
+        }
+
         StringJoiner stringJoiner = new StringJoiner("_");
         return stringJoiner.add(projectName).add(domainId).toString();
     }
