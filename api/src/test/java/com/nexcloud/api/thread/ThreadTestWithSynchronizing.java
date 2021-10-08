@@ -14,6 +14,7 @@ public class ThreadTestWithSynchronizing {
     // 성공케이스
     // 동기화 블록으로 감싸고, 값을 정확히 가져오는 것을 확인
 
+    private static final int TRIAL = 10;
     private final Map<String, String> tokenCache = new ConcurrentHashMap<>();
     private int counterA = 0;
     private int counterB = 0;
@@ -26,8 +27,8 @@ public class ThreadTestWithSynchronizing {
         TimeUnit.SECONDS.sleep(5);
 
         //then
-        assertThat(counterA).isEqualTo(10);
-        assertThat(counterB).isEqualTo(10);
+        assertThat(counterA).isEqualTo(TRIAL);
+        assertThat(counterB).isEqualTo(TRIAL);
     }
 
     private void methodA() throws InterruptedException {
@@ -54,7 +55,7 @@ public class ThreadTestWithSynchronizing {
 
     public void executeMultiThreadJob() {
         new Thread(() -> {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < TRIAL; i++) {
                 try {
                     methodA();
                 } catch (InterruptedException e) {
@@ -64,7 +65,7 @@ public class ThreadTestWithSynchronizing {
         }).start();
 
         new Thread(() -> {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < TRIAL; i++) {
                 try {
                     methodB();
                 } catch (InterruptedException e) {

@@ -14,6 +14,7 @@ public class ThreadTestWithoutSynchronizing {
     // 실패케이스
     // 동기화 처리 안 했을 떄 잘못된 값을 가져오는 것을 확인
 
+    private static final int TRIAL = 10;
     private final Map<String, String> tokenCache = new ConcurrentHashMap<>();
     private int counterA = 0;
     private int counterB = 0;
@@ -26,8 +27,8 @@ public class ThreadTestWithoutSynchronizing {
         TimeUnit.SECONDS.sleep(5);
 
         //then
-        assertThat(counterA).isNotEqualTo(10);
-        assertThat(counterB).isNotEqualTo(10);
+        assertThat(counterA).isNotEqualTo(TRIAL);
+        assertThat(counterB).isNotEqualTo(TRIAL);
     }
 
     private void methodA() throws InterruptedException {
@@ -50,7 +51,7 @@ public class ThreadTestWithoutSynchronizing {
 
     public void executeMultiThreadJob() {
         new Thread(() -> {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < TRIAL; i++) {
                 try {
                     methodA();
                 } catch (InterruptedException e) {
@@ -60,7 +61,7 @@ public class ThreadTestWithoutSynchronizing {
         }).start();
 
         new Thread(() -> {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < TRIAL; i++) {
                 try {
                     methodB();
                 } catch (InterruptedException e) {
