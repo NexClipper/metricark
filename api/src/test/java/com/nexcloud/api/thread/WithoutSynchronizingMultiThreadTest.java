@@ -9,48 +9,44 @@ import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ThreadTestWithSynchronizing {
+public class WithoutSynchronizingMultiThreadTest {
 
-    // 성공케이스
-    // 동기화 블록으로 감싸고, 값을 정확히 가져오는 것을 확인
+    // 실패케이스
+    // 동기화 처리 안 했을 떄 잘못된 값을 가져오는 것을 확인
 
     private static final int TRIAL = 10;
     private final Map<String, String> tokenCache = new ConcurrentHashMap<>();
     private int counterA = 0;
     private int counterB = 0;
 
-    @DisplayName("동기화 처리시 정확한 값을 획득하는 것을 확인한다")
+    @DisplayName("동기화 미 처리시 부정확한 값을 획득하는 경우가 발생하는 것을 확인한다")
     @Test
-    public void multiThreadJobWithSynchronizingTest() throws InterruptedException {
+    public void multiThreadJobWithoutSynchronizingTest() throws InterruptedException {
         //given //when
         executeMultiThreadJob();
         TimeUnit.SECONDS.sleep(5);
 
         //then
-        assertThat(counterA).isEqualTo(TRIAL);
-        assertThat(counterB).isEqualTo(TRIAL);
+        assertThat(counterA).isNotEqualTo(TRIAL);
+        assertThat(counterB).isNotEqualTo(TRIAL);
     }
 
     private void methodA() throws InterruptedException {
-        synchronized (tokenCache) {
-            tokenCache.put("key", "A");
-            TimeUnit.MILLISECONDS.sleep(100);
-            if (tokenCache.get("key").equals("A")) {
-                counterA++;
-            }
-            System.out.println("method A result: " + tokenCache.get("key"));
+        tokenCache.put("key", "A");
+        TimeUnit.MILLISECONDS.sleep(100);
+        if (tokenCache.get("key").equals("A")) {
+            counterA++;
         }
+        System.out.println("method A result: " + tokenCache.get("key"));
     }
 
     private void methodB() throws InterruptedException {
-        synchronized (tokenCache) {
-            tokenCache.put("key", "B");
-            TimeUnit.MILLISECONDS.sleep(100);
-            if (tokenCache.get("key").equals("B")) {
-                counterB++;
-            }
-            System.out.println("method B result: " + tokenCache.get("key"));
+        tokenCache.put("key", "B");
+        TimeUnit.MILLISECONDS.sleep(100);
+        if (tokenCache.get("key").equals("B")) {
+            counterB++;
         }
+        System.out.println("method B result: " + tokenCache.get("key"));
     }
 
     public void executeMultiThreadJob() {
