@@ -1,8 +1,13 @@
 package com.nexcloud.api.thread;
 
+import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ThreadTestWithSynchronizing {
 
@@ -10,11 +15,28 @@ public class ThreadTestWithSynchronizing {
     // 동기화 블록으로 감싸고, 값을 정확히 가져오는 것을 확인
 
     private final Map<String, String> tokenCache = new ConcurrentHashMap<>();
+    private int counterA = 0;
+    private int counterB = 0;
+
+    @DisplayName("동기화 처리시 정확한 값을 획득하는 것을 확인한다")
+    @Test
+    public void multiThreadJobWithSynchronizingTest() throws InterruptedException {
+        //given //when
+        executeMultiThreadJob();
+        TimeUnit.SECONDS.sleep(5);
+
+        //then
+        assertThat(counterA).isEqualTo(10);
+        assertThat(counterB).isEqualTo(10);
+    }
 
     private void methodA() throws InterruptedException {
         synchronized (tokenCache) {
             tokenCache.put("key", "A");
             TimeUnit.MILLISECONDS.sleep(100);
+            if (tokenCache.get("key").equals("A")) {
+                counterA++;
+            }
             System.out.println("method A result: " + tokenCache.get("key"));
         }
     }
@@ -23,28 +45,28 @@ public class ThreadTestWithSynchronizing {
         synchronized (tokenCache) {
             tokenCache.put("key", "B");
             TimeUnit.MILLISECONDS.sleep(100);
+            if (tokenCache.get("key").equals("B")) {
+                counterB++;
+            }
             System.out.println("method B result: " + tokenCache.get("key"));
         }
     }
 
-    public static void main(String[] args) {
-        ThreadTestWithSynchronizing threadTestWithSynchronizing = new ThreadTestWithSynchronizing();
-
+    public void executeMultiThreadJob() {
         new Thread(() -> {
-            for (int i=0; i<10; i++) {
+            for (int i = 0; i < 10; i++) {
                 try {
-                    threadTestWithSynchronizing.methodA();
+                    methodA();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
 
-
         new Thread(() -> {
-            for (int i=0; i<10; i++) {
+            for (int i = 0; i < 10; i++) {
                 try {
-                    threadTestWithSynchronizing.methodB();
+                    methodB();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
