@@ -14,7 +14,8 @@ public class MultiThreadWithoutSynchronizingTest {
     // 실패케이스
     // 동기화 처리 안 했을 떄 잘못된 값을 가져오는 것을 확인
 
-    private static final int TRIAL = 10;
+    private static final int TRIAL = 100;
+    private static final long TIMEOUT = 10L;
     private final Map<String, String> tokenCache = new ConcurrentHashMap<>();
     private int counterA = 0;
     private int counterB = 0;
@@ -51,13 +52,15 @@ public class MultiThreadWithoutSynchronizingTest {
         t2.join();
 
         //then
+        System.out.println("CounterA: " + counterA);
         assertThat(counterA).isNotEqualTo(TRIAL);
+        System.out.println("CounterB: " + counterB);
         assertThat(counterB).isNotEqualTo(TRIAL);
     }
 
     private void methodA() throws InterruptedException {
         tokenCache.put("key", "A");
-        TimeUnit.MILLISECONDS.sleep(100);
+        TimeUnit.MILLISECONDS.sleep(TIMEOUT);
         if (tokenCache.get("key").equals("A")) {
             counterA++;
         }
@@ -66,7 +69,7 @@ public class MultiThreadWithoutSynchronizingTest {
 
     private void methodB() throws InterruptedException {
         tokenCache.put("key", "B");
-        TimeUnit.MILLISECONDS.sleep(100);
+        TimeUnit.MILLISECONDS.sleep(TIMEOUT);
         if (tokenCache.get("key").equals("B")) {
             counterB++;
         }
