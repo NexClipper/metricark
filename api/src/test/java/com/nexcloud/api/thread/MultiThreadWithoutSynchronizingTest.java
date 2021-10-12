@@ -22,7 +22,7 @@ public class MultiThreadWithoutSynchronizingTest {
     @DisplayName("동기화 미 처리시 부정확한 값을 획득하는 경우가 발생하는 것을 확인한다")
     @Test
     public void multiThreadJobWithoutSynchronizingTest() throws InterruptedException {
-        //given //when
+        //given
         Thread t1 = new Thread(() -> {
             for (int i = 0; i < TRIAL; i++) {
                 try {
@@ -43,6 +43,7 @@ public class MultiThreadWithoutSynchronizingTest {
             }
         });
 
+        //when
         t1.start();
         t2.start();
 
