@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class WithSynchronizingMultiThreadTest {
+public class MultiThreadWithSynchronizingTest {
 
     // 성공케이스
     // 동기화 블록으로 감싸고, 값을 정확히 가져오는 것을 확인
@@ -23,8 +23,31 @@ public class WithSynchronizingMultiThreadTest {
     @Test
     public void multiThreadJobWithSynchronizingTest() throws InterruptedException {
         //given //when
-        executeMultiThreadJob();
-        TimeUnit.SECONDS.sleep(5);
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < TRIAL; i++) {
+                try {
+                    methodA();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        Thread t2 = new Thread(() -> {
+            for (int i = 0; i < TRIAL; i++) {
+                try {
+                    methodB();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        t1.start();
+        t2.start();
+
+        t1.join();
+        t2.join();
 
         //then
         assertThat(counterA).isEqualTo(TRIAL);
@@ -51,27 +74,5 @@ public class WithSynchronizingMultiThreadTest {
             }
             System.out.println("method B result: " + tokenCache.get("key"));
         }
-    }
-
-    public void executeMultiThreadJob() {
-        new Thread(() -> {
-            for (int i = 0; i < TRIAL; i++) {
-                try {
-                    methodA();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
-        new Thread(() -> {
-            for (int i = 0; i < TRIAL; i++) {
-                try {
-                    methodB();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
     }
 }
