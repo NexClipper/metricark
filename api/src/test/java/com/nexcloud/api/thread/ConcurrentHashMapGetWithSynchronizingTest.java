@@ -12,13 +12,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ConcurrentHashMapGetWithSynchronizingTest {
 
     private static final int TRIAL = 100000;
-    private final Map<String, String> tokenCache = new ConcurrentHashMap<>();
+//    private final Map<String, String> tokenCache = new ConcurrentHashMap<>();
+    // HashMap을 사용해도 똑같이 동작
+    private final Map<String, String> tokenCache = new HashMap<>();
     private int counter = 0;
     private String marker;
 
-    @DisplayName("동기화 처리시 정확한 값을 획득하는 것을 확인한다")
+    @DisplayName("ConcurrentHashMap의 put과 get을 동일한 모니터 객체를 사용한 동기화블록으로 감쌌을 때 get메서드가 정확한 값을 획득하는 것을 확인한다")
     @Test
-    public void multiThreadJobWithSynchronizingTest() throws InterruptedException {
+    public void concurrentHashMapGetWithSynchronizingTest() throws InterruptedException {
         //given
         Thread t1 = new Thread(() -> {
             for (int i = 0; i < TRIAL; i++) {
@@ -80,4 +82,3 @@ public class ConcurrentHashMapGetWithSynchronizingTest {
         }
     }
 }
-

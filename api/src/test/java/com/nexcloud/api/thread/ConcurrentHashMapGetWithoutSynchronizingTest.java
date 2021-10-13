@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -11,17 +12,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ConcurrentHashMapGetWithoutSynchronizingTest {
 
-    // 성공케이스
-    // 동기화 블록으로 감싸고, 값을 정확히 가져오는 것을 확인
-
     private static final int TRIAL = 100000;
     private final Map<String, String> tokenCache = new ConcurrentHashMap<>();
     private int counter = 0;
     private String marker;
 
-    @DisplayName("동기화 처리시 정확한 값을 획득하는 것을 확인한다")
+    @DisplayName("get 혹은 put 메서드를 동기화하지 않는 경우 get메서드가 부정확한 값을 획득하는 경우가 발생하는 것을 확인한다")
     @Test
-    public void multiThreadJobWithSynchronizingTest() throws InterruptedException {
+    public void concurrentHashMapGetWithoutSynchronizingTest() throws InterruptedException {
         //given
         Thread t1 = new Thread(() -> {
             for (int i = 0; i < TRIAL; i++) {
@@ -47,11 +45,12 @@ public class ConcurrentHashMapGetWithoutSynchronizingTest {
 
         Thread t3 = new Thread(() -> {
             for (int i = 0; i < TRIAL; i++) {
-                // 이 메서드를 동기화하면 부정확한 경우 발생하지 않음
+
+
 //                synchronized (tokenCache) {
-                if (tokenCache.get("key").equals(marker)) {
-                    counter++;
-//                }
+                    if (tokenCache.get("key").equals(marker)) {
+                        counter++;
+//                    }
                 }
             }
         });
@@ -71,16 +70,16 @@ public class ConcurrentHashMapGetWithoutSynchronizingTest {
 
     private void methodA() throws InterruptedException {
         synchronized (tokenCache) {
-            tokenCache.put("key", "A");
-            marker = "A";
+        tokenCache.put("key", "A");
+        marker = "A";
         }
     }
 
     private void methodB() throws InterruptedException {
         synchronized (tokenCache) {
-            tokenCache.put("key", "B");
-            marker = "B";
-        }
+        tokenCache.put("key", "B");
+        marker = "B";
+    }
     }
 }
 
