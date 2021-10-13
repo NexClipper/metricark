@@ -19,12 +19,23 @@ public class OpenstackNodeControllerTest {
 
     @DisplayName("노드정보를 조회하는 API 테스트")
     @Test
-    public void nodesTest() {
+    public void getNodesSuccessTest() {
         //given //when
         ResponseEntity<String> response = openstackNodeController.getNodes("admin", "default");
 
         //then
         System.out.println(response.getBody());
         assertThat(response.getBody()).isNotNull();
+    }
+
+    @DisplayName("노드정보를 조회하는 API 테스트")
+    @Test
+    public void getNodesFailureTest() {
+        //given //when
+        ResponseEntity<String> response = openstackNodeController.getNodes("wrong", "wrong");
+
+        //then
+        System.out.println(response.getBody());
+        assertThat(response.getBody()).hasToString("Client error");
     }
 }

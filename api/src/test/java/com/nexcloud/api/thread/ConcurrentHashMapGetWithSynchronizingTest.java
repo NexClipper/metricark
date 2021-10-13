@@ -12,9 +12,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ConcurrentHashMapGetWithSynchronizingTest {
 
     private static final int TRIAL = 100000;
-//    private final Map<String, String> tokenCache = new ConcurrentHashMap<>();
+    private final Map<String, String> tokenCache = new ConcurrentHashMap<>();
     // HashMap을 사용해도 똑같이 동작
-    private final Map<String, String> tokenCache = new HashMap<>();
+//    private final Map<String, String> tokenCache = new HashMap<>();
     private int counter = 0;
     private String marker;
 
