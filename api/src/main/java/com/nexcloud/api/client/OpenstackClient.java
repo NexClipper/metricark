@@ -103,9 +103,7 @@ public class OpenstackClient {
 
 
                 if (response.getStatusCode().is2xxSuccessful()) {
-                    synchronized (tokenCache) {
-                        this.tokenCache.put(tokenCacheKey, response.getHeaders().get(AUTH_TOKEN_RESPONSE_HEADER_NAME).get(0));
-                    }
+                    this.tokenCache.put(tokenCacheKey, response.getHeaders().get(AUTH_TOKEN_RESPONSE_HEADER_NAME).get(0));
                     LOGGER.debug("Got Authentication Token");
                     break;
                 }
