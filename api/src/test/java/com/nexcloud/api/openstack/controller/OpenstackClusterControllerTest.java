@@ -28,7 +28,7 @@ public class OpenstackClusterControllerTest {
         assertThat(response.getBody()).isNotNull();
     }
 
-    @DisplayName("클러스터 정보를 조회하는 API 테스트")
+    @DisplayName("클러스터 정보를 조회하는 API 실패 테스트")
     @Test
     public void getClusterFailureTest() {
         //given //when

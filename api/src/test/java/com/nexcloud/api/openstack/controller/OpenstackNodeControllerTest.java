@@ -28,7 +28,7 @@ public class OpenstackNodeControllerTest {
         assertThat(response.getBody()).isNotNull();
     }
 
-    @DisplayName("노드정보를 조회하는 API 테스트")
+    @DisplayName("노드정보를 조회하는 API 실패 테스트")
     @Test
     public void getNodesFailureTest() {
         //given //when
