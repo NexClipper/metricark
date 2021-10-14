@@ -11,3 +11,13 @@ For the frontend UI, create .env.local at where package.json is and add:
 ```
 REACT_APP_API_BASEURL={MetricArk Endpoint}
 ```
+
+
+
+### Openstack Authentication token
+If Openstack API needs **project-scoped** token, should get **project name and domain id** by querystring.  
+And use OpenstackClient.getProjectScopedAuthenticationTokenRequestBody method.
+
+
+If Openstack API needs **domain-scoped** token, should get and **domain id** by querystring.  
+And use OpenstackClient.getDomainScopedAuthenticationTokenRequestBody method.

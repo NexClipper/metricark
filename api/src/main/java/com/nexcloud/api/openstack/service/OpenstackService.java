@@ -23,15 +23,15 @@ public class OpenstackService {
     @Value("${openstack.endpoint}")
     private String ENDPOINT;
 
-    public ResponseEntity<String> accessOpenstack(String port, String uri) {
+    public ResponseEntity<String> accessOpenstack(String port, String uri, String projectName, String domainId) {
 
         String targetUrl = ENDPOINT + ":" + port + uri;
-        return openstackClient.executeHttpRequest(targetUrl);
+        return openstackClient.executeHttpRequest(targetUrl, projectName, domainId);
     }
 
-    public ResponseEntity<String> accessOpenstack(String uri) {
+    public ResponseEntity<String> accessOpenstack(String uri, String projectName, String domainId) {
 
         String targetUrl = ENDPOINT + uri;
-        return openstackClient.executeHttpRequest(targetUrl);
+        return openstackClient.executeHttpRequest(targetUrl, projectName, domainId);
     }
 }

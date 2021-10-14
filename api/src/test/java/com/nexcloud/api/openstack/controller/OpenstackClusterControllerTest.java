@@ -19,12 +19,22 @@ public class OpenstackClusterControllerTest {
 
     @DisplayName("클러스터 정보를 조회하는 API 테스트")
     @Test
-    public void clusterTest() {
+    public void getClusterSuccessTest() {
         //given //when
-        ResponseEntity<String> response = openstackClusterController.getClusters();
+        ResponseEntity<String> response = openstackClusterController.getClusters("admin", "default");
 
         //then
         System.out.println(response.getBody());
         assertThat(response.getBody()).isNotNull();
+    }
+
+    @DisplayName("클러스터 정보를 조회하는 API 실패 테스트")
+    @Test
+    public void getClusterFailureTest() {
+        //given //when
+        ResponseEntity<String> response = openstackClusterController.getClusters("wrong", "wrong");
+
+        //then
+        assertThat(response.getBody()).hasToString("Client error");
     }
 }
