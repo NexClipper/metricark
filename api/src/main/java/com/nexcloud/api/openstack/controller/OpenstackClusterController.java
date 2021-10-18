@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -64,7 +65,7 @@ public class OpenstackClusterController {
             @ApiResponse(code = 500, message = "Internal Server Error"),
             @ApiResponse(code = 503, message = "Service Unavailable")
     })
-    @RequestMapping(value = "/clusters")
+    @RequestMapping(value = "/clusters", method = RequestMethod.GET)
     public ResponseEntity<String> getClusters(
             @QueryParam("projectName") String projectName,
             @QueryParam("domainId") String domainId
@@ -115,7 +116,7 @@ public class OpenstackClusterController {
             @ApiResponse(code = 500, message = "Internal Server Error"),
             @ApiResponse(code = 503, message = "Service Unavailable")
     })
-    @RequestMapping(value = "/clusters/{clusterId}")
+    @RequestMapping(value = "/clusters/{clusterId}", method = RequestMethod.GET)
     public ResponseEntity<String> getClusterDetail(
             @PathVariable String clusterId,
             @QueryParam("projectName") String projectName,
@@ -160,7 +161,7 @@ public class OpenstackClusterController {
             @ApiResponse(code = 500, message = "Internal Server Error"),
             @ApiResponse(code = 503, message = "Service Unavailable")
     })
-    @RequestMapping(value = "/build-info")
+    @RequestMapping(value = "/build-info", method = RequestMethod.GET)
     public ResponseEntity<String> getBuildInfo(
             @QueryParam("projectName") String projectName,
             @QueryParam("domainId") String domainId
@@ -204,7 +205,7 @@ public class OpenstackClusterController {
             @ApiResponse(code = 500, message = "Internal Server Error"),
             @ApiResponse(code = 503, message = "Service Unavailable")
     })
-    @RequestMapping(value = "/profiles")
+    @RequestMapping(value = "/profiles", method = RequestMethod.GET)
     public ResponseEntity<String> getProfilesInfo(
             @QueryParam("projectName") String projectName,
             @QueryParam("domainId") String domainId
@@ -249,7 +250,7 @@ public class OpenstackClusterController {
             @ApiResponse(code = 500, message = "Internal Server Error"),
             @ApiResponse(code = 503, message = "Service Unavailable")
     })
-    @RequestMapping(value = "/profiles/{profileId}")
+    @RequestMapping(value = "/profiles/{profileId}", method = RequestMethod.GET)
     public ResponseEntity<String> getProfileDetail(
             @PathVariable String profileId,
             @QueryParam("projectName") String projectName,
@@ -295,7 +296,7 @@ public class OpenstackClusterController {
             @ApiResponse(code = 500, message = "Internal Server Error"),
             @ApiResponse(code = 503, message = "Service Unavailable")
     })
-    @RequestMapping(value = "/clusters/{clusterId}/attrs/{path}")
+    @RequestMapping(value = "/clusters/{clusterId}/attrs/{path}", method = RequestMethod.GET)
     public ResponseEntity<String> getProfileDetail(
             @PathVariable String clusterId,
             @PathVariable String path,
