@@ -1,0 +1,55 @@
+swagger: "2.0"
+info:
+  title: 'Title'
+  description: '로컬 서버 구동 후 요청할 것 '
+  version: 1.0.0
+host: localhost:9000
+#basePath: /v2/api-docs/
+#basePath: /v2
+schemes:
+  - https
+
+tags:
+  - name: cluster
+  - name: k8s
+  - name: node
+  - name: openstack
+  - name: query
+  - name: system
+  - name: ui
+x-tagGroups:
+  - name: Prometheus
+    tags:
+      - cluster
+      - k8s
+      - node
+      - system
+      - ui
+  - name: Redis
+    tags:
+      - query
+  - name: Openstack
+    tags:
+      - openstack
+
+paths:
+  /v1/build-info:
+    get:
+      tags:
+        - openstack
+      summary: Build info
+      description: 'Build information.'
+      operationId: buildInfo
+      produces:
+        - application/json
+      parameters:
+        - name: projectName
+          in: query
+          description: Project Name
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Bad Request
