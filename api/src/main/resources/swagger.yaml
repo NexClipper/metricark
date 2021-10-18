@@ -1,14 +1,10 @@
-swagger: "2.0"
+openapi: 3.0.3
 info:
-  title: 'Title'
-  description: '로컬 서버 구동 후 요청할 것 '
-  version: 1.0.0
-host: localhost:9000
-#basePath: /v2/api-docs/
-#basePath: /v2
-schemes:
-  - https
-
+  description: This is api documentations of metricark
+  title: Swagger metricark - OpenAPI 3.0
+  version: 1.0.6
+servers:
+  - url: /v3
 tags:
   - name: cluster
   - name: k8s
@@ -40,16 +36,14 @@ paths:
       summary: Build info
       description: 'Build information.'
       operationId: buildInfo
-      produces:
-        - application/json
       parameters:
         - name: projectName
           in: query
           description: Project Name
           required: true
-          type: string
       responses:
         '200':
           description: successful operation
         '400':
           description: Bad Request
+  

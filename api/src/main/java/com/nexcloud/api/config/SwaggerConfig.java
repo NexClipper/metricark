@@ -26,11 +26,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.ArrayList;
 import java.util.List;
 
-//@PropertySource("classpath:swagger.yaml")
 @Configuration
-//@EnableSwagger2
-@EnableAutoConfiguration
-@EnableWebMvc
 public class SwaggerConfig extends WebMvcConfigurerAdapter{
 
     @Bean
@@ -74,22 +70,5 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter{
 ////        wsResource.setLocation("/v2/api-docs");
 ////        wsResource.setLocation("/META-INF/resources/swagger-ui.html");
 //        return wsResource;
-//    }
-
-    // ---------------------------------------------------------------
-
-//    @Override
-//    public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addRedirectViewController("/api/v2/api-docs", "/v2/api-docs");
-//        registry.addRedirectViewController("/api/swagger-resources/configuration/ui", "/swagger-resources/configuration/ui");
-//        registry.addRedirectViewController("/api/swagger-resources/configuration/security", "/swagger-resources/configuration/security");
-//        registry.addRedirectViewController("/api/swagger-resources", "/swagger-resources");
-//        registry.addRedirectViewController("/configuration/ui", "/swagger-resources/configuration/ui");
-//    }
-//
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/api/swagger-ui.html**").addResourceLocations("classpath:/META-INF/resources/swagger-ui.html");
-//        registry.addResourceHandler("/api/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 //    }
 }
