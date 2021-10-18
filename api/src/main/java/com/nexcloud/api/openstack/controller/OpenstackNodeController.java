@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -63,7 +64,7 @@ public class OpenstackNodeController {
             @ApiResponse(code = 500, message = "Internal Server Error"),
             @ApiResponse(code = 503, message = "Service Unavailable")
     })
-    @RequestMapping(value = "/nodes")
+    @RequestMapping(value = "/nodes", method = RequestMethod.GET)
     public ResponseEntity<String> getNodes(
             @QueryParam("projectName") String projectName,
             @QueryParam("domainId") String domainId
@@ -108,7 +109,7 @@ public class OpenstackNodeController {
             @ApiResponse(code = 500, message = "Internal Server Error"),
             @ApiResponse(code = 503, message = "Service Unavailable")
     })
-    @RequestMapping(value = "/nodes/{nodeId}")
+    @RequestMapping(value = "/nodes/{nodeId}", method = RequestMethod.GET)
     public ResponseEntity<String> getNodeDetail(
             @PathVariable String nodeId,
             @QueryParam("projectName") String projectName,
