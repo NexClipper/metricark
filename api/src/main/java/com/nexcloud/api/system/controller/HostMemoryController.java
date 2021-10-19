@@ -54,21 +54,21 @@ public class HostMemoryController extends SpringBootServletInitializer implement
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "node_name", 
 	            value = "node name (ex) '.*' => (전체 node), node1", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "start", 
 	            value = "조회 시작 시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query",
 	            defaultValue=""
 	    ),
@@ -76,7 +76,7 @@ public class HostMemoryController extends SpringBootServletInitializer implement
 	            name = "end", 
 	            value = "조회 종료시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query",
 	            defaultValue=""
 	    )

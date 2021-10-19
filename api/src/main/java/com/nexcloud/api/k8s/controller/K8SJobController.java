@@ -55,21 +55,21 @@ public class K8SJobController extends SpringBootServletInitializer implements We
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "job", 
 	            value = "job name (ex) '.*' => (전체 job), nc-grafana-db", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) nexclipper", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -112,21 +112,21 @@ public class K8SJobController extends SpringBootServletInitializer implements We
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "job", 
 	            value = "job name (ex) '.*' => (전체 job), nc-grafana-db", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) nexclipper", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -169,21 +169,21 @@ public class K8SJobController extends SpringBootServletInitializer implements We
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "job", 
 	            value = "job name (ex) '.*' => (전체 job), nc-grafana-db", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) nexclipper", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -226,21 +226,21 @@ public class K8SJobController extends SpringBootServletInitializer implements We
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "job", 
 	            value = "job name (ex) '.*' => (전체 job), nc-grafana-db", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) nexclipper", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -283,21 +283,21 @@ public class K8SJobController extends SpringBootServletInitializer implements We
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "job", 
 	            value = "job name (ex) '.*' => (전체 job), nc-grafana-db", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) nexclipper", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -340,21 +340,21 @@ public class K8SJobController extends SpringBootServletInitializer implements We
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "job", 
 	            value = "job name (ex) '.*' => (전체 job), nc-grafana-db", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) nexclipper", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -397,21 +397,21 @@ public class K8SJobController extends SpringBootServletInitializer implements We
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "job", 
 	            value = "job name (ex) '.*' => (전체 job), nc-grafana-db", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) nexclipper", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})

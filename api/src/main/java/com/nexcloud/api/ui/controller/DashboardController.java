@@ -55,7 +55,7 @@ public class DashboardController extends SpringBootServletInitializer implements
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		)
 	})
@@ -96,7 +96,7 @@ public class DashboardController extends SpringBootServletInitializer implements
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		)
 	})
@@ -137,7 +137,7 @@ public class DashboardController extends SpringBootServletInitializer implements
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		)
 	})

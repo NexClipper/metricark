@@ -55,21 +55,21 @@ public class K8SStatefulsetController extends SpringBootServletInitializer imple
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "statefulset", 
 	            value = "replicaset name (ex) '.*' => (전체 statefulset), statefulset name", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) nexclipper", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -112,21 +112,21 @@ public class K8SStatefulsetController extends SpringBootServletInitializer imple
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "statefulset", 
 	            value = "replicaset name (ex) '.*' => (전체 statefulset), statefulset name", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) nexclipper", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -169,21 +169,21 @@ public class K8SStatefulsetController extends SpringBootServletInitializer imple
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "statefulset", 
 	            value = "replicaset name (ex) '.*' => (전체 statefulset), statefulset name", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) nexclipper", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -226,21 +226,21 @@ public class K8SStatefulsetController extends SpringBootServletInitializer imple
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "statefulset", 
 	            value = "replicaset name (ex) '.*' => (전체 statefulset), statefulset name", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) nexclipper", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -283,21 +283,21 @@ public class K8SStatefulsetController extends SpringBootServletInitializer imple
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "statefulset", 
 	            value = "replicaset name (ex) '.*' => (전체 statefulset), statefulset name", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) nexclipper", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -340,21 +340,21 @@ public class K8SStatefulsetController extends SpringBootServletInitializer imple
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "statefulset", 
 	            value = "replicaset name (ex) '.*' => (전체 statefulset), statefulset name", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) nexclipper", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})

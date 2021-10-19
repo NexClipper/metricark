@@ -54,14 +54,14 @@ public class ClusterController extends SpringBootServletInitializer implements W
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 				name = "label",
 				value = "Label (ex) buildDate, gitCommit, gitVersion, goVersion, platform, host_ip, kubernetes_io_hostname ",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		)
 	})
@@ -101,14 +101,14 @@ public class ClusterController extends SpringBootServletInitializer implements W
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 				name = "workload",
 				value = "workload (ex) daemonset, deployment, replicaset, pod, statefulset, job, service, ingress ...  ",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		)
 	})
@@ -149,14 +149,14 @@ public class ClusterController extends SpringBootServletInitializer implements W
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 				name = "component",
 				value = "component (ex) kube-controller-manager, kube-scheduler ",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		)
 	})
@@ -196,7 +196,7 @@ public class ClusterController extends SpringBootServletInitializer implements W
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		)
 	})

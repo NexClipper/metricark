@@ -46,14 +46,14 @@ public class QueryListController extends SpringBootServletInitializer implements
                     name = "cluster_id",
                     value = "Cluster ID (ex) 1",
                     required = true,
-                    dataType = "string",
+                    dataTypeClass = String.class,
                     paramType = "path"
             ),
             @ApiImplicitParam(
                     name = "key",
                     value = "Key (ex) kubernetes ",
                     required = true,
-                    dataType = "string",
+                    dataTypeClass = String.class,
                     paramType = "path",
                     defaultValue = ""
             ),
@@ -61,14 +61,14 @@ public class QueryListController extends SpringBootServletInitializer implements
                     name = "field",
                     value = "Field (ex) pods, daemonsets, deployments, nodes, replicasets, statefulsets, services ",
                     required = true,
-                    dataType = "string",
+                    dataTypeClass = String.class,
                     paramType = "path"
             ),
             @ApiImplicitParam(
                     name = "node",
                     value = "Node name (ex) node1, node2",
                     required = false,
-                    dataType = "string",
+                    dataTypeClass = String.class,
                     paramType = "query"
             )
     })

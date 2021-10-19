@@ -58,14 +58,14 @@ public class QueryController extends SpringBootServletInitializer implements Ser
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 				name = "query",
 				value = "query (ex) kube_pod_owner{namespace='nexclipperagent'} ",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "query",
 				defaultValue=""
 		),
@@ -73,7 +73,7 @@ public class QueryController extends SpringBootServletInitializer implements Ser
 	            name = "start", 
 	            value = "조회 시작 시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query",
 	            defaultValue=""
 	    ),
@@ -81,7 +81,7 @@ public class QueryController extends SpringBootServletInitializer implements Ser
 	            name = "end", 
 	            value = "조회 종료시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query",
 	            defaultValue=""
 	    )
@@ -126,7 +126,7 @@ public class QueryController extends SpringBootServletInitializer implements Ser
 				name = "promql",
 				value = "query (ex) kube_pod_owner{namespace='nexclipperagent'} ",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "query",
 				defaultValue=""
 		),
@@ -134,7 +134,7 @@ public class QueryController extends SpringBootServletInitializer implements Ser
 				name = "endpoint",
 				value = "promscale endpoint (ex) http://nc-promscale-connector.nexclipper:9201",
 				required = false,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "query",
 				defaultValue=""
 		)

@@ -55,21 +55,21 @@ public class K8SReplicasetController extends SpringBootServletInitializer implem
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "replicaset_name", 
 	            value = "replicaset name (ex) '.*' => (전체 replicaset), replicaset name", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) kube-system", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -112,21 +112,21 @@ public class K8SReplicasetController extends SpringBootServletInitializer implem
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "replicaset_name", 
 	            value = "replicaset name (ex) '.*' => (전체 replicaset), replicaset name", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) kube-system", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -169,21 +169,21 @@ public class K8SReplicasetController extends SpringBootServletInitializer implem
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "replicaset_name", 
 	            value = "replicaset name (ex) '.*' => (전체 replicaset), replicaset name", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) kube-system", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -226,35 +226,35 @@ public class K8SReplicasetController extends SpringBootServletInitializer implem
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "replicaset_name", 
 	            value = "replicaset name (ex) '.*' => (전체 replicaset), replicaset name", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "owner_name", 
 	            value = "Owner name (ex) exporterhub", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    ),
 		@ApiImplicitParam(
 	            name = "owner_kind", 
 	            value = "Owner Kind (ex) Deployment, Daemonset..", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) kube-system", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -299,21 +299,21 @@ public class K8SReplicasetController extends SpringBootServletInitializer implem
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "replicaset_name", 
 	            value = "replicaset name (ex) '.*' => (전체 replicaset), replicaset name", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) kube-system", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -356,21 +356,21 @@ public class K8SReplicasetController extends SpringBootServletInitializer implem
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "replicaset_name", 
 	            value = "replicaset name (ex) '.*' => (전체 replicaset), replicaset name", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) kube-system", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -413,21 +413,21 @@ public class K8SReplicasetController extends SpringBootServletInitializer implem
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "replicaset_name", 
 	            value = "replicaset name (ex) '.*' => (전체 replicaset), replicaset name", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) kube-system", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})

@@ -55,28 +55,28 @@ public class ContainerMemoryController extends SpringBootServletInitializer impl
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "node_name", 
 	            value = "node name (ex) '.*' => (전체 node), node1", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "container_name", 
 	            value = "container name (ex) '.*' => (전체 container), container name", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace (ex) kube-system", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query",
 	            defaultValue=""
 	    ),
@@ -84,7 +84,7 @@ public class ContainerMemoryController extends SpringBootServletInitializer impl
 	            name = "pod_name", 
 	            value = "pod name (ex) pod name", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query",
 	            defaultValue=""
 	    ),
@@ -92,7 +92,7 @@ public class ContainerMemoryController extends SpringBootServletInitializer impl
 	            name = "start", 
 	            value = "조회 시작 시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query",
 	            defaultValue=""
 	    ),
@@ -100,7 +100,7 @@ public class ContainerMemoryController extends SpringBootServletInitializer impl
 	            name = "end", 
 	            value = "조회 종료시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query",
 	            defaultValue=""
 	    )

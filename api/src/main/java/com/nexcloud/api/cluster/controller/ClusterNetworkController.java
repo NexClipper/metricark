@@ -55,21 +55,21 @@ public class ClusterNetworkController extends SpringBootServletInitializer imple
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "start", 
 	            value = "조회 시작 시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    ),
 		@ApiImplicitParam(
 	            name = "end", 
 	            value = "조회 종료시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -112,21 +112,21 @@ public class ClusterNetworkController extends SpringBootServletInitializer imple
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "start", 
 	            value = "조회 시작 시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    ),
 		@ApiImplicitParam(
 	            name = "end", 
 	            value = "조회 종료시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})

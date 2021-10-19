@@ -55,7 +55,7 @@ public class K8SPVController extends SpringBootServletInitializer implements Web
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		)
 	})

@@ -53,14 +53,14 @@ public class HostController extends SpringBootServletInitializer implements WebA
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "node_name", 
 	            value = "node name (ex) '.*' => (전체 node), node1", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    )
 	})

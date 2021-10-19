@@ -55,21 +55,21 @@ public class NodeCPUController extends SpringBootServletInitializer implements W
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "start", 
 	            value = "조회 시작 시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    ),
 		@ApiImplicitParam(
 	            name = "end", 
 	            value = "조회 종료시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -112,28 +112,28 @@ public class NodeCPUController extends SpringBootServletInitializer implements W
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "node_name", 
 	            value = " Node Name(ex) node1", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "start", 
 	            value = "조회 시작 시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    ),
 		@ApiImplicitParam(
 	            name = "end", 
 	            value = "조회 종료시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -177,28 +177,28 @@ public class NodeCPUController extends SpringBootServletInitializer implements W
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "node_name", 
 	            value = " Node Name(ex) node1", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "start", 
 	            value = "조회 시작 시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    ),
 		@ApiImplicitParam(
 	            name = "end", 
 	            value = "조회 종료시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -242,28 +242,28 @@ public class NodeCPUController extends SpringBootServletInitializer implements W
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "node_name", 
 	            value = " Node Name(ex) node1", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "start", 
 	            value = "조회 시작 시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    ),
 		@ApiImplicitParam(
 	            name = "end", 
 	            value = "조회 종료시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -307,35 +307,35 @@ public class NodeCPUController extends SpringBootServletInitializer implements W
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "node_name", 
 	            value = " Node Name(ex) node1", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "mode", 
 	            value = " mode(ex) idle, irq, nice, softirq, steal, system, user, iowait", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "start", 
 	            value = "조회 시작 시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    ),
 		@ApiImplicitParam(
 	            name = "end", 
 	            value = "조회 종료시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -380,28 +380,28 @@ public class NodeCPUController extends SpringBootServletInitializer implements W
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "node_name", 
 	            value = " Node Name(ex) node1", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "start", 
 	            value = "조회 시작 시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    ),
 		@ApiImplicitParam(
 	            name = "end", 
 	            value = "조회 종료시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -445,28 +445,28 @@ public class NodeCPUController extends SpringBootServletInitializer implements W
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "node_name", 
 	            value = " Node Name(ex) node1", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "start", 
 	            value = "조회 시작 시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    ),
 		@ApiImplicitParam(
 	            name = "end", 
 	            value = "조회 종료시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -510,28 +510,28 @@ public class NodeCPUController extends SpringBootServletInitializer implements W
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "node_name", 
 	            value = " Node Name(ex) node1", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "start", 
 	            value = "조회 시작 시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    ),
 		@ApiImplicitParam(
 	            name = "end", 
 	            value = "조회 종료시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -575,28 +575,28 @@ public class NodeCPUController extends SpringBootServletInitializer implements W
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "node_name", 
 	            value = " Node Name(ex) node1", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "start", 
 	            value = "조회 시작 시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    ),
 		@ApiImplicitParam(
 	            name = "end", 
 	            value = "조회 종료시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -640,28 +640,28 @@ public class NodeCPUController extends SpringBootServletInitializer implements W
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "node_name", 
 	            value = " Node Name(ex) node1", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "start", 
 	            value = "조회 시작 시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    ),
 		@ApiImplicitParam(
 	            name = "end", 
 	            value = "조회 종료시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})
@@ -705,28 +705,28 @@ public class NodeCPUController extends SpringBootServletInitializer implements W
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "node_name", 
 	            value = " Node Name(ex) node1", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "start", 
 	            value = "조회 시작 시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    ),
 		@ApiImplicitParam(
 	            name = "end", 
 	            value = "조회 종료시간( Unix Timestamp ) (ex) 1521577239 ", 
 	            required = false, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "query"
 	    )
 	})

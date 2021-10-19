@@ -46,14 +46,14 @@ public class OpenstackClusterController {
                     name = "projectName",
                     value = "Project Name (ex) admin",
                     required = true,
-                    dataType = "string",
+                    dataTypeClass = String.class,
                     paramType = "query"
             ),
             @ApiImplicitParam(
                     name = "domainId",
                     value = "Domain ID (ex) default",
                     required = true,
-                    dataType = "string",
+                    dataTypeClass = String.class,
                     paramType = "query"
             )
     })
@@ -90,21 +90,21 @@ public class OpenstackClusterController {
                     name = "clusterId",
                     value = "Cluster ID (ex) 1",
                     required = true,
-                    dataType = "string",
+                    dataTypeClass = String.class,
                     paramType = "path"
             ),
             @ApiImplicitParam(
                     name = "projectName",
                     value = "Project Name (ex) admin",
                     required = true,
-                    dataType = "string",
+                    dataTypeClass = String.class,
                     paramType = "query"
             ),
             @ApiImplicitParam(
                     name = "domainId",
                     value = "Domain ID (ex) default",
                     required = true,
-                    dataType = "string",
+                    dataTypeClass = String.class,
                     paramType = "query"
             )
     })
@@ -142,14 +142,14 @@ public class OpenstackClusterController {
                     name = "projectName",
                     value = "Project Name (ex) admin",
                     required = true,
-                    dataType = "string",
+                    dataTypeClass = String.class,
                     paramType = "query"
             ),
             @ApiImplicitParam(
                     name = "domainId",
                     value = "Domain ID (ex) default",
                     required = true,
-                    dataType = "string",
+                    dataTypeClass = String.class,
                     paramType = "query"
             )
     })
@@ -186,14 +186,14 @@ public class OpenstackClusterController {
                     name = "projectName",
                     value = "Project Name (ex) admin",
                     required = true,
-                    dataType = "string",
+                    dataTypeClass = String.class,
                     paramType = "query"
             ),
             @ApiImplicitParam(
                     name = "domainId",
                     value = "Domain ID (ex) default",
                     required = true,
-                    dataType = "string",
+                    dataTypeClass = String.class,
                     paramType = "query"
             )
     })
@@ -230,14 +230,14 @@ public class OpenstackClusterController {
                     name = "projectName",
                     value = "Project Name (ex) admin",
                     required = true,
-                    dataType = "string",
+                    dataTypeClass = String.class,
                     paramType = "query"
             ),
             @ApiImplicitParam(
                     name = "domainId",
                     value = "Domain ID (ex) default",
                     required = true,
-                    dataType = "string",
+                    dataTypeClass = String.class,
                     paramType = "query"
             )
     })
@@ -276,14 +276,14 @@ public class OpenstackClusterController {
                     name = "projectName",
                     value = "Project Name (ex) admin",
                     required = true,
-                    dataType = "string",
+                    dataTypeClass = String.class,
                     paramType = "query"
             ),
             @ApiImplicitParam(
                     name = "domainId",
                     value = "Domain ID (ex) default",
                     required = true,
-                    dataType = "string",
+                    dataTypeClass = String.class,
                     paramType = "query"
             )
     })

@@ -39,14 +39,14 @@ public class OpenstackNovaController {
                     name = "projectName",
                     value = "Project Name (ex) admin",
                     required = true,
-                    dataType = "string",
+                    dataTypeClass = String.class,
                     paramType = "query"
             ),
             @ApiImplicitParam(
                     name = "domainId",
                     value = "Domain ID (ex) default",
                     required = true,
-                    dataType = "string",
+                    dataTypeClass = String.class,
                     paramType = "query"
             )
     })

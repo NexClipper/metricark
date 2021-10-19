@@ -55,14 +55,14 @@ public class K8SNamespaceController extends SpringBootServletInitializer impleme
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace Name (ex) '.*' => (전체 namespace), nexclipper", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    )
 	})
@@ -104,14 +104,14 @@ public class K8SNamespaceController extends SpringBootServletInitializer impleme
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace Name (ex) '.*' => (전체 namespace), nexclipper", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    )
 	})
@@ -153,21 +153,21 @@ public class K8SNamespaceController extends SpringBootServletInitializer impleme
 				name = "cluster_id",
 				value = "Cluster ID (ex) 1",
 				required = true,
-				dataType = "string",
+				dataTypeClass = String.class,
 				paramType = "path"
 		),
 		@ApiImplicitParam(
 	            name = "namespace", 
 	            value = "namespace Name (ex) '.*' => (전체 namespace), nexclipper", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    ),
 		@ApiImplicitParam(
 	            name = "phase", 
 	            value = "phase (ex) '.*' => (전체 phase), Active, Terminating", 
 	            required = true, 
-	            dataType = "string", 
+	            dataTypeClass = String.class, 
 	            paramType = "path"
 	    )
 	})
