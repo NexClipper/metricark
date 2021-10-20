@@ -1,7 +1,8 @@
 package com.nexcloud.api.openstack.controller;
 
 import com.nexcloud.api.openstack.service.OpenstackService;
-import io.swagger.annotations.*;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -39,43 +40,12 @@ public class OpenstackCustomController {
     }
 
 
-    @ApiOperation(value = "custom senlin openstack call", httpMethod = "GET", notes = "Custom senlin Openstack Api call")
-    @ApiImplicitParams({
-            @ApiImplicitParam(
-                    name = "api",
-                    value = "apiUrl (ex) /v1/nodes",
-                    required = true,
-                    dataTypeClass = String.class,
-                    paramType = "query"
-            ),
-            @ApiImplicitParam(
-                    name = "projectName",
-                    value = "Project Name (ex) admin",
-                    required = true,
-                    dataTypeClass = String.class,
-                    paramType = "query"
-            ),
-            @ApiImplicitParam(
-                    name = "domainId",
-                    value = "Domain ID (ex) default",
-                    required = true,
-                    dataTypeClass = String.class,
-                    paramType = "query"
-            )
-    })
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "SUCCESS"),
-            @ApiResponse(code = 400, message = "Bad Request"),
-            @ApiResponse(code = 401, message = "Unauthorized"),
-            @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 500, message = "Internal Server Error"),
-            @ApiResponse(code = 503, message = "Service Unavailable")
-    })
-    @RequestMapping(value = "/custom/senlin", method = RequestMethod.GET)
+    @ApiOperation("Custom senlin Openstack Api call")
+    @GetMapping("/custom/senlin")
     public ResponseEntity<String> getCustomApi(
-            @QueryParam("api") String api,
-            @QueryParam("projectName") String projectName,
-            @QueryParam("domainId") String domainId
+            @ApiParam(value = "API Url (ex) /v1/nodes", required = true) @QueryParam("api") String api,
+            @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
+            @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId
     ) {
         ResponseEntity<String> response;
 
