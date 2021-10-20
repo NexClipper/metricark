@@ -1,7 +1,10 @@
 package com.nexcloud.api.openstack.controller;
 
 import com.nexcloud.api.openstack.service.OpenstackService;
-import io.swagger.annotations.*;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +14,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -40,131 +43,12 @@ public class OpenstackClusterController {
     }
 
 
-    @ApiOperation(value = "Clusters Info", httpMethod = "GET", notes = "Clusters Info")
-    @ApiImplicitParams({
-            @ApiImplicitParam(
-                    name = "projectName",
-                    value = "Project Name (ex) admin",
-                    required = true,
-                    dataTypeClass = String.class,
-                    paramType = "query"
-            ),
-            @ApiImplicitParam(
-                    name = "domainId",
-                    value = "Domain ID (ex) default",
-                    required = true,
-                    dataTypeClass = String.class,
-                    paramType = "query"
-            )
-    })
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "SUCCESS"),
-            @ApiResponse(code = 400, message = "Bad Request"),
-            @ApiResponse(code = 401, message = "Unauthorized"),
-            @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 500, message = "Internal Server Error"),
-            @ApiResponse(code = 503, message = "Service Unavailable")
-    })
-    @RequestMapping(value = "/clusters", method = RequestMethod.GET)
-    public ResponseEntity<String> getClusters(
-            @QueryParam("projectName") String projectName,
-            @QueryParam("domainId") String domainId
-    ) {
-        ResponseEntity<String> response;
-
-        try {
-            response = service.accessOpenstack(senlinPort, "/v1/clusters", projectName, domainId);
-        } catch (HttpClientErrorException he) {
-            response = new ResponseEntity<>("Client error", he.getStatusCode());
-        } catch (Exception e) {
-            e.printStackTrace();
-            response = new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return response;
-    }
-
-    @ApiOperation(value = "Cluster Detail Info", httpMethod = "GET", notes = "Cluster Detail Info")
-    @ApiImplicitParams({
-            @ApiImplicitParam(
-                    name = "clusterId",
-                    value = "Cluster ID (ex) 1",
-                    required = true,
-                    dataTypeClass = String.class,
-                    paramType = "path"
-            ),
-            @ApiImplicitParam(
-                    name = "projectName",
-                    value = "Project Name (ex) admin",
-                    required = true,
-                    dataTypeClass = String.class,
-                    paramType = "query"
-            ),
-            @ApiImplicitParam(
-                    name = "domainId",
-                    value = "Domain ID (ex) default",
-                    required = true,
-                    dataTypeClass = String.class,
-                    paramType = "query"
-            )
-    })
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "SUCCESS"),
-            @ApiResponse(code = 400, message = "Bad Request"),
-            @ApiResponse(code = 401, message = "Unauthorized"),
-            @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 500, message = "Internal Server Error"),
-            @ApiResponse(code = 503, message = "Service Unavailable")
-    })
-    @RequestMapping(value = "/clusters/{clusterId}", method = RequestMethod.GET)
-    public ResponseEntity<String> getClusterDetail(
-            @PathVariable String clusterId,
-            @QueryParam("projectName") String projectName,
-            @QueryParam("domainId") String domainId
-    ) {
-        ResponseEntity<String> response;
-
-        try {
-            response = service.accessOpenstack(senlinPort, String.format("/v1/clusters/%s", clusterId), projectName, domainId);
-        } catch (HttpClientErrorException he) {
-            response = new ResponseEntity<>("Client error", he.getStatusCode());
-        } catch (Exception e) {
-            e.printStackTrace();
-            response = new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return response;
-    }
-
-    @ApiOperation(value = "Build Info", httpMethod = "GET", notes = "Build Info")
-    @ApiImplicitParams({
-            @ApiImplicitParam(
-                    name = "projectName",
-                    value = "Project Name (ex) admin",
-                    required = true,
-                    dataTypeClass = String.class,
-                    paramType = "query"
-            ),
-            @ApiImplicitParam(
-                    name = "domainId",
-                    value = "Domain ID (ex) default",
-                    required = true,
-                    dataTypeClass = String.class,
-                    paramType = "query"
-            )
-    })
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "SUCCESS"),
-            @ApiResponse(code = 400, message = "Bad Request"),
-            @ApiResponse(code = 401, message = "Unauthorized"),
-            @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 500, message = "Internal Server Error"),
-            @ApiResponse(code = 503, message = "Service Unavailable")
-    })
-    @RequestMapping(value = "/build-info", method = RequestMethod.GET)
+    @ApiOperation("Show build information")
+    @ApiResponse(code = 503, message = "Service Unavailable")
+    @GetMapping("/build-info")
     public ResponseEntity<String> getBuildInfo(
-            @QueryParam("projectName") String projectName,
-            @QueryParam("domainId") String domainId
+            @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
+            @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId
     ) {
         ResponseEntity<String> response;
 
@@ -180,35 +64,12 @@ public class OpenstackClusterController {
         return response;
     }
 
-    @ApiOperation(value = "Profiles Info", httpMethod = "GET", notes = "Profiles Info")
-    @ApiImplicitParams({
-            @ApiImplicitParam(
-                    name = "projectName",
-                    value = "Project Name (ex) admin",
-                    required = true,
-                    dataTypeClass = String.class,
-                    paramType = "query"
-            ),
-            @ApiImplicitParam(
-                    name = "domainId",
-                    value = "Domain ID (ex) default",
-                    required = true,
-                    dataTypeClass = String.class,
-                    paramType = "query"
-            )
-    })
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "SUCCESS"),
-            @ApiResponse(code = 400, message = "Bad Request"),
-            @ApiResponse(code = 401, message = "Unauthorized"),
-            @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 500, message = "Internal Server Error"),
-            @ApiResponse(code = 503, message = "Service Unavailable")
-    })
-    @RequestMapping(value = "/profiles", method = RequestMethod.GET)
+    @ApiOperation("List profiles")
+    @ApiResponse(code = 503, message = "Service Unavailable")
+    @GetMapping("/profiles")
     public ResponseEntity<String> getProfilesInfo(
-            @QueryParam("projectName") String projectName,
-            @QueryParam("domainId") String domainId
+            @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
+            @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId
     ) {
         ResponseEntity<String> response;
 
@@ -224,37 +85,13 @@ public class OpenstackClusterController {
         return response;
     }
 
-    @ApiOperation(value = "Profile Detail Info", httpMethod = "GET", notes = "Profile Detail Info")
-    @ApiImplicitParams({
-            @ApiImplicitParam(
-                    name = "projectName",
-                    value = "Project Name (ex) admin",
-                    required = true,
-                    dataTypeClass = String.class,
-                    paramType = "query"
-            ),
-            @ApiImplicitParam(
-                    name = "domainId",
-                    value = "Domain ID (ex) default",
-                    required = true,
-                    dataTypeClass = String.class,
-                    paramType = "query"
-            )
-    })
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "SUCCESS"),
-            @ApiResponse(code = 400, message = "Bad Request"),
-            @ApiResponse(code = 401, message = "Unauthorized"),
-            @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 500, message = "Internal Server Error"),
-            @ApiResponse(code = 503, message = "Service Unavailable")
-    })
-    @RequestMapping(value = "/profiles/{profileId}", method = RequestMethod.GET)
+    @ApiOperation("Show profile details")
+    @ApiResponse(code = 503, message = "Service Unavailable")
+    @GetMapping("/profiles/{profileId}")
     public ResponseEntity<String> getProfileDetail(
-            @PathVariable String profileId,
-            @QueryParam("projectName") String projectName,
-            @QueryParam("domainId") String domainId
+            @ApiParam(value = "Profile ID", required = true) @PathVariable String profileId,
+            @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
+            @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId
     ) {
         ResponseEntity<String> response;
 
@@ -270,38 +107,60 @@ public class OpenstackClusterController {
         return response;
     }
 
-    @ApiOperation(value = "Collect Attributes Across a Cluster", httpMethod = "GET", notes = "Collect Attributes Across a Cluster")
-    @ApiImplicitParams({
-            @ApiImplicitParam(
-                    name = "projectName",
-                    value = "Project Name (ex) admin",
-                    required = true,
-                    dataTypeClass = String.class,
-                    paramType = "query"
-            ),
-            @ApiImplicitParam(
-                    name = "domainId",
-                    value = "Domain ID (ex) default",
-                    required = true,
-                    dataTypeClass = String.class,
-                    paramType = "query"
-            )
-    })
-    @ApiResponses(value = {
+    @ApiOperation("List clusters")
+    @ApiResponse(code = 503, message = "Service Unavailable")
+    @GetMapping("/clusters")
+    public ResponseEntity<String> getClusters(
+            @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
+            @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId
+    ) {
+        ResponseEntity<String> response;
+
+        try {
+            response = service.accessOpenstack(senlinPort, "/v1/clusters", projectName, domainId);
+        } catch (HttpClientErrorException he) {
+            response = new ResponseEntity<>("Client error", he.getStatusCode());
+        } catch (Exception e) {
+            e.printStackTrace();
+            response = new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return response;
+    }
+
+    @ApiOperation("Show cluster details")
+    @ApiResponse(code = 503, message = "Service Unavailable")
+    @GetMapping("/clusters/{clusterId}")
+    public ResponseEntity<String> getClusterDetail(
+            @ApiParam(value = "Cluster ID", required = true) @PathVariable String clusterId,
+            @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
+            @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId
+    ) {
+        ResponseEntity<String> response;
+
+        try {
+            response = service.accessOpenstack(senlinPort, String.format("/v1/clusters/%s", clusterId), projectName, domainId);
+        } catch (HttpClientErrorException he) {
+            response = new ResponseEntity<>("Client error", he.getStatusCode());
+        } catch (Exception e) {
+            e.printStackTrace();
+            response = new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return response;
+    }
+
+    @ApiOperation("Collect Attributes Across a Cluster")
+    @ApiResponses({
             @ApiResponse(code = 202, message = "Accepted"),
-            @ApiResponse(code = 400, message = "Bad Request"),
-            @ApiResponse(code = 401, message = "Unauthorized"),
-            @ApiResponse(code = 403, message = "Forbidden"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 500, message = "Internal Server Error"),
             @ApiResponse(code = 503, message = "Service Unavailable")
     })
-    @RequestMapping(value = "/clusters/{clusterId}/attrs/{path}", method = RequestMethod.GET)
+    @GetMapping("/clusters/{clusterId}/attrs/{path}")
     public ResponseEntity<String> getProfileDetail(
-            @PathVariable String clusterId,
-            @PathVariable String path,
-            @QueryParam("projectName") String projectName,
-            @QueryParam("domainId") String domainId
+            @ApiParam(value = "Cluster ID", required = true) @PathVariable String clusterId,
+            @ApiParam(value = "Path", required = true) @PathVariable String path,
+            @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
+            @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId
     ) {
         ResponseEntity<String> response;
 
@@ -316,6 +175,4 @@ public class OpenstackClusterController {
 
         return response;
     }
-
-
 }
