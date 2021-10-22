@@ -19,5 +19,5 @@ If Openstack API needs **project-scoped** token, should get **project name and d
 And use OpenstackClient.getProjectScopedAuthenticationTokenRequestBody method.
 
 
-If Openstack API needs **domain-scoped** token, should get and **domain id** by querystring.  
+If Openstack API needs **domain-scoped** token, should get **domain id** by querystring.  
 And use OpenstackClient.getDomainScopedAuthenticationTokenRequestBody method.
