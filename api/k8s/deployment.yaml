@@ -45,3 +45,5 @@ spec:
               value: "8778"
             - name: OPENSTACK_NEUTRONPORT
               value: "9696"
+            - name: OPENSTACK_USERDOMAIN
+              value: "default"
