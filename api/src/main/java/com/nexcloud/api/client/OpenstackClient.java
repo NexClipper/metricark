@@ -36,6 +36,8 @@ public class OpenstackClient {
     private String USERNAME;
     @Value("${openstack.password}")
     private String PASSWORD;
+    @Value("${openstack.userdomain}")
+    private String USERDOMAIN;
 
 
     public ResponseEntity<String> executeHttpRequest(String targetUrl, String projectName, String domainId) {
@@ -135,7 +137,7 @@ public class OpenstackClient {
     // Authentication Token을 획득하기 위한 HTTP 요청에 담을 Request Body 생성 메서드
     private ObjectNode getProjectScopedAuthenticationTokenRequestBody(String projectName, String domainId) {
         ObjectNode domainID = NODE_FACTORY.objectNode();
-        domainID.put("id", "default");
+        domainID.put("id", USERDOMAIN);
         // domain
 
         ObjectNode userObj = NODE_FACTORY.objectNode();
@@ -190,7 +192,7 @@ public class OpenstackClient {
 
     private ObjectNode getDomainScopedAuthenticationTokenRequestBody(String domainId) {
         ObjectNode domainID = NODE_FACTORY.objectNode();
-        domainID.put("id", "default");
+        domainID.put("id", USERDOMAIN);
         // domain
 
         ObjectNode userObj = NODE_FACTORY.objectNode();
