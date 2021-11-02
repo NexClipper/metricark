@@ -22,7 +22,7 @@ import javax.ws.rs.QueryParam;
 @RestController
 @EnableAutoConfiguration
 @ComponentScan
-@RequestMapping(value = "v0")
+@RequestMapping(value = "/v0")
 public class OpenstackNovaController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackNovaController.class);
