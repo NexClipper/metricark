@@ -20,4 +20,4 @@ And use OpenstackClient.getProjectScopedAuthenticationTokenRequestBody method.
 
 
 If Openstack API needs **domain-scoped** token, should get **domain id** by querystring.  
-And use OpenstackClient.getDomainScopedAuthenticationTokenRequestBody method.
+And use OpenstackClient.getDomainScopedAuthenticationTokenRequestBody method.  

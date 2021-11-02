@@ -22,7 +22,7 @@ import javax.ws.rs.QueryParam;
 @RestController
 @EnableAutoConfiguration
 @ComponentScan
-@RequestMapping(value = "/compute/v2.1")
+@RequestMapping(value = "v0")
 public class OpenstackNovaController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackNovaController.class);
@@ -34,8 +34,8 @@ public class OpenstackNovaController {
         this.service = service;
     }
 
-    @ApiOperation("List Servers")
-    @GetMapping("/servers")
+    @ApiOperation("List Servers Detailed")
+    @GetMapping("/servers/detail")
     public ResponseEntity<String> getServers(
             @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
             @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId
@@ -43,7 +43,7 @@ public class OpenstackNovaController {
         ResponseEntity<String> response;
 
         try {
-            response = service.accessOpenstack("/compute/v2.1/servers", projectName, domainId);
+            response = service.accessOpenstack("/compute/v2.1/servers/detail", projectName, domainId);
         } catch (HttpClientErrorException he) {
             response = new ResponseEntity<>("Client error", he.getStatusCode());
         } catch (Exception e) {
