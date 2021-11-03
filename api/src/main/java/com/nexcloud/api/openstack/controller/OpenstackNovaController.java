@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +28,9 @@ public class OpenstackNovaController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackNovaController.class);
 
+    @Value("${openstack.novaport}")
+    private String novaPort;
+
     private final OpenstackService service;
 
     @Autowired
@@ -43,7 +47,7 @@ public class OpenstackNovaController {
         ResponseEntity<String> response;
 
         try {
-            response = service.accessOpenstack("/compute/v2.1/servers/detail", projectName, domainId);
+            response = service.accessOpenstack(novaPort,"/compute/v2.1/servers/detail", projectName, domainId);
         } catch (HttpClientErrorException he) {
             response = new ResponseEntity<>("Client error", he.getStatusCode());
         } catch (Exception e) {

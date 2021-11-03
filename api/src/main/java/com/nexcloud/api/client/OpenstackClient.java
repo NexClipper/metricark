@@ -38,6 +38,8 @@ public class OpenstackClient {
     private String PASSWORD;
     @Value("${openstack.userdomain}")
     private String USERDOMAIN;
+    @Value("${openstack.keystoneport}")
+    private String KEYSTONEPORT;
 
 
     public ResponseEntity<String> executeHttpRequest(String targetUrl, String projectName, String domainId) {
@@ -90,7 +92,7 @@ public class OpenstackClient {
             String tokenCacheKey = getTokenCacheKey(projectName, domainId);
 
             for (int cnt = 0; cnt < RETRY_CNT; ++cnt) {
-                String authTokenUrl = ENDPOINT + AUTH_TOKEN_ENDPOINT;
+                String authTokenUrl = ENDPOINT + ":" + KEYSTONEPORT + AUTH_TOKEN_ENDPOINT;
 
                 // Request Header에 Data type 입력(Application/json)
                 HttpHeaders headers = new HttpHeaders();
