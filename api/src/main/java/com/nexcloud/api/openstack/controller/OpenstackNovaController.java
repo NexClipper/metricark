@@ -26,7 +26,7 @@ import javax.ws.rs.QueryParam;
 @RequestMapping(value = "/v0")
 public class OpenstackNovaController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackNovaController.class);
+//    private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackNovaController.class);
 
     @Value("${openstack.novaport}")
     private String novaPort;
