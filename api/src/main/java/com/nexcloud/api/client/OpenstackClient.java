@@ -57,22 +57,22 @@ public class OpenstackClient {
                 HttpEntity<String> request = new HttpEntity<>(headers);
 
                 response = restTemplate.exchange(targetUrl, HttpMethod.GET, request, String.class);
-                LOGGER.info("STATUS CODE: " + response.getStatusCodeValue());
-                LOGGER.info("CACHED TOKEN: " + tokenCache.get(getTokenCacheKey(projectName, domainId)));
-                LOGGER.info("Success");
+                LOGGER.debug("STATUS CODE: " + response.getStatusCodeValue());
+                LOGGER.debug("CACHED TOKEN: " + tokenCache.get(getTokenCacheKey(projectName, domainId)));
+                LOGGER.debug("Success");
 
                 return response;
             } catch (HttpClientErrorException he) {
-                LOGGER.info("HttpClientErrorException getStatusCode : {}", he.getStatusCode());
-                LOGGER.info("HttpClientErrorException getResponseBodyAsString : {}", he.getResponseBodyAsString());
+                LOGGER.debug("HttpClientErrorException getStatusCode : {}", he.getStatusCode());
+                LOGGER.debug("HttpClientErrorException getResponseBodyAsString : {}", he.getResponseBodyAsString());
 
                 if (he.getStatusCode().equals(HttpStatus.UNAUTHORIZED)) {
                     // 캐싱되어있는 토큰이 만료되었다면 토큰을 새로 받아서 tokenCache에 저장한다
                     getAuthenticationToken(projectName, domainId);
-                    LOGGER.info("TokenCache update done");
+                    LOGGER.debug("TokenCache update done");
 
                     if (areValidTokenParameters(projectName, domainId)) {
-                        LOGGER.info("**CACHED TOKEN: " + tokenCache.get(getTokenCacheKey(projectName, domainId)));
+                        LOGGER.debug("**CACHED TOKEN: " + tokenCache.get(getTokenCacheKey(projectName, domainId)));
                         continue;
                     }
                 }
