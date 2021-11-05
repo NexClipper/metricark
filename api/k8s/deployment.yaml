@@ -37,13 +37,17 @@ spec:
               value: '32507'
             - name: OPENSTACK_ENDPOINT
               value: "http://192.168.1.14"
+            - name: OPENSTACK_USERDOMAIN
+              value: "default"
             - name: OPENSTACK_USERNAME
               value: "admin"
             - name: OPENSTACK_PASSWORD
               value: "0000"
+            - name: OPENSTACK_KEYSTONEPORT
+              value: "80"
             - name: OPENSTACK_SENLINPORT
               value: "8778"
             - name: OPENSTACK_NEUTRONPORT
               value: "9696"
-            - name: OPENSTACK_USERDOMAIN
-              value: "default"
+            - name: OPENSTACK_NOVAPORT
+              value: "80"
