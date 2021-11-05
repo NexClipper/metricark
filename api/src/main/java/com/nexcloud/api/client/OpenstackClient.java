@@ -46,9 +46,10 @@ public class OpenstackClient {
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
         ResponseEntity<String> response = null;
-        for (int cnt = 0; cnt < RETRY_CNT; ++cnt) {
-            try {
 
+        for (int cnt = 0; cnt < RETRY_CNT; ++cnt) {
+
+            try {
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
                 headers.add(AUTH_TOKEN_REQUEST_HEADER_NAME, checkTokenCacheAndGetToken(projectName, domainId));
@@ -56,40 +57,26 @@ public class OpenstackClient {
                 HttpEntity<String> request = new HttpEntity<>(headers);
 
                 response = restTemplate.exchange(targetUrl, HttpMethod.GET, request, String.class);
-                // HttpClientErrorException 발생
-                LOGGER.info("**STATUS CODE: " + response.getStatusCodeValue());
-//
-                LOGGER.info("**CACHED TOKEN: " + tokenCache.get(getTokenCacheKey(projectName, domainId)));
-//
-//                if (response.getStatusCode().equals(HttpStatus.UNAUTHORIZED)) {
-//                    // 캐싱되어있는 토큰이 만료되었다면 토큰을 새로 받아서 tokenCache에 저장한다
-//                    getAuthenticationToken(projectName, domainId);
-//                    LOGGER.info("TokenCache update done");
-//                } else if (response.getStatusCode().is2xxSuccessful()) {
-//                    break;
-//                }
+                LOGGER.info("STATUS CODE: " + response.getStatusCodeValue());
+                LOGGER.info("CACHED TOKEN: " + tokenCache.get(getTokenCacheKey(projectName, domainId)));
+                LOGGER.info("Success");
 
-                LOGGER.debug("Success");
                 return response;
             } catch (HttpClientErrorException he) {
-
-                LOGGER.warn("Request Failed (HttpClientErrorException)", he);
-
                 LOGGER.info("HttpClientErrorException getStatusCode : {}", he.getStatusCode());
-
                 LOGGER.info("HttpClientErrorException getResponseBodyAsString : {}", he.getResponseBodyAsString());
-
-                LOGGER.info("CACHED TOKEN: " + tokenCache.get(getTokenCacheKey(projectName, domainId)));
 
                 if (he.getStatusCode().equals(HttpStatus.UNAUTHORIZED)) {
                     // 캐싱되어있는 토큰이 만료되었다면 토큰을 새로 받아서 tokenCache에 저장한다
                     getAuthenticationToken(projectName, domainId);
                     LOGGER.info("TokenCache update done");
+                    LOGGER.info("**CACHED TOKEN: " + tokenCache.get(getTokenCacheKey(projectName, domainId)));
                     continue;
                 }
 
                 he.printStackTrace();
                 // 401 UNAUTHORIZED 가 아니면 다시 던진다
+                LOGGER.warn("Request Failed (HttpClientErrorException)", he);
                 throw he;
             } catch (RestClientException re) {
                 re.printStackTrace();
@@ -100,7 +87,8 @@ public class OpenstackClient {
                 LOGGER.warn("Request Failed (Exception)", e);
                 throw e;
             }
-        }
+
+        } // end of for loop
 
         return response;
     }
