@@ -70,8 +70,11 @@ public class OpenstackClient {
                     // 캐싱되어있는 토큰이 만료되었다면 토큰을 새로 받아서 tokenCache에 저장한다
                     getAuthenticationToken(projectName, domainId);
                     LOGGER.info("TokenCache update done");
-                    LOGGER.info("**CACHED TOKEN: " + tokenCache.get(getTokenCacheKey(projectName, domainId)));
-                    continue;
+
+                    if (areValidTokenParameters(projectName, domainId)) {
+                        LOGGER.info("**CACHED TOKEN: " + tokenCache.get(getTokenCacheKey(projectName, domainId)));
+                        continue;
+                    }
                 }
 
                 he.printStackTrace();
@@ -91,6 +94,10 @@ public class OpenstackClient {
         } // end of for loop
 
         return response;
+    }
+
+    private boolean areValidTokenParameters(String projectName, String domainId) {
+        return tokenCache.get(getTokenCacheKey(projectName, domainId)) != null;
     }
 
     private String checkTokenCacheAndGetToken(String projectName, String domainId) {
