@@ -1,6 +1,9 @@
 package com.nexcloud.api.openstack.service;
 
 import com.nexcloud.api.client.OpenstackClient;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class OpenstackService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackService.class);
+    private static final JSONParser PARSER = new JSONParser();
 
     private final OpenstackClient openstackClient;
 
@@ -33,5 +37,19 @@ public class OpenstackService {
 
         String targetUrl = ENDPOINT + uri;
         return openstackClient.executeHttpRequest(targetUrl, projectName, domainId);
+    }
+
+    public ResponseEntity<JSONArray> parseOpenstackNetworks(ResponseEntity<String> rawResponse) {
+
+        try {
+            String rawResponseBody = rawResponse.getBody();
+            JSONObject jsonObject = (JSONObject) PARSER.parse(rawResponseBody);
+            JSONArray jsonArray = (JSONArray) jsonObject.get("networks");
+            return ResponseEntity.ok(jsonArray);
+
+        } catch (Exception e) {
+            LOGGER.warn("Parsing failed", e);
+            return ResponseEntity.status(500).build();
+        }
     }
 }
