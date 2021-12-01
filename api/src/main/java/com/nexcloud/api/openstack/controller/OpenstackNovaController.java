@@ -1,6 +1,8 @@
 package com.nexcloud.api.openstack.controller;
 
+import com.nexcloud.api.domain.ResponseData;
 import com.nexcloud.api.openstack.service.OpenstackService;
+import com.nexcloud.util.Const;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
@@ -15,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpClientErrorException;
 
 import javax.ws.rs.QueryParam;
 
@@ -26,7 +27,7 @@ import javax.ws.rs.QueryParam;
 @RequestMapping(value = "/v0")
 public class OpenstackNovaController {
 
-//    private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackNovaController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackNovaController.class);
 
     @Value("${openstack.novaport}")
     private String novaPort;
@@ -40,21 +41,27 @@ public class OpenstackNovaController {
 
     @ApiOperation("List Servers Detailed")
     @GetMapping("/servers/detail")
-    public ResponseEntity<String> getServersDetail(
+    public ResponseEntity<ResponseData> getServersDetail(
             @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
             @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId
     ) {
-        ResponseEntity<String> response;
+        ResponseEntity<ResponseData> response;
 
         try {
             response = service.accessOpenstack(novaPort, "/compute/v2.1/servers/detail", projectName, domainId);
-        } catch (HttpClientErrorException he) {
-            response = new ResponseEntity<>("Client error", he.getStatusCode());
         } catch (Exception e) {
             e.printStackTrace();
-            response = new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+            response = getErrorResponse();
         }
 
         return response;
+    }
+
+    private ResponseEntity<ResponseData> getErrorResponse() {
+        ResponseData resData	= new ResponseData();
+        resData.setResponse_code(Const.INTERNAL_SERVER_ERROR);
+        resData.setMessage(Const.FAIL);
+
+        return new ResponseEntity<>(resData, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

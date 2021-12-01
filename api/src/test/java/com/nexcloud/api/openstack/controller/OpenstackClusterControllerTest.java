@@ -1,5 +1,6 @@
 package com.nexcloud.api.openstack.controller;
 
+import com.nexcloud.api.domain.ResponseData;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
@@ -21,7 +22,7 @@ public class OpenstackClusterControllerTest {
     @Test
     public void getClusterSuccessTest() {
         //given //when
-        ResponseEntity<String> response = openstackClusterController.getClusters("admin", "default");
+        ResponseEntity<ResponseData> response = openstackClusterController.getClusters("admin", "default");
 
         //then
         System.out.println(response.getBody());
@@ -32,7 +33,7 @@ public class OpenstackClusterControllerTest {
     @Test
     public void getClusterFailureTest() {
         //given //when
-        ResponseEntity<String> response = openstackClusterController.getClusters("wrong", "wrong");
+        ResponseEntity<ResponseData> response = openstackClusterController.getClusters("wrong", "wrong");
 
         //then
         assertThat(response.getBody()).hasToString("Client error");

@@ -1,6 +1,8 @@
 package com.nexcloud.api.openstack.controller;
 
+import com.nexcloud.api.domain.ResponseData;
 import com.nexcloud.api.openstack.service.OpenstackService;
+import com.nexcloud.util.Const;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -46,19 +48,17 @@ public class OpenstackClusterController {
     @ApiOperation("Show build information")
     @ApiResponse(code = 503, message = "Service Unavailable")
     @GetMapping("/build-info")
-    public ResponseEntity<String> getBuildInfo(
+    public ResponseEntity<ResponseData> getBuildInfo(
             @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
             @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId
     ) {
-        ResponseEntity<String> response;
+        ResponseEntity<ResponseData> response;
 
         try {
             response = service.accessOpenstack(senlinPort, "/v1/build-info", projectName, domainId);
-        } catch (HttpClientErrorException he) {
-            response = new ResponseEntity<>("Client error", he.getStatusCode());
         } catch (Exception e) {
             e.printStackTrace();
-            response = new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+            response = getErrorResponse();
         }
 
         return response;
@@ -67,19 +67,17 @@ public class OpenstackClusterController {
     @ApiOperation("List profiles")
     @ApiResponse(code = 503, message = "Service Unavailable")
     @GetMapping("/profiles")
-    public ResponseEntity<String> getProfilesInfo(
+    public ResponseEntity<ResponseData> getProfilesInfo(
             @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
             @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId
     ) {
-        ResponseEntity<String> response;
+        ResponseEntity<ResponseData> response;
 
         try {
             response = service.accessOpenstack(senlinPort, "/v1/profiles", projectName, domainId);
-        } catch (HttpClientErrorException he) {
-            response = new ResponseEntity<>("Client error", he.getStatusCode());
         } catch (Exception e) {
             e.printStackTrace();
-            response = new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+            response = getErrorResponse();
         }
 
         return response;
@@ -88,20 +86,18 @@ public class OpenstackClusterController {
     @ApiOperation("Show profile details")
     @ApiResponse(code = 503, message = "Service Unavailable")
     @GetMapping("/profiles/{profileId}")
-    public ResponseEntity<String> getProfileDetail(
+    public ResponseEntity<ResponseData> getProfileDetail(
             @ApiParam(value = "Profile ID", required = true) @PathVariable String profileId,
             @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
             @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId
     ) {
-        ResponseEntity<String> response;
+        ResponseEntity<ResponseData> response;
 
         try {
             response = service.accessOpenstack(senlinPort, String.format("/v1/profiles/%s", profileId), projectName, domainId);
-        } catch (HttpClientErrorException he) {
-            response = new ResponseEntity<>("Client error", he.getStatusCode());
         } catch (Exception e) {
             e.printStackTrace();
-            response = new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+            response = getErrorResponse();
         }
 
         return response;
@@ -110,19 +106,17 @@ public class OpenstackClusterController {
     @ApiOperation("List clusters")
     @ApiResponse(code = 503, message = "Service Unavailable")
     @GetMapping("/clusters")
-    public ResponseEntity<String> getClusters(
+    public ResponseEntity<ResponseData> getClusters(
             @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
             @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId
     ) {
-        ResponseEntity<String> response;
+        ResponseEntity<ResponseData> response;
 
         try {
             response = service.accessOpenstack(senlinPort, "/v1/clusters", projectName, domainId);
-        } catch (HttpClientErrorException he) {
-            response = new ResponseEntity<>("Client error", he.getStatusCode());
         } catch (Exception e) {
             e.printStackTrace();
-            response = new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+            response = getErrorResponse();
         }
 
         return response;
@@ -131,20 +125,18 @@ public class OpenstackClusterController {
     @ApiOperation("Show cluster details")
     @ApiResponse(code = 503, message = "Service Unavailable")
     @GetMapping("/clusters/{clusterId}")
-    public ResponseEntity<String> getClusterDetail(
+    public ResponseEntity<ResponseData> getClusterDetail(
             @ApiParam(value = "Cluster ID", required = true) @PathVariable String clusterId,
             @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
             @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId
     ) {
-        ResponseEntity<String> response;
+        ResponseEntity<ResponseData> response;
 
         try {
             response = service.accessOpenstack(senlinPort, String.format("/v1/clusters/%s", clusterId), projectName, domainId);
-        } catch (HttpClientErrorException he) {
-            response = new ResponseEntity<>("Client error", he.getStatusCode());
         } catch (Exception e) {
             e.printStackTrace();
-            response = new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+            response = getErrorResponse();
         }
 
         return response;
@@ -156,23 +148,29 @@ public class OpenstackClusterController {
             @ApiResponse(code = 503, message = "Service Unavailable")
     })
     @GetMapping("/clusters/{clusterId}/attrs/{path}")
-    public ResponseEntity<String> getProfileDetail(
+    public ResponseEntity<ResponseData> getProfileDetail(
             @ApiParam(value = "Cluster ID", required = true) @PathVariable String clusterId,
             @ApiParam(value = "Path", required = true) @PathVariable String path,
             @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
             @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId
     ) {
-        ResponseEntity<String> response;
+        ResponseEntity<ResponseData> response;
 
         try {
             response = service.accessOpenstack(senlinPort, String.format("/v1/clusters/%s/attrs/%s", clusterId, path), projectName, domainId);
-        } catch (HttpClientErrorException he) {
-            response = new ResponseEntity<>("Client error", he.getStatusCode());
         } catch (Exception e) {
             e.printStackTrace();
-            response = new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+            response = getErrorResponse();
         }
 
         return response;
+    }
+
+    private ResponseEntity<ResponseData> getErrorResponse() {
+        ResponseData resData	= new ResponseData();
+        resData.setResponse_code(Const.INTERNAL_SERVER_ERROR);
+        resData.setMessage(Const.FAIL);
+
+        return new ResponseEntity<>(resData, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
