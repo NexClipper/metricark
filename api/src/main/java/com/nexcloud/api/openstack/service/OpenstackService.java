@@ -32,38 +32,13 @@ public class OpenstackService {
     private String ENDPOINT;
 
     public ResponseEntity<ResponseData> accessOpenstack(String port, String uri, String projectName, String domainId) {
-
         String targetUrl = ENDPOINT + ":" + port + uri;
-
-        ResponseEntity<ResponseData> response = null;
-        ResponseData resData = new ResponseData();
-        ResponseEntity<String> entityData = null;
-
-        try {
-            entityData = openstackClient.executeHttpRequest(targetUrl, projectName, domainId);
-
-            resData.setData(entityData.getBody());
-            resData.setStatus("success");
-
-            resData.setResponse_code(entityData.getStatusCodeValue());
-            resData.setMessage(Const.SUCCESS);
-
-            response = new ResponseEntity<>(resData, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            resData.setResponse_code(Const.INTERNAL_SERVER_ERROR);
-            resData.setMessage(Const.FAIL);
-            resData.setMessage(Util.makeStackTrace(e));
-            response = new ResponseEntity<>(resData, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return response;
+        return executeAccessOpenstack(targetUrl, projectName, domainId);
     }
 
-    public ResponseEntity<String> accessOpenstack(String uri, String projectName, String domainId) {
-
+    public ResponseEntity<ResponseData> accessOpenstack(String uri, String projectName, String domainId) {
         String targetUrl = ENDPOINT + uri;
-        return openstackClient.executeHttpRequest(targetUrl, projectName, domainId);
+        return executeAccessOpenstack(targetUrl, projectName, domainId);
     }
 
     public ResponseEntity<ResponseData> parseOpenstackNetworks(ResponseEntity<ResponseData> rawResponse) {
@@ -99,5 +74,31 @@ public class OpenstackService {
         resData.setMessage(Const.FAIL);
 
         return new ResponseEntity<>(resData, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    private ResponseEntity<ResponseData> executeAccessOpenstack(String targetUrl, String projectName, String domainId) {
+        ResponseEntity<ResponseData> response;
+        ResponseData resData = new ResponseData();
+        ResponseEntity<String> entityData;
+
+        try {
+            entityData = openstackClient.executeHttpRequest(targetUrl, projectName, domainId);
+
+            resData.setData(entityData.getBody());
+            resData.setStatus("success");
+
+            resData.setResponse_code(entityData.getStatusCodeValue());
+            resData.setMessage(Const.SUCCESS);
+
+            response = new ResponseEntity<>(resData, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resData.setResponse_code(Const.INTERNAL_SERVER_ERROR);
+            resData.setMessage(Const.FAIL);
+            resData.setMessage(Util.makeStackTrace(e));
+            response = new ResponseEntity<>(resData, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return response;
     }
 }
