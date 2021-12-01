@@ -69,17 +69,30 @@ public class OpenstackService {
         return openstackClient.executeHttpRequest(targetUrl, projectName, domainId);
     }
 
-    public ResponseEntity<JSONArray> parseOpenstackNetworks(ResponseEntity<String> rawResponse) {
+    public ResponseEntity<ResponseData> parseOpenstackNetworks(ResponseEntity<ResponseData> rawResponse) {
+
+        ResponseEntity<ResponseData> response;
+        ResponseData resData = new ResponseData();
 
         try {
-            String rawResponseBody = rawResponse.getBody();
+
+            String rawResponseBody = (String) rawResponse.getBody().getData();
             JSONObject jsonObject = (JSONObject) PARSER.parse(rawResponseBody);
             JSONArray jsonArray = (JSONArray) jsonObject.get("networks");
-            return ResponseEntity.ok(jsonArray);
 
+            resData.setData(jsonArray);
+            resData.setStatus("success");
+            resData.setResponse_code(200);
+            resData.setMessage(Const.SUCCESS);
+
+            response = new ResponseEntity<>(resData, HttpStatus.OK);
         } catch (Exception e) {
             LOGGER.warn("Parsing failed", e);
-            return ResponseEntity.status(500).build();
+            resData.setResponse_code(Const.INTERNAL_SERVER_ERROR);
+            resData.setMessage(Const.FAIL);
+            resData.setMessage(Util.makeStackTrace(e));
+            response = new ResponseEntity<>(resData, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return response;
     }
 }
