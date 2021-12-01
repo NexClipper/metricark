@@ -55,7 +55,7 @@ public class OpenstackNodeController {
             response = service.accessOpenstack(senlinPort, "/v1/nodes", projectName, domainId);
         } catch (Exception e) {
             e.printStackTrace();
-            response = getErrorResponse();
+            response = service.getErrorResponse();
         }
 
         return response;
@@ -75,17 +75,9 @@ public class OpenstackNodeController {
             response = service.accessOpenstack(senlinPort, String.format("/v1/nodes/%s", nodeId), projectName, domainId);
         } catch (Exception e) {
             e.printStackTrace();
-            response = getErrorResponse();
+            response = service.getErrorResponse();
         }
 
         return response;
-    }
-
-    private ResponseEntity<ResponseData> getErrorResponse() {
-        ResponseData resData = new ResponseData();
-        resData.setResponse_code(Const.INTERNAL_SERVER_ERROR);
-        resData.setMessage(Const.FAIL);
-
-        return new ResponseEntity<>(resData, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

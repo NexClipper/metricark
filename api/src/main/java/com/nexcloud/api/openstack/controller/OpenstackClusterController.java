@@ -57,7 +57,7 @@ public class OpenstackClusterController {
             response = service.accessOpenstack(senlinPort, "/v1/build-info", projectName, domainId);
         } catch (Exception e) {
             e.printStackTrace();
-            response = getErrorResponse();
+            response = service.getErrorResponse();
         }
 
         return response;
@@ -76,7 +76,7 @@ public class OpenstackClusterController {
             response = service.accessOpenstack(senlinPort, "/v1/profiles", projectName, domainId);
         } catch (Exception e) {
             e.printStackTrace();
-            response = getErrorResponse();
+            response = service.getErrorResponse();
         }
 
         return response;
@@ -96,7 +96,7 @@ public class OpenstackClusterController {
             response = service.accessOpenstack(senlinPort, String.format("/v1/profiles/%s", profileId), projectName, domainId);
         } catch (Exception e) {
             e.printStackTrace();
-            response = getErrorResponse();
+            response = service.getErrorResponse();
         }
 
         return response;
@@ -115,7 +115,7 @@ public class OpenstackClusterController {
             response = service.accessOpenstack(senlinPort, "/v1/clusters", projectName, domainId);
         } catch (Exception e) {
             e.printStackTrace();
-            response = getErrorResponse();
+            response = service.getErrorResponse();
         }
 
         return response;
@@ -135,7 +135,7 @@ public class OpenstackClusterController {
             response = service.accessOpenstack(senlinPort, String.format("/v1/clusters/%s", clusterId), projectName, domainId);
         } catch (Exception e) {
             e.printStackTrace();
-            response = getErrorResponse();
+            response = service.getErrorResponse();
         }
 
         return response;
@@ -159,17 +159,9 @@ public class OpenstackClusterController {
             response = service.accessOpenstack(senlinPort, String.format("/v1/clusters/%s/attrs/%s", clusterId, path), projectName, domainId);
         } catch (Exception e) {
             e.printStackTrace();
-            response = getErrorResponse();
+            response = service.getErrorResponse();
         }
 
         return response;
-    }
-
-    private ResponseEntity<ResponseData> getErrorResponse() {
-        ResponseData resData = new ResponseData();
-        resData.setResponse_code(Const.INTERNAL_SERVER_ERROR);
-        resData.setMessage(Const.FAIL);
-
-        return new ResponseEntity<>(resData, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

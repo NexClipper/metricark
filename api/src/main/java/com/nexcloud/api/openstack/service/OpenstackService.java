@@ -92,4 +92,12 @@ public class OpenstackService {
         }
         return response;
     }
+
+    public ResponseEntity<ResponseData> getErrorResponse() {
+        ResponseData resData = new ResponseData();
+        resData.setResponse_code(Const.INTERNAL_SERVER_ERROR);
+        resData.setMessage(Const.FAIL);
+
+        return new ResponseEntity<>(resData, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

@@ -54,17 +54,9 @@ public class OpenstackCustomController {
             response = service.accessOpenstack(senlinPort, api, projectName, domainId);
         } catch (Exception e) {
             e.printStackTrace();
-            response = getErrorResponse();
+            response = service.getErrorResponse();
         }
 
         return response;
-    }
-
-    private ResponseEntity<ResponseData> getErrorResponse() {
-        ResponseData resData = new ResponseData();
-        resData.setResponse_code(Const.INTERNAL_SERVER_ERROR);
-        resData.setMessage(Const.FAIL);
-
-        return new ResponseEntity<>(resData, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
