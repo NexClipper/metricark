@@ -35,9 +35,9 @@ public class OpenstackService {
 
         String targetUrl = ENDPOINT + ":" + port + uri;
 
-        ResponseEntity<ResponseData> response 		= null;
-        ResponseData resData						= new ResponseData();
-        ResponseEntity<String> entityData			= null;
+        ResponseEntity<ResponseData> response = null;
+        ResponseData resData = new ResponseData();
+        ResponseEntity<String> entityData = null;
 
         try {
             entityData = openstackClient.executeHttpRequest(targetUrl, projectName, domainId);
@@ -58,9 +58,6 @@ public class OpenstackService {
         }
 
         return response;
-
-//        String targetUrl = ENDPOINT + ":" + port + uri;
-//        return openstackClient.executeHttpRequest(targetUrl, projectName, domainId);
     }
 
     public ResponseEntity<String> accessOpenstack(String uri, String projectName, String domainId) {

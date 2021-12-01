@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpClientErrorException;
 
 import javax.ws.rs.QueryParam;
 
@@ -167,7 +166,7 @@ public class OpenstackClusterController {
     }
 
     private ResponseEntity<ResponseData> getErrorResponse() {
-        ResponseData resData	= new ResponseData();
+        ResponseData resData = new ResponseData();
         resData.setResponse_code(Const.INTERNAL_SERVER_ERROR);
         resData.setMessage(Const.FAIL);
 

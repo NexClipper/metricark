@@ -58,7 +58,7 @@ public class OpenstackNovaController {
     }
 
     private ResponseEntity<ResponseData> getErrorResponse() {
-        ResponseData resData	= new ResponseData();
+        ResponseData resData = new ResponseData();
         resData.setResponse_code(Const.INTERNAL_SERVER_ERROR);
         resData.setMessage(Const.FAIL);
 

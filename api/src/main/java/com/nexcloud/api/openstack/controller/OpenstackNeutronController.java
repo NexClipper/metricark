@@ -5,7 +5,6 @@ import com.nexcloud.api.openstack.service.OpenstackService;
 import com.nexcloud.util.Const;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.json.simple.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +60,7 @@ public class OpenstackNeutronController {
     }
 
     private ResponseEntity<ResponseData> getErrorResponse() {
-        ResponseData resData	= new ResponseData();
+        ResponseData resData = new ResponseData();
         resData.setResponse_code(Const.INTERNAL_SERVER_ERROR);
         resData.setMessage(Const.FAIL);
 
