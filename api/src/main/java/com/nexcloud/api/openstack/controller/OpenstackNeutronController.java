@@ -1,9 +1,10 @@
 package com.nexcloud.api.openstack.controller;
 
+import com.nexcloud.api.domain.ResponseData;
 import com.nexcloud.api.openstack.service.OpenstackService;
+import com.nexcloud.util.Const;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.json.simple.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,12 +42,20 @@ public class OpenstackNeutronController {
 
     @ApiOperation("List networks")
     @GetMapping("/networks")
-    public ResponseEntity<JSONArray> getNetworks(
+    public ResponseEntity<ResponseData> getNetworks(
             @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
             @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId
     ) {
+        ResponseEntity<ResponseData> response;
 
-        ResponseEntity<String> rawResponse = service.accessOpenstack(neutronPort, "v2.0/networks", projectName, domainId);
-        return service.parseOpenstackNetworks(rawResponse);
+        try {
+            ResponseEntity<ResponseData> rawResponse = service.accessOpenstack(neutronPort, "v2.0/networks", projectName, domainId);
+            return service.parseOpenstackNetworks(rawResponse);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response = service.getErrorResponse();
+        }
+
+        return response;
     }
 }

@@ -1,6 +1,9 @@
 package com.nexcloud.api.openstack.service;
 
 import com.nexcloud.api.client.OpenstackClient;
+import com.nexcloud.api.domain.ResponseData;
+import com.nexcloud.util.Const;
+import com.nexcloud.util.Util;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -8,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -27,29 +31,74 @@ public class OpenstackService {
     @Value("${openstack.endpoint}")
     private String ENDPOINT;
 
-    public ResponseEntity<String> accessOpenstack(String port, String uri, String projectName, String domainId) {
-
+    public ResponseEntity<ResponseData> accessOpenstack(String port, String uri, String projectName, String domainId) {
         String targetUrl = ENDPOINT + ":" + port + uri;
-        return openstackClient.executeHttpRequest(targetUrl, projectName, domainId);
+        return executeAccessOpenstack(targetUrl, projectName, domainId);
     }
 
-    public ResponseEntity<String> accessOpenstack(String uri, String projectName, String domainId) {
-
+    public ResponseEntity<ResponseData> accessOpenstack(String uri, String projectName, String domainId) {
         String targetUrl = ENDPOINT + uri;
-        return openstackClient.executeHttpRequest(targetUrl, projectName, domainId);
+        return executeAccessOpenstack(targetUrl, projectName, domainId);
     }
 
-    public ResponseEntity<JSONArray> parseOpenstackNetworks(ResponseEntity<String> rawResponse) {
+    public ResponseEntity<ResponseData> parseOpenstackNetworks(ResponseEntity<ResponseData> rawResponse) {
+
+        ResponseEntity<ResponseData> response;
+        ResponseData resData = new ResponseData();
 
         try {
-            String rawResponseBody = rawResponse.getBody();
+
+            String rawResponseBody = (String) rawResponse.getBody().getData();
             JSONObject jsonObject = (JSONObject) PARSER.parse(rawResponseBody);
             JSONArray jsonArray = (JSONArray) jsonObject.get("networks");
-            return ResponseEntity.ok(jsonArray);
 
+            resData.setData(jsonArray);
+            resData.setStatus("success");
+            resData.setResponse_code(200);
+            resData.setMessage(Const.SUCCESS);
+
+            response = new ResponseEntity<>(resData, HttpStatus.OK);
         } catch (Exception e) {
             LOGGER.warn("Parsing failed", e);
-            return ResponseEntity.status(500).build();
+            resData.setResponse_code(Const.INTERNAL_SERVER_ERROR);
+            resData.setMessage(Const.FAIL);
+            resData.setMessage(Util.makeStackTrace(e));
+            response = new ResponseEntity<>(resData, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return response;
+    }
+
+    public ResponseEntity<ResponseData> getErrorResponse() {
+        ResponseData resData = new ResponseData();
+        resData.setResponse_code(Const.INTERNAL_SERVER_ERROR);
+        resData.setMessage(Const.FAIL);
+
+        return new ResponseEntity<>(resData, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    private ResponseEntity<ResponseData> executeAccessOpenstack(String targetUrl, String projectName, String domainId) {
+        ResponseEntity<ResponseData> response;
+        ResponseData resData = new ResponseData();
+        ResponseEntity<String> entityData;
+
+        try {
+            entityData = openstackClient.executeHttpRequest(targetUrl, projectName, domainId);
+
+            resData.setData(entityData.getBody());
+            resData.setStatus("success");
+
+            resData.setResponse_code(entityData.getStatusCodeValue());
+            resData.setMessage(Const.SUCCESS);
+
+            response = new ResponseEntity<>(resData, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resData.setResponse_code(Const.INTERNAL_SERVER_ERROR);
+            resData.setMessage(Const.FAIL);
+            resData.setMessage(Util.makeStackTrace(e));
+            response = new ResponseEntity<>(resData, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return response;
     }
 }

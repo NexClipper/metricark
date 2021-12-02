@@ -1,5 +1,6 @@
 package com.nexcloud.api.openstack.controller;
 
+import com.nexcloud.api.domain.ResponseData;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
@@ -21,7 +22,7 @@ public class OpenstackNodeControllerTest {
     @Test
     public void getNodesSuccessTest() {
         //given //when
-        ResponseEntity<String> response = openstackNodeController.getNodes("admin", "default");
+        ResponseEntity<ResponseData> response = openstackNodeController.getNodes("admin", "default");
 
         //then
         System.out.println(response.getBody());
@@ -32,7 +33,7 @@ public class OpenstackNodeControllerTest {
     @Test
     public void getNodesFailureTest() {
         //given //when
-        ResponseEntity<String> response = openstackNodeController.getNodes("wrong", "wrong");
+        ResponseEntity<ResponseData> response = openstackNodeController.getNodes("wrong", "wrong");
 
         //then
         System.out.println(response.getBody());
