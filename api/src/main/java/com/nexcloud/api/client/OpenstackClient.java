@@ -66,7 +66,7 @@ public class OpenstackClient {
 
                 HttpEntity<String> request = new HttpEntity<>(headers);
 
-                // 여기서 openstack에 요청 실행
+                // Http call to openstack executed here
                 response = restTemplate.exchange(targetUrl, HttpMethod.GET, request, String.class);
                 LOGGER.debug("STATUS CODE: " + response.getStatusCodeValue());
                 LOGGER.debug("CACHED TOKEN: " + tokenCache.get(getTokenCacheKey(projectName, domainId)));
@@ -282,7 +282,7 @@ public class OpenstackClient {
     }
 
     @Scheduled(cron = "*/1 * * * * *")
-    private void cleanUrlCache() {
+    private void clearUrlCache() {
         urlCache.clear();
     }
 }
