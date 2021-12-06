@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.HttpClientErrorException;
@@ -29,6 +30,7 @@ public class OpenstackClient {
     private static final String AUTH_TOKEN_RESPONSE_HEADER_NAME = "X-Subject-Token";
     private final RestTemplate restTemplate = new RestTemplate();
     private final Map<String, String> tokenCache = new ConcurrentHashMap<>();
+    private final Map<String, Long> urlCache = new ConcurrentHashMap<>();
 
     @Value("${openstack.endpoint}")
     private String ENDPOINT;
@@ -43,6 +45,14 @@ public class OpenstackClient {
 
 
     public ResponseEntity<String> executeHttpRequest(String targetUrl, String projectName, String domainId) {
+
+        if (isTargetUrlAlreadyCached(targetUrl)) {
+            LOGGER.debug("Request url is already cached");
+            return new ResponseEntity<>("Same request can be called up to once in a second", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        updateUrlCache(targetUrl);
+
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
         ResponseEntity<String> response = null;
@@ -56,6 +66,7 @@ public class OpenstackClient {
 
                 HttpEntity<String> request = new HttpEntity<>(headers);
 
+                // 여기서 openstack에 요청 실행
                 response = restTemplate.exchange(targetUrl, HttpMethod.GET, request, String.class);
                 LOGGER.debug("STATUS CODE: " + response.getStatusCodeValue());
                 LOGGER.debug("CACHED TOKEN: " + tokenCache.get(getTokenCacheKey(projectName, domainId)));
@@ -260,5 +271,18 @@ public class OpenstackClient {
         // auth
 
         return auth;
+    }
+
+    private boolean isTargetUrlAlreadyCached(String targetUrl) {
+        return urlCache.containsKey(targetUrl);
+    }
+
+    private void updateUrlCache(String targetUrl) {
+        urlCache.put(targetUrl, System.currentTimeMillis() / 1000);
+    }
+
+    @Scheduled(cron = "*/1 * * * * *")
+    private void cleanUrlCache() {
+        urlCache.clear();
     }
 }
