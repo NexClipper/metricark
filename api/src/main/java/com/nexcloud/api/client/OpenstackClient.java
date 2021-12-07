@@ -282,7 +282,7 @@ public class OpenstackClient {
         urlCache.put(targetUrl, System.currentTimeMillis() / 1000);
     }
 
-    @Scheduled(cron = "*/1 * * * * *")
+    @Scheduled(cron = "* * * * * *")
     private void clearUrlCache() {
         urlCache.clear();
     }
