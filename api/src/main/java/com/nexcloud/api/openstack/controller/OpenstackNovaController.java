@@ -48,7 +48,7 @@ public class OpenstackNovaController {
         ResponseEntity<ResponseData> response;
 
         try {
-            response = service.accessOpenstack(novaPort, "/compute/v2.1/servers/detail", projectName, domainId);
+            response = service.accessOpenstack(novaPort, "/compute/v2.1/servers/detail", projectName, domainId, endpoint);
         } catch (Exception e) {
             e.printStackTrace();
             response = service.getErrorResponse();

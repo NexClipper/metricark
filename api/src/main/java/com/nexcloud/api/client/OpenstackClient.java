@@ -42,7 +42,7 @@ public class OpenstackClient {
     private String KEYSTONEPORT;
 
 
-    public ResponseEntity<String> executeHttpRequest(String targetUrl, String projectName, String domainId) {
+    public ResponseEntity<String> executeHttpRequest(String targetUrl, String projectName, String domainId, String endpoint) {
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
         ResponseEntity<String> response = null;

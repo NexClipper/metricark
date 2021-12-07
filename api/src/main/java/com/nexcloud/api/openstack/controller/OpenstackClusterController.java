@@ -50,7 +50,7 @@ public class OpenstackClusterController {
         ResponseEntity<ResponseData> response;
 
         try {
-            response = service.accessOpenstack(senlinPort, "/v1/build-info", projectName, domainId);
+            response = service.accessOpenstack(senlinPort, "/v1/build-info", projectName, domainId, endpoint);
         } catch (Exception e) {
             e.printStackTrace();
             response = service.getErrorResponse();
@@ -70,7 +70,7 @@ public class OpenstackClusterController {
         ResponseEntity<ResponseData> response;
 
         try {
-            response = service.accessOpenstack(senlinPort, "/v1/profiles", projectName, domainId);
+            response = service.accessOpenstack(senlinPort, "/v1/profiles", projectName, domainId, endpoint);
         } catch (Exception e) {
             e.printStackTrace();
             response = service.getErrorResponse();
@@ -91,7 +91,7 @@ public class OpenstackClusterController {
         ResponseEntity<ResponseData> response;
 
         try {
-            response = service.accessOpenstack(senlinPort, String.format("/v1/profiles/%s", profileId), projectName, domainId);
+            response = service.accessOpenstack(senlinPort, String.format("/v1/profiles/%s", profileId), projectName, domainId, endpoint);
         } catch (Exception e) {
             e.printStackTrace();
             response = service.getErrorResponse();
@@ -105,12 +105,13 @@ public class OpenstackClusterController {
     @GetMapping("/clusters")
     public ResponseEntity<ResponseData> getClusters(
             @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
-            @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId
+            @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId,
+            @ApiParam(value = "Openstack Endpoint", required = false) @RequestParam(value = "endpoint", required = false) String endpoint
     ) {
         ResponseEntity<ResponseData> response;
 
         try {
-            response = service.accessOpenstack(senlinPort, "/v1/clusters", projectName, domainId);
+            response = service.accessOpenstack(senlinPort, "/v1/clusters", projectName, domainId, endpoint);
         } catch (Exception e) {
             e.printStackTrace();
             response = service.getErrorResponse();
@@ -131,7 +132,7 @@ public class OpenstackClusterController {
         ResponseEntity<ResponseData> response;
 
         try {
-            response = service.accessOpenstack(senlinPort, String.format("/v1/clusters/%s", clusterId), projectName, domainId);
+            response = service.accessOpenstack(senlinPort, String.format("/v1/clusters/%s", clusterId), projectName, domainId, endpoint);
         } catch (Exception e) {
             e.printStackTrace();
             response = service.getErrorResponse();
@@ -156,7 +157,7 @@ public class OpenstackClusterController {
         ResponseEntity<ResponseData> response;
 
         try {
-            response = service.accessOpenstack(senlinPort, String.format("/v1/clusters/%s/attrs/%s", clusterId, path), projectName, domainId);
+            response = service.accessOpenstack(senlinPort, String.format("/v1/clusters/%s/attrs/%s", clusterId, path), projectName, domainId, endpoint);
         } catch (Exception e) {
             e.printStackTrace();
             response = service.getErrorResponse();

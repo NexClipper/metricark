@@ -49,7 +49,7 @@ public class OpenstackNeutronController {
         ResponseEntity<ResponseData> response;
 
         try {
-            ResponseEntity<ResponseData> rawResponse = service.accessOpenstack(neutronPort, "v2.0/networks", projectName, domainId);
+            ResponseEntity<ResponseData> rawResponse = service.accessOpenstack(neutronPort, "v2.0/networks", projectName, domainId, endpoint);
             return service.parseOpenstackNetworks(rawResponse);
         } catch (Exception e) {
             e.printStackTrace();

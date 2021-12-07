@@ -69,7 +69,7 @@ public class OpenstackNodeController {
         ResponseEntity<ResponseData> response;
 
         try {
-            response = service.accessOpenstack(senlinPort, String.format("/v1/nodes/%s", nodeId), projectName, domainId);
+            response = service.accessOpenstack(senlinPort, String.format("/v1/nodes/%s", nodeId), projectName, domainId, endpoint);
         } catch (Exception e) {
             e.printStackTrace();
             response = service.getErrorResponse();

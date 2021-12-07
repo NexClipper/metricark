@@ -51,7 +51,7 @@ public class OpenstackCustomController {
         ResponseEntity<ResponseData> response;
 
         try {
-            response = service.accessOpenstack(senlinPort, api, projectName, domainId);
+            response = service.accessOpenstack(senlinPort, api, projectName, domainId, endpoint);
         } catch (Exception e) {
             e.printStackTrace();
             response = service.getErrorResponse();
