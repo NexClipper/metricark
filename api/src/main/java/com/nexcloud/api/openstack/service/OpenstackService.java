@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class OpenstackService {
@@ -31,14 +32,19 @@ public class OpenstackService {
     @Value("${openstack.endpoint}")
     private String ENDPOINT;
 
-    public ResponseEntity<ResponseData> accessOpenstack(String port, String uri, String projectName, String domainId) {
-        String targetUrl = ENDPOINT + ":" + port + uri;
-        return executeAccessOpenstack(targetUrl, projectName, domainId);
+    public ResponseEntity<ResponseData> accessOpenstack(String port, String uri, String projectName, String domainId, String endpoint) {
+
+        if (StringUtils.isEmpty(endpoint)) {
+            endpoint = ENDPOINT;
+        }
+
+        String targetUrl = endpoint + ":" + port + uri;
+        return executeAccessOpenstack(targetUrl, projectName, domainId, endpoint);
     }
 
-    public ResponseEntity<ResponseData> accessOpenstack(String uri, String projectName, String domainId) {
+    public ResponseEntity<ResponseData> accessOpenstack(String uri, String projectName, String domainId, String endpoint) {
         String targetUrl = ENDPOINT + uri;
-        return executeAccessOpenstack(targetUrl, projectName, domainId);
+        return executeAccessOpenstack(targetUrl, projectName, domainId, endpoint);
     }
 
     public ResponseEntity<ResponseData> parseOpenstackNetworks(ResponseEntity<ResponseData> rawResponse) {
@@ -76,13 +82,13 @@ public class OpenstackService {
         return new ResponseEntity<>(resData, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    private ResponseEntity<ResponseData> executeAccessOpenstack(String targetUrl, String projectName, String domainId) {
+    private ResponseEntity<ResponseData> executeAccessOpenstack(String targetUrl, String projectName, String domainId, String endpoint) {
         ResponseEntity<ResponseData> response;
         ResponseData resData = new ResponseData();
         ResponseEntity<String> entityData;
 
         try {
-            entityData = openstackClient.executeHttpRequest(targetUrl, projectName, domainId);
+            entityData = openstackClient.executeHttpRequest(targetUrl, projectName, domainId, endpoint);
 
             resData.setData(entityData.getBody());
             resData.setStatus("success");

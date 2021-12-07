@@ -42,7 +42,7 @@ public class OpenstackClient {
     private String KEYSTONEPORT;
 
 
-    public ResponseEntity<String> executeHttpRequest(String targetUrl, String projectName, String domainId) {
+    public ResponseEntity<String> executeHttpRequest(String targetUrl, String projectName, String domainId, String endpoint) {
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
         ResponseEntity<String> response = null;
@@ -52,7 +52,7 @@ public class OpenstackClient {
             try {
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
-                headers.add(AUTH_TOKEN_REQUEST_HEADER_NAME, checkTokenCacheAndGetToken(projectName, domainId));
+                headers.add(AUTH_TOKEN_REQUEST_HEADER_NAME, checkTokenCacheAndGetToken(projectName, domainId, endpoint));
 
                 HttpEntity<String> request = new HttpEntity<>(headers);
 
@@ -68,7 +68,7 @@ public class OpenstackClient {
 
                 if (he.getStatusCode().equals(HttpStatus.UNAUTHORIZED)) {
                     // 캐싱되어있는 토큰이 만료되었다면 토큰을 새로 받아서 tokenCache에 저장한다
-                    getAuthenticationToken(projectName, domainId);
+                    getAuthenticationToken(projectName, domainId, endpoint);
                     LOGGER.debug("TokenCache update done");
 
                     if (areValidTokenParameters(projectName, domainId)) {
@@ -100,19 +100,23 @@ public class OpenstackClient {
         return tokenCache.get(getTokenCacheKey(projectName, domainId)) != null;
     }
 
-    private String checkTokenCacheAndGetToken(String projectName, String domainId) {
+    private String checkTokenCacheAndGetToken(String projectName, String domainId, String endpoint) {
         String tokenCacheKey = getTokenCacheKey(projectName, domainId);
-        return StringUtils.isEmpty(this.tokenCache.get(tokenCacheKey)) ? getAuthenticationToken(projectName, domainId) : this.tokenCache.get(tokenCacheKey);
+        return StringUtils.isEmpty(this.tokenCache.get(tokenCacheKey)) ? getAuthenticationToken(projectName, domainId, endpoint) : this.tokenCache.get(tokenCacheKey);
     }
 
     // Authentication Token 획득
-    private String getAuthenticationToken(String projectName, String domainId) {
+    private String getAuthenticationToken(String projectName, String domainId, String endpoint) {
+
+        if (StringUtils.isEmpty(endpoint)) {
+            endpoint = ENDPOINT;
+        }
 
         try {
             String tokenCacheKey = getTokenCacheKey(projectName, domainId);
 
             for (int cnt = 0; cnt < RETRY_CNT; ++cnt) {
-                String authTokenUrl = ENDPOINT + ":" + KEYSTONEPORT + AUTH_TOKEN_ENDPOINT;
+                String authTokenUrl = endpoint + ":" + KEYSTONEPORT + AUTH_TOKEN_ENDPOINT;
 
                 // Request Header에 Data type 입력(Application/json)
                 HttpHeaders headers = new HttpHeaders();
