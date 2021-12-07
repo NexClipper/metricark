@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class OpenstackService {
@@ -32,7 +33,12 @@ public class OpenstackService {
     private String ENDPOINT;
 
     public ResponseEntity<ResponseData> accessOpenstack(String port, String uri, String projectName, String domainId, String endpoint) {
-        String targetUrl = ENDPOINT + ":" + port + uri;
+
+        if (StringUtils.isEmpty(endpoint)) {
+            endpoint = ENDPOINT;
+        }
+
+        String targetUrl = endpoint + ":" + port + uri;
         return executeAccessOpenstack(targetUrl, projectName, domainId, endpoint);
     }
 
