@@ -34,14 +34,12 @@ public class OpenstackClientTest {
             }
         }
 
-
         // novaapi 5번 호출
         for (int i = 0; i < RETRY; i++) {
-            if(openstackclient.executeHttpRequest("http://192.168.1.14:80/compute/v2.1/servers/detail", "admin", "default").getStatusCode().equals(HttpStatus.OK)) {
+            if (openstackclient.executeHttpRequest("http://192.168.1.14:80/compute/v2.1/servers/detail", "admin", "default").getStatusCode().equals(HttpStatus.OK)) {
                 novaApiCounter++;
             }
         }
-
 
         //then
         assertThat(neutronApiCounter).isLessThan(RETRY);

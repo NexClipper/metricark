@@ -53,6 +53,7 @@ public class OpenstackClient {
 
         updateUrlCache(targetUrl);
 
+
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
         ResponseEntity<String> response = null;
