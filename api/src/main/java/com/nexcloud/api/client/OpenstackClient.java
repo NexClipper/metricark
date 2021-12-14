@@ -67,7 +67,7 @@ public class OpenstackClient {
 
                 HttpEntity<String> request = new HttpEntity<>(headers);
 
-                // Http call to openstack executed here
+                // Http call to openstack is executed here
                 response = restTemplate.exchange(targetUrl, HttpMethod.GET, request, String.class);
                 LOGGER.debug("STATUS CODE: " + response.getStatusCodeValue());
                 LOGGER.debug("CACHED TOKEN: " + tokenCache.get(getTokenCacheKey(projectName, domainId)));
