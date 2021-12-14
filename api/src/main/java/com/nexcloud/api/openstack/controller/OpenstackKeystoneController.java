@@ -13,7 +13,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,25 +22,23 @@ import javax.ws.rs.QueryParam;
 @RestController
 @EnableAutoConfiguration
 @ComponentScan
-@RequestMapping(value = "/v0")
-public class OpenstackNeutronController {
+public class OpenstackKeystoneController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackCustomController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OpenstackKeystoneController.class);
 
-    @Value("${openstack.neutronport}")
-    private String neutronPort;
+    @Value("${openstack.keystoneport}")
+    private String keystoneport;
 
     private final OpenstackService service;
 
     @Autowired
-    public OpenstackNeutronController(OpenstackService service) {
+    public OpenstackKeystoneController(OpenstackService service) {
         this.service = service;
     }
 
-
-    @ApiOperation("List networks")
-    @GetMapping("/networks")
-    public ResponseEntity<ResponseData> getNetworks(
+    @ApiOperation("Lists projects")
+    @GetMapping("/identity/projects")
+    public ResponseEntity<ResponseData> getNodeDetail(
             @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
             @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId,
             @ApiParam(value = "Openstack Endpoint", required = false) @RequestParam(value = "endpoint", required = false) String endpoint
@@ -49,8 +46,7 @@ public class OpenstackNeutronController {
         ResponseEntity<ResponseData> response;
 
         try {
-            ResponseEntity<ResponseData> rawResponse = service.accessOpenstack(neutronPort, "v2.0/networks", projectName, domainId, endpoint);
-            return service.parseOpenstackNetworks(rawResponse);
+            response = service.accessOpenstack(keystoneport, "/identity/v3/projects", projectName, domainId, endpoint);
         } catch (Exception e) {
             e.printStackTrace();
             response = service.getErrorResponse();
@@ -58,4 +54,5 @@ public class OpenstackNeutronController {
 
         return response;
     }
+
 }

@@ -22,7 +22,7 @@ public class OpenstackClusterControllerTest {
     @Test
     public void getClusterSuccessTest() {
         //given //when
-        ResponseEntity<ResponseData> response = openstackClusterController.getClusters("admin", "default");
+        ResponseEntity<ResponseData> response = openstackClusterController.getClusters("admin", "default", "http://192.168.1.14");
 
         //then
         System.out.println(response.getBody());
@@ -33,7 +33,7 @@ public class OpenstackClusterControllerTest {
     @Test
     public void getClusterFailureTest() {
         //given //when
-        ResponseEntity<ResponseData> response = openstackClusterController.getClusters("wrong", "wrong");
+        ResponseEntity<ResponseData> response = openstackClusterController.getClusters("wrong", "wrong", "http://192.168.1.14");
 
         //then
         assertThat(response.getBody()).hasToString("Client error");

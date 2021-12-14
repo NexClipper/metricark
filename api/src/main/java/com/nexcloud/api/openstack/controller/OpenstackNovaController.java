@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.ws.rs.QueryParam;
@@ -41,12 +42,13 @@ public class OpenstackNovaController {
     @GetMapping("/servers/detail")
     public ResponseEntity<ResponseData> getServersDetail(
             @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
-            @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId
+            @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId,
+            @ApiParam(value = "Openstack Endpoint", required = false) @RequestParam(value = "endpoint", required = false) String endpoint
     ) {
         ResponseEntity<ResponseData> response;
 
         try {
-            response = service.accessOpenstack(novaPort, "/compute/v2.1/servers/detail", projectName, domainId);
+            response = service.accessOpenstack(novaPort, "/compute/v2.1/servers/detail", projectName, domainId, endpoint);
         } catch (Exception e) {
             e.printStackTrace();
             response = service.getErrorResponse();

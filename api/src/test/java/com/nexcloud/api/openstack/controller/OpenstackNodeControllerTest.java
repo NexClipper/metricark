@@ -22,7 +22,7 @@ public class OpenstackNodeControllerTest {
     @Test
     public void getNodesSuccessTest() {
         //given //when
-        ResponseEntity<ResponseData> response = openstackNodeController.getNodes("admin", "default");
+        ResponseEntity<ResponseData> response = openstackNodeController.getNodes("admin", "default", "http://192.168.1.14");
 
         //then
         System.out.println(response.getBody());
@@ -33,7 +33,7 @@ public class OpenstackNodeControllerTest {
     @Test
     public void getNodesFailureTest() {
         //given //when
-        ResponseEntity<ResponseData> response = openstackNodeController.getNodes("wrong", "wrong");
+        ResponseEntity<ResponseData> response = openstackNodeController.getNodes("wrong", "wrong", "http://192.168.1.14");
 
         //then
         System.out.println(response.getBody());
