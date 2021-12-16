@@ -192,10 +192,14 @@ public class PrometheusClient {
      * @return
      */
     public ResponseEntity<String> getDirectQuery(String endPoint, String... promql) {
+
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>P1 endpoint : " + endPoint);
  
     	if (StringUtils.isEmpty(endPoint)) {
     		endPoint = ENDPOINT;
     	}
+
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>P2 endpoint : " + endPoint);
 
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 
