@@ -122,34 +122,39 @@ public class OpenstackService {
         ResponseEntity<ResponseData> routersResponse = accessOpenstack(port, "/v2.0/routers", projectName, domainId, endpoint);
 
         // 2. payload 추출
-        JSONObject networks = extractPayload(networksResponse);
-        JSONObject ports = extractPayload(portsResponse);
-        JSONObject routers = extractPayload(routersResponse);
+        try {
+            JSONObject networks = extractPayload(networksResponse);
+            JSONObject ports = extractPayload(portsResponse);
+            JSONObject routers = extractPayload(routersResponse);
 
-        // 3. networks, ports, routers 결합
-        JSONArray networksArray = (JSONArray) networks.get("networks");
-        JSONArray portsArray = (JSONArray) ports.get("ports");
-        JSONArray routersArray = (JSONArray) routers.get("routers");
+            // 3. networks, ports, routers 결합
+            JSONArray networksArray = (JSONArray) networks.get("networks");
+            JSONArray portsArray = (JSONArray) ports.get("ports");
+            JSONArray routersArray = (JSONArray) routers.get("routers");
 
-        // 4. 반환
-        JSONObject result = new JSONObject();
-        result.put("networks", networksArray);
-        result.put("ports", portsArray);
-        result.put("routers", routersArray);
+            // 4. 반환
+            JSONObject result = new JSONObject();
+            result.put("networks", networksArray);
+            result.put("ports", portsArray);
+            result.put("routers", routersArray);
 
-        String topology = result.toJSONString().replaceAll("[{\"}]", "");
+            String topology = result.toJSONString();
 
-        ResponseEntity<ResponseData> response;
-        ResponseData resData = new ResponseData();
+            ResponseEntity<ResponseData> response;
+            ResponseData resData = new ResponseData();
 
-        resData.setData(topology);
-        resData.setStatus("success");
-        resData.setResponse_code(200);
-        resData.setMessage(Const.SUCCESS);
+            resData.setData(topology);
+            resData.setStatus("success");
+            resData.setResponse_code(200);
+            resData.setMessage(Const.SUCCESS);
 
-        response = new ResponseEntity<>(resData, HttpStatus.OK);
+            response = new ResponseEntity<>(resData, HttpStatus.OK);
 
-        return response;
+            return response;
+
+        } catch (Exception e) {
+            return getErrorResponse();
+        }
     }
 
     private JSONObject extractPayload(ResponseEntity<ResponseData> rawResponse) {
