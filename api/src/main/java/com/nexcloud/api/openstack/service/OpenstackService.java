@@ -7,6 +7,7 @@ import com.nexcloud.util.Util;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,5 +107,36 @@ public class OpenstackService {
         }
 
         return response;
+    }
+
+    public String getAccessOpenstackPayload(String targetUrl, String projectName, String domainId, String endpoint) {
+        String networksTarget = "http://192.168.1.14:9696/v2.0/networks";
+        String portsTarget = "http://192.168.1.14:9696/v2.0/ports";
+        String routersTarget = "http://192.168.1.14:9696/v2.0/routers";
+        ResponseEntity<String> networksResponse = openstackClient.executeHttpRequest(networksTarget, projectName, domainId, endpoint);
+        ResponseEntity<String> portsResponse = openstackClient.executeHttpRequest(portsTarget, projectName, domainId, endpoint);
+        ResponseEntity<String> routersResponse = openstackClient.executeHttpRequest(routersTarget, projectName, domainId, endpoint);
+
+        try {
+            JSONObject parsedNetworks = (JSONObject) PARSER.parse(networksResponse.getBody());
+            JSONArray networksJson = (JSONArray) parsedNetworks.get("networks");
+
+            JSONObject parsedPorts = (JSONObject) PARSER.parse(portsResponse.getBody());
+            JSONArray portsJson = (JSONArray) parsedPorts.get("ports");
+
+            JSONObject parsedRouters = (JSONObject) PARSER.parse(routersResponse.getBody());
+            JSONArray routersJson = (JSONArray) parsedRouters.get("routers");
+
+            JSONObject result = new JSONObject();
+            result.put("networks", networksJson);
+            result.put("ports", portsJson);
+            result.put("routers", routersJson);
+
+            return result.toJSONString();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return networksResponse.getBody();
     }
 }

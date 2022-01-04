@@ -58,4 +58,33 @@ public class OpenstackNeutronController {
 
         return response;
     }
+
+    @ApiOperation("Network topology")
+    @GetMapping("/topology")
+    public ResponseEntity<ResponseData> getTopology(
+            @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
+            @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId,
+            @ApiParam(value = "Openstack Endpoint", required = false) @RequestParam(value = "endpoint", required = false) String endpoint
+    ) {
+        ResponseEntity<ResponseData> response;
+
+        try {
+            ResponseEntity<ResponseData> networks = service.accessOpenstack(neutronPort, "v2.0/networks", projectName, domainId, endpoint);
+            ResponseEntity<ResponseData> ports = service.accessOpenstack(neutronPort, "v2.0/ports", projectName, domainId, endpoint);
+            ResponseEntity<ResponseData> routers = service.accessOpenstack(neutronPort, "v2.0/routers", projectName, domainId, endpoint);
+
+
+            return networks;
+        } catch (Exception e) {
+            e.printStackTrace();
+            response = service.getErrorResponse();
+        }
+
+        return response;
+    }
+
+    @GetMapping("/test")
+    public String getAccessOpenstackPayload(String targetUrl, String projectName, String domainId, String endpoint) {
+        return service.getAccessOpenstackPayload(targetUrl, projectName, domainId, endpoint);
+    }
 }
