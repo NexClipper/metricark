@@ -7,6 +7,7 @@ import com.nexcloud.util.Util;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,11 @@ public class OpenstackService {
     }
 
     public ResponseEntity<ResponseData> accessOpenstack(String uri, String projectName, String domainId, String endpoint) {
+
+        if (StringUtils.isEmpty(endpoint)) {
+            endpoint = ENDPOINT;
+        }
+
         String targetUrl = ENDPOINT + uri;
         return executeAccessOpenstack(targetUrl, projectName, domainId, endpoint);
     }
@@ -106,5 +112,59 @@ public class OpenstackService {
         }
 
         return response;
+    }
+
+
+    public ResponseEntity<ResponseData> getNetworkTopology(String port, String projectName, String domainId, String endpoint) {
+        // 1. 오픈스택 API에서 응답 받아옴
+        ResponseEntity<ResponseData> networksResponse = accessOpenstack(port, "/v2.0/networks", projectName, domainId, endpoint);
+        ResponseEntity<ResponseData> portsResponse = accessOpenstack(port, "/v2.0/ports", projectName, domainId, endpoint);
+        ResponseEntity<ResponseData> routersResponse = accessOpenstack(port, "/v2.0/routers", projectName, domainId, endpoint);
+
+        // 2. payload 추출
+        try {
+            JSONObject networks = extractPayload(networksResponse);
+            JSONObject ports = extractPayload(portsResponse);
+            JSONObject routers = extractPayload(routersResponse);
+
+            // 3. networks, ports, routers 결합
+            JSONArray networksArray = (JSONArray) networks.get("networks");
+            JSONArray portsArray = (JSONArray) ports.get("ports");
+            JSONArray routersArray = (JSONArray) routers.get("routers");
+
+            JSONObject result = new JSONObject();
+            result.put("networks", networksArray);
+            result.put("ports", portsArray);
+            result.put("routers", routersArray);
+
+            String topology = result.toJSONString();
+
+            // 4. 반환
+            ResponseEntity<ResponseData> response;
+            ResponseData resData = new ResponseData();
+
+            resData.setData(topology);
+            resData.setStatus("success");
+            resData.setResponse_code(200);
+            resData.setMessage(Const.SUCCESS);
+
+            response = new ResponseEntity<>(resData, HttpStatus.OK);
+
+            return response;
+
+        } catch (Exception e) {
+            return getErrorResponse();
+        }
+    }
+
+    private JSONObject extractPayload(ResponseEntity<ResponseData> rawResponse) {
+        try {
+            String payload = (String) rawResponse.getBody().getData();
+            JSONObject parsed = (JSONObject) PARSER.parse(payload);
+
+            return parsed;
+        } catch (ParseException e) {
+            throw new RuntimeException("Parsing failed");
+        }
     }
 }

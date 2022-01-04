@@ -58,4 +58,14 @@ public class OpenstackNeutronController {
 
         return response;
     }
+
+    @ApiOperation("Network topology")
+    @GetMapping("/topology")
+    public ResponseEntity<ResponseData> getTopology(
+            @ApiParam(value = "Project Name (ex) admin", required = true) @QueryParam("projectName") String projectName,
+            @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId,
+            @ApiParam(value = "Openstack Endpoint", required = false) @RequestParam(value = "endpoint", required = false) String endpoint
+    ) {
+        return service.getNetworkTopology(neutronPort, projectName, domainId, endpoint);
+    }
 }
