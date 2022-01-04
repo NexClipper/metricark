@@ -68,9 +68,4 @@ public class OpenstackNeutronController {
     ) {
         return service.getNetworkTopology(neutronPort, projectName, domainId, endpoint);
     }
-
-    @GetMapping("/test")
-    public String getAccessOpenstackPayload(String targetUrl, String projectName, String domainId, String endpoint) {
-        return service.getAccessOpenstackPayload(targetUrl, projectName, domainId, endpoint);
-    }
 }
