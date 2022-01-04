@@ -66,21 +66,7 @@ public class OpenstackNeutronController {
             @ApiParam(value = "Domain ID (ex) default", required = true) @QueryParam("domainId") String domainId,
             @ApiParam(value = "Openstack Endpoint", required = false) @RequestParam(value = "endpoint", required = false) String endpoint
     ) {
-        ResponseEntity<ResponseData> response;
-
-        try {
-            ResponseEntity<ResponseData> networks = service.accessOpenstack(neutronPort, "v2.0/networks", projectName, domainId, endpoint);
-            ResponseEntity<ResponseData> ports = service.accessOpenstack(neutronPort, "v2.0/ports", projectName, domainId, endpoint);
-            ResponseEntity<ResponseData> routers = service.accessOpenstack(neutronPort, "v2.0/routers", projectName, domainId, endpoint);
-
-
-            return networks;
-        } catch (Exception e) {
-            e.printStackTrace();
-            response = service.getErrorResponse();
-        }
-
-        return response;
+        return service.getNetworkTopology(neutronPort, projectName, domainId, endpoint);
     }
 
     @GetMapping("/test")
