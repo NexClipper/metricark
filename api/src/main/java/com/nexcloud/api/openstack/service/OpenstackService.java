@@ -132,7 +132,6 @@ public class OpenstackService {
             JSONArray portsArray = (JSONArray) ports.get("ports");
             JSONArray routersArray = (JSONArray) routers.get("routers");
 
-            // 4. 반환
             JSONObject result = new JSONObject();
             result.put("networks", networksArray);
             result.put("ports", portsArray);
@@ -140,6 +139,7 @@ public class OpenstackService {
 
             String topology = result.toJSONString();
 
+            // 4. 반환
             ResponseEntity<ResponseData> response;
             ResponseData resData = new ResponseData();
 
