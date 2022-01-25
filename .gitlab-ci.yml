@@ -47,7 +47,7 @@ maven-build:
   #   - echo "nameserver 8.8.8.8" >> /etc/resolv.conf
   #   - ping -c3 lib.nexclipper.io
   script:
-    - mvn $MAVEN_CLI_OPTS clean package 
+    - mvn  clean package 
   artifacts:
     paths:
       - target/*.jar
