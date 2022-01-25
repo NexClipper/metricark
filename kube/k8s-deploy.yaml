@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: $APP_IMAGE_NAME
+  name: $APP_IMAGE_NAME-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: $APP_IMAGE_NAME
+  template:
+    metadata:
+      labels:
+        name: $APP_IMAGE_NAME
+    spec:
+      containers:
+        # - args:
+        #     - -d ${XDS_URL}
+        #     - -x ${XDS_PORT}
+        #     - -n nc_service
+        #     - -a ${SERVICE_ADDRESS}
+        #     - -p ${NEXCLIPPER_CONTAINER_PORT}
+        #     - -i 8080
+        #     - -c /app/start_application.sh
+        - image: $DOCKER_IMAGE_REGISTRY/$APP_IMAGE_NAME:$VERSION
+          name: $APP_IMAGE_NAME
+          resources: {}
+          envFrom:
+          - configMapRef:
+              name: nc-$APP_IMAGE_NAME
+          ports:
+            - containerPort: 9000
+          volumeMounts:
+            - mountPath: /nexclipper
+              name: $APP_IMAGE_NAME-claim0
+      restartPolicy: Always
+      volumes:
+        - name: $APP_IMAGE_NAME-claim0
+          emptyDir: {}
+#          persistentVolumeClaim:
+#            claimName: $APP_IMAGE_NAME-claim0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: $APP_IMAGE_NAME
+  name: $APP_IMAGE_NAME
+spec:
+  type: ClusterIP
+  ports:
+    - name: "9000"
+      port: 9000
+      targetPort: 9000
+  selector:
+    name: $APP_IMAGE_NAME

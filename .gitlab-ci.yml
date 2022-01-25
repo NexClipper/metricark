@@ -1,0 +1,81 @@
+image: docker:latest
+
+# default:
+#   # services:
+#   #   - docker:dind
+#   tags:
+#     - nexclipper
+
+
+variables:
+  DOCKER_DRIVER: overlay
+  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  APP_IMAGE_NAME: "lari-service"
+
+cache:
+  paths:
+  - target/
+
+stages:
+  - build
+  - package
+  - deploy-dev
+
+# .template-deploy-service: &deploy-service
+#   tags:
+#     - pipeline
+#   image: alpine:latest
+#   stage: build
+#   before_script:
+#     - "echo test"
+#   script:
+#     - "echo test"
+  
+
+maven-build:
+  image: maven:3.8.4-jdk-11
+  stage: build
+  # before_script:
+  #   - echo "Setup Open VPN"
+  #   - which openvpn || (apt-get update -y -qq && apt-get install -y -qq openvpn && apt-get install -y -qq iputils-ping)
+  #   - cat $CLIENT_OVPN > /etc/openvpn/client.ovpn
+  #   - cat <<< $VPN_USER > /etc/openvpn/cred.txt
+  #   - cat <<< $VPN_PASS >> /etc/openvpn/cred.txt # append at the bottom
+  #   - openvpn --config /etc/openvpn/client.ovpn --auth-user-pass /etc/openvpn/cred.txt --daemon
+  #   - sleep 15
+  #   - echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+  #   - ping -c3 lib.nexclipper.io
+  script:
+    - mvn $MAVEN_CLI_OPTS clean package 
+  artifacts:
+    paths:
+      - target/*.jar
+
+
+docker-build:
+  # tags:
+  #   - pipeline
+  # <<: *deploy-service
+  stage: package
+  services:
+    - docker:dind 
+  before_script:
+    - "apk add --no-cache git"
+  script:
+    - "source scripts/build.sh $APP_IMAGE_NAME"
+
+
+deploy-lari:
+  # tags:
+  #   - pipeline
+  # <<: *deploy-service
+  stage: deploy-dev
+  image: alpine:latest
+  services:
+    - docker:dind
+  before_script:
+    - apk add --no-cache git gettext
+    - source scripts/login-cluster.sh dev
+  script:
+    - "source scripts/deploy.sh dev"
