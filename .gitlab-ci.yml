@@ -11,7 +11,7 @@ variables:
   DOCKER_DRIVER: overlay
   MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
-  APP_IMAGE_NAME: "lari-service"
+  APP_IMAGE_NAME: "metricark"
 
 cache:
   paths:
@@ -66,7 +66,7 @@ docker-build:
     - "source scripts/build.sh $APP_IMAGE_NAME"
 
 
-deploy-lari:
+deploy-metricark:
   # tags:
   #   - pipeline
   # <<: *deploy-service
