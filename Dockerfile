@@ -1,7 +1,7 @@
 # FROM maven:3.6-jdk-8-slim AS build
 # COPY api/src /home/app/src
 # COPY api/pom.xml /home/app
-# RUN mvn -f /home/a    pp/pom.xml clean package
+# RUN mvn -f /home/app/pom.xml clean package
 
 FROM openjdk:8-jre-alpine
 ENV LANG ko_KR.UTF-8
