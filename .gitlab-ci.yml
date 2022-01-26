@@ -48,6 +48,8 @@ maven-build:
   #   - ping -c3 lib.nexclipper.io
   script:
     - cd api/ && mvn  clean package 
+    - ls -ltrh
+    - pwd
   artifacts:
     paths:
       - target/*.war

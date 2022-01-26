@@ -45,7 +45,8 @@ formatSection "Log in to docker registry $DOCKER_IMAGE_REGISTRY ..."
 docker login -u idharbor --password-stdin "https://$DOCKER_IMAGE_REGISTRY" < $HARBOR_PASSWORD 
 
 pwd
-ls -ltrh 
+ls -ltrh api/
+ls -ltrh api/target/
 formatSection "Creating local image $LOCAL_IMAGE ..."
 docker build  -f $APP_DOCKERFILE_LOCATION -t $LOCAL_IMAGE api/
 
