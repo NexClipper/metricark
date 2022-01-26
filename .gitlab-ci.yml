@@ -1,10 +1,10 @@
 image: docker:latest
 
-default:
-  # services:
-  #   - docker:dind
-  tags:
-    - nexclipper
+# default:
+#   # services:
+#   #   - docker:dind
+#   tags:
+#     - nexclipper
 
 
 variables:
