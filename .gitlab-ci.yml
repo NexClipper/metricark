@@ -38,10 +38,10 @@ maven-build:
   #   - ping -c3 lib.nexclipper.io
   script:
     - mvn -f api/pom.xml clean package 
-    - mv api/target .
+    # - mv api/target .
   artifacts:
     paths:
-      - target/*.war
+      - api/target/*.war
 
 
 docker-build:
