@@ -1,8 +1,8 @@
 image: docker:latest
 
 default:
-  services:
-    - docker:dind
+  # services:
+  #   - docker:dind
   tags:
     - nexclipper
 

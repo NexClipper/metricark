@@ -41,9 +41,11 @@ echo -e "REMOTE_IMAGE_COMMIT\t=\t$REMOTE_IMAGE_COMMIT"
 echo -e "REMOTE_IMAGE_LATEST\t=\t$REMOTE_IMAGE_LATEST"
 
 
-formatSection "Creating local image $LOCAL_IMAGE ..."
+formatSection "Log in to docker registry $DOCKER_IMAGE_REGISTRY ..."
 docker login -u idharbor --password-stdin "https://$DOCKER_IMAGE_REGISTRY" < $HARBOR_PASSWORD 
 
+
+formatSection "Creating local image $LOCAL_IMAGE ..."
 docker build  -f $APP_DOCKERFILE_LOCATION -t $LOCAL_IMAGE api/
 
 if [[ $? != 0 ]]
