@@ -52,7 +52,7 @@ maven-build:
     - pwd
   artifacts:
     paths:
-      - target/*.war
+      - target/
 
 
 docker-build:
