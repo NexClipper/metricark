@@ -13,9 +13,9 @@ variables:
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
   APP_IMAGE_NAME: "metricark"
 
-cache:
-  paths:
-  - target/
+# cache:
+#   paths:
+#   - target/
 
 stages:
   - build
@@ -50,7 +50,7 @@ maven-build:
     - cd api/ && mvn  clean package 
   artifacts:
     paths:
-      - target/*.jar
+      - target/*.war
 
 
 docker-build:
