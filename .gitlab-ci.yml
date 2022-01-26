@@ -58,8 +58,8 @@ docker-build:
   #   - pipeline
   # <<: *deploy-service
   stage: package
-  # services:
-  #   - docker:dind 
+  services:
+    - docker:dind 
   before_script:
     - "apk add --no-cache git"
   script:
