@@ -38,7 +38,6 @@ cat $K8S_DEPLOYMENT_FILE.generated
 
 
 echo "Applying manifest..."
-kubectl apply -f kube/namespace-${ENV}.yaml
 kubectl apply -f $K8S_DEPLOYMENT_FILE.generated -n $K8S_APP_NAMESPACE
 
 echo "Wait for deployment to finish..."
