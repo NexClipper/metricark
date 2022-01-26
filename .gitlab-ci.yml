@@ -47,13 +47,14 @@ maven-build:
   #   - echo "nameserver 8.8.8.8" >> /etc/resolv.conf
   #   - ping -c3 lib.nexclipper.io
   script:
-    - cd api/ && mvn  clean package 
+    - cd api/ && mvn  clean package && cd -
     - ls -ltrh
     - pwd
     - ls -ltrh target/
+    - ln -s api/target/*.war app.war
   artifacts:
     paths:
-      - target/*
+      - app.war
 
 
 docker-build:
