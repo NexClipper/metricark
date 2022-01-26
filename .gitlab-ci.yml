@@ -50,7 +50,6 @@ maven-build:
     - cd api/ && mvn  clean package && cd -
     - ls -ltrh
     - pwd
-    - ls -ltrh target/
     - ln -s api/target/*.war app.war
   artifacts:
     paths:
