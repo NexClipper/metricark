@@ -18,7 +18,7 @@ cache:
   - target/
 
 stages:
-  # - build
+  - build
   - package
   - deploy-dev
 
@@ -54,7 +54,7 @@ maven-build:
     - ls -ltrh target/
   artifacts:
     paths:
-      - app.war
+      - target/*.war
 
 
 docker-build:
