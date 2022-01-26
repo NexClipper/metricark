@@ -48,7 +48,7 @@ pwd
 ls -ltrh api/
 ls -ltrh api/target/
 formatSection "Creating local image $LOCAL_IMAGE ..."
-docker build  -f $APP_DOCKERFILE_LOCATION -t $LOCAL_IMAGE api/
+docker build  -f $APP_DOCKERFILE_LOCATION -t $LOCAL_IMAGE .
 
 if [[ $? != 0 ]]
 then
