@@ -23,7 +23,7 @@ set -euo pipefail
 
 
 #############################################################
-# Deploys an Alpha Microservice
+# Deploy Microservice
 #############################################################
 
 export IMG_TAG_TO_DEPLOY=$DOCKER_IMAGE_REGISTRY/$APP_IMAGE_NAME:$VERSION

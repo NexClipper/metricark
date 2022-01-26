@@ -21,16 +21,6 @@ stages:
   - build
   - package
   - deploy-dev
-
-# .template-deploy-service: &deploy-service
-#   tags:
-#     - pipeline
-#   image: alpine:latest
-#   stage: build
-#   before_script:
-#     - "echo test"
-#   script:
-#     - "echo test"
   
 
 maven-build:
@@ -47,20 +37,14 @@ maven-build:
   #   - echo "nameserver 8.8.8.8" >> /etc/resolv.conf
   #   - ping -c3 lib.nexclipper.io
   script:
-    - cd api/ && mvn  clean package && cd -
-    - ls -ltrh
-    - pwd
+    - mvn -f api/pom.xml clean package 
     - mv api/target .
-    - ls -ltrh target/
   artifacts:
     paths:
       - target/*.war
 
 
 docker-build:
-  # tags:
-  #   - pipeline
-  # <<: *deploy-service
   stage: package
   services:
     - docker:dind 
@@ -71,9 +55,6 @@ docker-build:
 
 
 deploy-metricark:
-  # tags:
-  #   - pipeline
-  # <<: *deploy-service
   stage: deploy-dev
   image: alpine:latest
   services:
